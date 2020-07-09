@@ -78,4 +78,86 @@ public struct FieldCoordinate {
         self.heading = other.heading
     }
 
+    public func cartesianCoordinate(at coord: RelativeCoordinate) -> CartesianCoordinate {
+        return CartesianCoordinate(rr_coord_to_cartesian_coord_from_field(coord.rawValue, self.rawValue))
+    }
+
+    public func fieldCoordinate(at coord: RelativeCoordinate, heading: degrees_t) -> FieldCoordinate {
+        return FieldCoordinate(rr_coord_to_field_coord_from_source(coord.rawValue, self.rawValue, heading))
+    }
+
+    public func relativeCoordinate(to coord: CartesianCoordinate) -> RelativeCoordinate {
+        return RelativeCoordinate(field_coord_to_rr_coord_to_target(self.rawValue, coord.rawValue))
+    }
+
+    public func relativeCoordinate(to coord: FieldCoordinate) -> RelativeCoordinate {
+        return self.relativeCoordinate(to: coord.position)
+    }
+
+    public func cartesianCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate? {
+        guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
+            return nil
+        }
+        return self.cartesianCoordinate(at: rel)
+    }
+
+    public func cartesianCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate? {
+        guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
+            return nil
+        }
+        return self.cartesianCoordinate(at: rel)
+    }
+
+    public func cartesianCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate? {
+        guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
+            return nil
+        }
+        return self.cartesianCoordinate(at: rel)
+    }
+
+    public func fieldCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate? {
+        guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
+            return nil
+        }
+        return self.fieldCoordinate(at: rel, heading: heading)
+    }
+
+    public func fieldCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate? {
+        guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
+            return nil
+        }
+        return self.fieldCoordinate(at: rel, heading: heading)
+    }
+
+    public func fieldCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate? {
+        guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
+            return nil
+        }
+        return self.fieldCoordinate(at: rel, heading: heading)
+    }
+
+    public func cameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate? {
+        return self.relativeCoordinate(to: coord).cameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
+    }
+
+    public func cameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate? {
+        return self.relativeCoordinate(to: coord).cameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
+    }
+
+    public func pixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate? {
+        return self.relativeCoordinate(to: coord).pixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
+    }
+
+    public func pixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate? {
+        return self.relativeCoordinate(to: coord).pixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
+    }
+
+    public func percentCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate? {
+        self.relativeCoordinate(to: coord).percentCoordinate(cameraPivot: cameraPivot, camera: camera)
+    }
+
+    public func percentCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate? {
+        self.relativeCoordinate(to: coord).percentCoordinate(cameraPivot: cameraPivot, camera: camera)
+    }
+
 }
