@@ -1,5 +1,5 @@
 /*
- * PixelCoordinate.swift 
+ * CameraCoordinate.swift 
  * Coordinates 
  *
  * Created by Callum McColl on 09/07/2020.
@@ -56,38 +56,38 @@
  *
  */
 
-import GUCoordinates
+import CGUCoordinates
 
-public struct PixelCoordinate {
+public struct CameraCoordinate {
 
-    public var x: pixels_t
+    public var x: pixels_u
 
-    public var y: pixels_t
+    public var y: pixels_u
 
     public var resWidth: pixels_u
 
     public var resHeight: pixels_u
 
-    public var cameraCoordinate: CameraCoordinate {
-        return CameraCoordinate(px_coord_to_cam_coord(self.rawValue))
+    public var pixelCoordinate: PixelCoordinate {
+        return PixelCoordinate(cam_coord_to_px_coord(self.rawValue));
     }
 
     public var percentCoordinate: PercentCoordinate {
-        return PercentCoordinate(px_coord_to_pct_coord(self.rawValue))
+        return self.pixelCoordinate.percentCoordinate
     }
 
-    public var rawValue: gu_pixel_coordinate {
-        return gu_pixel_coordinate(x: self.x, y: self.y, res_width: self.resWidth, res_height: self.resHeight)
+    public var rawValue: gu_camera_coordinate {
+        return gu_camera_coordinate(x: self.x, y: self.y, res_width: self.resWidth, res_height: self.resHeight)
     }
 
-    public init(x: pixels_t = 0, y: pixels_t = 0, resWidth: pixels_u = 0, resHeight: pixels_u = 0) {
+    public init(x: pixels_u = 0, y: pixels_u = 0, resWidth: pixels_u = 0, resHeight: pixels_u = 0) {
         self.x = x
         self.y = y
         self.resWidth = resWidth
         self.resHeight = resHeight
     }
 
-    public init(_ other: gu_pixel_coordinate) {
+    public init(_ other: gu_camera_coordinate) {
         self.x = other.x
         self.y = other.y
         self.resWidth = other.res_width

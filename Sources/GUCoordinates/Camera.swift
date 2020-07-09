@@ -1,5 +1,5 @@
 /*
- * CameraPivot.swift 
+ * Camera.swift 
  * Coordinates 
  *
  * Created by Callum McColl on 09/07/2020.
@@ -56,48 +56,44 @@
  *
  */
 
-import GUCoordinates
+import CGUCoordinates
 
-public struct CameraPivot {
+public struct Camera {
 
-    public var pitch: degrees_f
+    public var height: centimetres_f
 
-    public var yaw: degrees_f
+    public var centerOffset: centimetres_f
 
-    public var cameras: [(Camera, centimetres_f)]
+    public var vDirection: degrees_f
 
-    public var rawValue: gu_camera_pivot {
-        var cameraPivot = gu_camera_pivot()
-        cameraPivot.pitch = self.pitch
-        cameraPivot.yaw = self.yaw
-        for (index, (camera, offset)) in self.cameras.enumerated() where index < GU_CAMERA_PIVOT_NUM_CAMERAS {
-            withUnsafeMutablePointer(to: &cameraPivot.cameras.0) {
-                $0[index] = camera.rawValue
-            }
-            withUnsafeMutablePointer(to: &cameraPivot.cameraHeightOffsets.0) {
-                $0[index] = offset
-            }
-        }
-        return cameraPivot
+    public var vFov: degrees_f
+
+    public var hFov: degrees_f
+
+    public var rawValue: gu_camera {
+        return gu_camera(
+            height: self.height,
+            centerOffset: self.centerOffset,
+            vDirection: self.vDirection,
+            vFov: self.vFov,
+            hFov: self.hFov
+        )
     }
 
-    public init(pitch: degrees_f = 0, yaw: degrees_f = 0, cameras: [(Camera, centimetres_f)] = []) {
-        self.pitch = pitch
-        self.yaw = yaw
-        self.cameras = cameras
+    public init(height: centimetres_f = 0.0, centerOffset: centimetres_f = 0.0, vDirection: degrees_f = 0.0, vFov: degrees_f = 0.0, hFov: degrees_f = 0.0) {
+        self.height = height
+        self.centerOffset = centerOffset
+        self.vDirection = vDirection
+        self.vFov = vFov
+        self.hFov = hFov
     }
 
-    public init(_ other: gu_camera_pivot) {
-        var other = other
-        self.pitch = other.pitch
-        self.yaw = other.yaw
-        let cameras = withUnsafePointer(to: &other.cameras.0) {
-            return UnsafeBufferPointer(start: $0, count: Int(other.numCameras)).map { Camera($0) }
-        }
-        let cameraHeightOffsets = withUnsafePointer(to: &other.cameraHeightOffsets.0) {
-            return Array(UnsafeBufferPointer(start: $0, count: Int(other.numCameras)))
-        }
-        self.cameras = Array(zip(cameras, cameraHeightOffsets))
+    public init(_ other: gu_camera) {
+        self.height = other.height
+        self.centerOffset = other.centerOffset
+        self.vDirection = other.vDirection
+        self.vFov = other.vFov
+        self.hFov = other.hFov
     }
 
 }

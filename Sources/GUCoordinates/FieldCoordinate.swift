@@ -56,7 +56,7 @@
  *
  */
 
-import GUCoordinates
+import CGUCoordinates
 
 public struct FieldCoordinate {
 

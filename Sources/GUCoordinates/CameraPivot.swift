@@ -1,5 +1,5 @@
 /*
- * PercentCoordinate.swift 
+ * CameraPivot.swift 
  * Coordinates 
  *
  * Created by Callum McColl on 09/07/2020.
@@ -56,42 +56,48 @@
  *
  */
 
-import GUCoordinates
+import CGUCoordinates
 
-public struct PercentCoordinate {
+public struct CameraPivot {
 
-    public var x: percent_f
+    public var pitch: degrees_f
 
-    public var y: percent_f
+    public var yaw: degrees_f
 
-    public var rawValue: gu_percent_coordinate {
-        return gu_percent_coordinate(x: self.x, y: self.y)
-    }
+    public var cameras: [(Camera, centimetres_f)]
 
-    public init(x: percent_f = 0.0, y: percent_f = 0.0) {
-        self.x = x
-        self.y = y
-    }
-
-    public init(_ other: gu_percent_coordinate) {
-        self.x = other.x
-        self.y = other.y
-    }
-
-    public func cameraCoordinate(resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate {
-        return self.pixelCoordinate(resWidth: resWidth, resHeight: resHeight).cameraCoordinate
-    }
-
-    public func pixelCoordinate(resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate {
-        return PixelCoordinate(pct_coord_to_px_coord(self.rawValue, resWidth, resHeight))
-    }
-
-    public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate? {
-        var relativeCoordinate = gu_relative_coordinate()
-        guard pct_coord_to_rr_coord(self.rawValue, cameraPivot.rawValue, &relativeCoordinate, CInt(camera)) else {
-            return nil
+    public var rawValue: gu_camera_pivot {
+        var cameraPivot = gu_camera_pivot()
+        cameraPivot.pitch = self.pitch
+        cameraPivot.yaw = self.yaw
+        for (index, (camera, offset)) in self.cameras.enumerated() where index < GU_CAMERA_PIVOT_NUM_CAMERAS {
+            withUnsafeMutablePointer(to: &cameraPivot.cameras.0) {
+                $0[index] = camera.rawValue
+            }
+            withUnsafeMutablePointer(to: &cameraPivot.cameraHeightOffsets.0) {
+                $0[index] = offset
+            }
         }
-        return RelativeCoordinate(relativeCoordinate)
+        return cameraPivot
+    }
+
+    public init(pitch: degrees_f = 0, yaw: degrees_f = 0, cameras: [(Camera, centimetres_f)] = []) {
+        self.pitch = pitch
+        self.yaw = yaw
+        self.cameras = cameras
+    }
+
+    public init(_ other: gu_camera_pivot) {
+        var other = other
+        self.pitch = other.pitch
+        self.yaw = other.yaw
+        let cameras = withUnsafePointer(to: &other.cameras.0) {
+            return UnsafeBufferPointer(start: $0, count: Int(other.numCameras)).map { Camera($0) }
+        }
+        let cameraHeightOffsets = withUnsafePointer(to: &other.cameraHeightOffsets.0) {
+            return Array(UnsafeBufferPointer(start: $0, count: Int(other.numCameras)))
+        }
+        self.cameras = Array(zip(cameras, cameraHeightOffsets))
     }
 
 }

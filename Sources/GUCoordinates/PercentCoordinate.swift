@@ -1,5 +1,5 @@
 /*
- * Camera.swift 
+ * PercentCoordinate.swift 
  * Coordinates 
  *
  * Created by Callum McColl on 09/07/2020.
@@ -56,44 +56,42 @@
  *
  */
 
-import GUCoordinates
+import CGUCoordinates
 
-public struct Camera {
+public struct PercentCoordinate {
 
-    public var height: centimetres_f
+    public var x: percent_f
 
-    public var centerOffset: centimetres_f
+    public var y: percent_f
 
-    public var vDirection: degrees_f
-
-    public var vFov: degrees_f
-
-    public var hFov: degrees_f
-
-    public var rawValue: gu_camera {
-        return gu_camera(
-            height: self.height,
-            centerOffset: self.centerOffset,
-            vDirection: self.vDirection,
-            vFov: self.vFov,
-            hFov: self.hFov
-        )
+    public var rawValue: gu_percent_coordinate {
+        return gu_percent_coordinate(x: self.x, y: self.y)
     }
 
-    public init(height: centimetres_f = 0.0, centerOffset: centimetres_f = 0.0, vDirection: degrees_f = 0.0, vFov: degrees_f = 0.0, hFov: degrees_f = 0.0) {
-        self.height = height
-        self.centerOffset = centerOffset
-        self.vDirection = vDirection
-        self.vFov = vFov
-        self.hFov = hFov
+    public init(x: percent_f = 0.0, y: percent_f = 0.0) {
+        self.x = x
+        self.y = y
     }
 
-    public init(_ other: gu_camera) {
-        self.height = other.height
-        self.centerOffset = other.centerOffset
-        self.vDirection = other.vDirection
-        self.vFov = other.vFov
-        self.hFov = other.hFov
+    public init(_ other: gu_percent_coordinate) {
+        self.x = other.x
+        self.y = other.y
+    }
+
+    public func cameraCoordinate(resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate {
+        return self.pixelCoordinate(resWidth: resWidth, resHeight: resHeight).cameraCoordinate
+    }
+
+    public func pixelCoordinate(resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate {
+        return PixelCoordinate(pct_coord_to_px_coord(self.rawValue, resWidth, resHeight))
+    }
+
+    public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate? {
+        var relativeCoordinate = gu_relative_coordinate()
+        guard pct_coord_to_rr_coord(self.rawValue, cameraPivot.rawValue, &relativeCoordinate, CInt(camera)) else {
+            return nil
+        }
+        return RelativeCoordinate(relativeCoordinate)
     }
 
 }
