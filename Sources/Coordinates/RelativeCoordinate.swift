@@ -78,4 +78,10 @@ public struct RelativeCoordinate {
         self.distance = other.distance
     }
 
+    public func percentCoordinate(cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate? {
+        var percentCoordinate = gu_percent_coordinate();
+        rr_coord_to_pct_coord(self.rawValue, cameraPivot.rawValue, CInt(camera), &percentCoordinate)
+        return PercentCoordinate(percentCoordinate)
+    }
+
 }
