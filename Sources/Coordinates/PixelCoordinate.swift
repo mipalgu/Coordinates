@@ -87,4 +87,8 @@ public struct PixelCoordinate {
         self.resHeight = other.res_height
     }
 
+    public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate? {
+        return self.percentCoordinate.relativeCoordinate(cameraPivot: cameraPivot, camera: camera)
+    }
+
 }
