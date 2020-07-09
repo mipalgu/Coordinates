@@ -137,4 +137,4 @@ public struct CartesianCoordinate {
 
 }
 
-extension CartesianCoordinate: Equatable, Hashable {}
+extension CartesianCoordinate: Equatable, Hashable, Codable {}

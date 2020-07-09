@@ -98,4 +98,4 @@ public struct Camera {
 
 }
 
-extension Camera: Equatable, Hashable {}
+extension Camera: Equatable, Hashable, Codable {}

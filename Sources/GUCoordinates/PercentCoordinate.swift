@@ -96,4 +96,4 @@ public struct PercentCoordinate {
 
 }
 
-extension PercentCoordinate: Equatable, Hashable {}
+extension PercentCoordinate: Equatable, Hashable, Codable {}

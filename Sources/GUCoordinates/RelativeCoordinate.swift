@@ -108,4 +108,4 @@ public struct RelativeCoordinate {
 
 }
 
-extension RelativeCoordinate: Equatable, Hashable {}
+extension RelativeCoordinate: Equatable, Hashable, Codable {}

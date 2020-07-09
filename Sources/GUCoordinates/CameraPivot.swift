@@ -60,7 +60,7 @@ import CGUCoordinates
 
 public struct CameraPivot {
 
-    public struct Camera: Equatable, Hashable {
+    public struct Camera: Equatable, Hashable, Codable {
 
         public var camera: GUCoordinates.Camera
 
@@ -115,4 +115,4 @@ public struct CameraPivot {
 
 }
 
-extension CameraPivot: Equatable, Hashable {}
+extension CameraPivot: Equatable, Hashable, Codable {}
