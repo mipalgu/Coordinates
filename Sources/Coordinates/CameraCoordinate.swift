@@ -1,5 +1,5 @@
 /*
- * CameraPixel.swift 
+ * CameraCoordinate.swift 
  * Coordinates 
  *
  * Created by Callum McColl on 09/07/2020.
@@ -56,4 +56,27 @@
  *
  */
 
-struct CameraPixel {}
+import GUCoordinatesC
+
+public struct CameraCoordinate {
+
+    public var x: pixels_u
+
+    public var y: pixels_u
+
+    public var resWidth: pixels_u
+
+    public var resHeight: pixels_u
+
+    public var rawValue: gu_camera_coordinate {
+        return gu_camera_coordinate(x: self.x, y: self.y, res_width: self.resWidth, res_height: self.resHeight)
+    }
+
+    public init(_ other: gu_camera_coordinate) {
+        self.x = other.x
+        self.y = other.y
+        self.resWidth = other.res_width
+        self.resHeight = other.res_height
+    }
+
+}
