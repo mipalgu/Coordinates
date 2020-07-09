@@ -56,7 +56,7 @@
  *
  */
 
-import GUCoordinatesC
+import GUCoordinates
 
 public struct CameraCoordinate {
 

@@ -1,4 +1,4 @@
-module GUCoordinatesC [system] {
+module GUCoordinates [system] {
   link "gucoordinates"
   umbrella header "libgucoordinates_bridging.h"
   export *
