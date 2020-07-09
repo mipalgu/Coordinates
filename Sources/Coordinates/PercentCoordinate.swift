@@ -81,4 +81,12 @@ public struct PercentCoordinate {
         return PixelCoordinate(pct_coord_to_px_coord(self.rawValue, resWidth, resHeight))
     }
 
+    public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate? {
+        var relativeCoordinate = gu_relative_coordinate()
+        guard pct_coord_to_rr_coord(self.rawValue, cameraPivot.rawValue, &relativeCoordinate, CInt(camera)) else {
+            return nil
+        }
+        return RelativeCoordinate(relativeCoordinate)
+    }
+
 }

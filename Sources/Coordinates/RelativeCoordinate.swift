@@ -68,6 +68,11 @@ public struct RelativeCoordinate {
         return gu_relative_coordinate(direction: self.direction, distance: self.distance)
     }
 
+    public init(direction: degrees_t = 0, distance: centimetres_u = 0) {
+        self.direction = direction
+        self.distance = distance
+    }
+
     public init(_ other: gu_relative_coordinate) {
         self.direction = other.direction
         self.distance = other.distance
