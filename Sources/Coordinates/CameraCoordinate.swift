@@ -80,6 +80,13 @@ public struct CameraCoordinate {
         return gu_camera_coordinate(x: self.x, y: self.y, res_width: self.resWidth, res_height: self.resHeight)
     }
 
+    public init(x: pixels_u, y: pixels_u, resWidth: pixels_u, resHeight: pixels_u) {
+        self.x = x
+        self.y = y
+        self.resWidth = resWidth
+        self.resHeight = resHeight
+    }
+
     public init(_ other: gu_camera_coordinate) {
         self.x = other.x
         self.y = other.y

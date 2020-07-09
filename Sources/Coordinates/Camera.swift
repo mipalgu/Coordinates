@@ -80,6 +80,14 @@ public struct Camera {
         )
     }
 
+    public init(height: centimetres_f = 0.0, centerOffset: centimetres_f = 0.0, vDirection: degrees_f = 0.0, vFov: degrees_f = 0.0, hFov: degrees_f = 0.0) {
+        self.height = height
+        self.centerOffset = centerOffset
+        self.vDirection = vDirection
+        self.vFov = vFov
+        self.hFov = hFov
+    }
+
     public init(_ other: gu_camera) {
         self.height = other.height
         self.centerOffset = other.centerOffset

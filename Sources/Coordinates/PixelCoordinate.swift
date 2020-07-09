@@ -80,6 +80,13 @@ public struct PixelCoordinate {
         return gu_pixel_coordinate(x: self.x, y: self.y, res_width: self.resWidth, res_height: self.resHeight)
     }
 
+    public init(x: pixels_t, y: pixels_t, resWidth: pixels_u, resHeight: pixels_u) {
+        self.x = x
+        self.y = y
+        self.resWidth = resWidth
+        self.resHeight = resHeight
+    }
+
     public init(_ other: gu_pixel_coordinate) {
         self.x = other.x
         self.y = other.y

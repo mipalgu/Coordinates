@@ -70,7 +70,7 @@ public struct CameraPivot {
         var cameraPivot = gu_camera_pivot()
         cameraPivot.pitch = self.pitch
         cameraPivot.yaw = self.yaw
-        for (index, (camera, offset)) in self.cameras.enumerated() {
+        for (index, (camera, offset)) in self.cameras.enumerated() where index < GU_CAMERA_PIVOT_NUM_CAMERAS {
             withUnsafeMutablePointer(to: &cameraPivot.cameras.0) {
                 $0[index] = camera.rawValue
             }
@@ -79,6 +79,12 @@ public struct CameraPivot {
             }
         }
         return cameraPivot
+    }
+
+    public init(pitch: degrees_f, yaw: degrees_f, cameras: [(Camera, centimetres_f)]) {
+        self.pitch = pitch
+        self.yaw = yaw
+        self.cameras = cameras
     }
 
     public init(_ other: gu_camera_pivot) {
