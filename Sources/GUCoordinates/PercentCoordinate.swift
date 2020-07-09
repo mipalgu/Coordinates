@@ -95,3 +95,5 @@ public struct PercentCoordinate {
     }
 
 }
+
+extension PercentCoordinate: Equatable, Hashable {}

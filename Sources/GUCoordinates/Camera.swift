@@ -97,3 +97,5 @@ public struct Camera {
     }
 
 }
+
+extension Camera: Equatable, Hashable {}

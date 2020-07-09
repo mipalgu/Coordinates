@@ -161,3 +161,5 @@ public struct FieldCoordinate {
     }
 
 }
+
+extension FieldCoordinate: Equatable, Hashable {}

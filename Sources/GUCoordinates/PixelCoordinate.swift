@@ -99,3 +99,5 @@ public struct PixelCoordinate {
     }
 
 }
+
+extension PixelCoordinate: Equatable, Hashable {}

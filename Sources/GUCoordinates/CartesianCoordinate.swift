@@ -136,3 +136,5 @@ public struct CartesianCoordinate {
     }
 
 }
+
+extension CartesianCoordinate: Equatable, Hashable {}

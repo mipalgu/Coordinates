@@ -99,3 +99,5 @@ public struct CameraCoordinate {
     }
 
 }
+
+extension CameraCoordinate: Equatable, Hashable {}
