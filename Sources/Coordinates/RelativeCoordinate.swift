@@ -64,6 +64,10 @@ public struct RelativeCoordinate {
 
     public var distance: centimetres_u
 
+    public var cartesianCoordinate: CartesianCoordinate {
+        return CartesianCoordinate(rr_coord_to_cartesian_coord(self.rawValue))
+    }
+
     public var rawValue: gu_relative_coordinate {
         return gu_relative_coordinate(direction: self.direction, distance: self.distance)
     }
@@ -92,6 +96,14 @@ public struct RelativeCoordinate {
             return nil
         }
         return PercentCoordinate(percentCoordinate)
+    }
+
+    public func relativeCoordinate(to coord: RelativeCoordinate) -> RelativeCoordinate {
+        return self.cartesianCoordinate.relativeCoordinate(to: coord.cartesianCoordinate)
+    }
+
+    public func fieldCoordinate(heading: degrees_t) -> FieldCoordinate {
+        return FieldCoordinate(rr_coord_to_field_coord(self.rawValue, heading))
     }
 
 }
