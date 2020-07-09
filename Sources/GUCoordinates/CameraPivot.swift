@@ -60,28 +60,41 @@ import CGUCoordinates
 
 public struct CameraPivot {
 
+    public struct Camera {
+
+        public var camera: GUCoordinates.Camera
+
+        public var heightOffset: centimetres_f
+
+        public init(camera: GUCoordinates.Camera, heightOffset: centimetres_f) {
+            self.camera = camera
+            self.heightOffset = heightOffset
+        }
+
+    }
+
     public var pitch: degrees_f
 
     public var yaw: degrees_f
 
-    public var cameras: [(Camera, centimetres_f)]
+    public var cameras: [Camera]
 
     public var rawValue: gu_camera_pivot {
         var cameraPivot = gu_camera_pivot()
         cameraPivot.pitch = self.pitch
         cameraPivot.yaw = self.yaw
-        for (index, (camera, offset)) in self.cameras.enumerated() where index < GU_CAMERA_PIVOT_NUM_CAMERAS {
+        for (index, camera) in self.cameras.enumerated() where index < GU_CAMERA_PIVOT_NUM_CAMERAS {
             withUnsafeMutablePointer(to: &cameraPivot.cameras.0) {
-                $0[index] = camera.rawValue
+                $0[index] = camera.camera.rawValue
             }
             withUnsafeMutablePointer(to: &cameraPivot.cameraHeightOffsets.0) {
-                $0[index] = offset
+                $0[index] = camera.heightOffset
             }
         }
         return cameraPivot
     }
 
-    public init(pitch: degrees_f = 0, yaw: degrees_f = 0, cameras: [(Camera, centimetres_f)] = []) {
+    public init(pitch: degrees_f = 0, yaw: degrees_f = 0, cameras: [Camera] = []) {
         self.pitch = pitch
         self.yaw = yaw
         self.cameras = cameras
@@ -92,12 +105,12 @@ public struct CameraPivot {
         self.pitch = other.pitch
         self.yaw = other.yaw
         let cameras = withUnsafePointer(to: &other.cameras.0) {
-            return UnsafeBufferPointer(start: $0, count: Int(other.numCameras)).map { Camera($0) }
+            return UnsafeBufferPointer(start: $0, count: Int(other.numCameras)).map { GUCoordinates.Camera($0) }
         }
         let cameraHeightOffsets = withUnsafePointer(to: &other.cameraHeightOffsets.0) {
             return Array(UnsafeBufferPointer(start: $0, count: Int(other.numCameras)))
         }
-        self.cameras = Array(zip(cameras, cameraHeightOffsets))
+        self.cameras = zip(cameras, cameraHeightOffsets).map { Camera(camera: $0, heightOffset: $1) }
     }
 
 }
