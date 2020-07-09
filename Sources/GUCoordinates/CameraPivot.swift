@@ -105,10 +105,10 @@ public struct CameraPivot {
         self.pitch = other.pitch
         self.yaw = other.yaw
         let cameras = withUnsafePointer(to: &other.cameras.0) {
-            return UnsafeBufferPointer(start: $0, count: Int(other.numCameras)).map { GUCoordinates.Camera($0) }
+            return UnsafeBufferPointer(start: $0, count: Int(min(other.numCameras, GU_CAMERA_PIVOT_NUM_CAMERAS))).map { GUCoordinates.Camera($0) }
         }
         let cameraHeightOffsets = withUnsafePointer(to: &other.cameraHeightOffsets.0) {
-            return Array(UnsafeBufferPointer(start: $0, count: Int(other.numCameras)))
+            return Array(UnsafeBufferPointer(start: $0, count: Int(min(other.numCameras, GU_CAMERA_PIVOT_NUM_CAMERAS))))
         }
         self.cameras = zip(cameras, cameraHeightOffsets).map { Camera(camera: $0, heightOffset: $1) }
     }
