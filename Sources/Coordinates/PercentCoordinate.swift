@@ -73,10 +73,12 @@ public struct PercentCoordinate {
         self.y = other.y
     }
 
+    public func cameraCoordinate(resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate {
+        return self.pixelCoordinate(resWidth: resWidth, resHeight: resHeight).cameraCoordinate
+    }
 
-
-
-
-
+    public func pixelCoordinate(resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate {
+        return PixelCoordinate(pct_coord_to_px_coord(self.rawValue, resWidth, resHeight))
+    }
 
 }

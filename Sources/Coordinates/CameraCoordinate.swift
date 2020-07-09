@@ -68,6 +68,14 @@ public struct CameraCoordinate {
 
     public var resHeight: pixels_u
 
+    public var pixelCoordinate: PixelCoordinate {
+        return PixelCoordinate(cam_coord_to_px_coord(self.rawValue));
+    }
+
+    public var percentCoordinate: PercentCoordinate {
+        return self.pixelCoordinate.percentCoordinate
+    }
+
     public var rawValue: gu_camera_coordinate {
         return gu_camera_coordinate(x: self.x, y: self.y, res_width: self.resWidth, res_height: self.resHeight)
     }
