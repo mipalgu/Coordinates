@@ -68,7 +68,7 @@ public struct PercentCoordinate {
         return gu_percent_coordinate(x: self.x, y: self.y)
     }
 
-    public init(x: percent_f, y: percent_f) {
+    public init(x: percent_f = 0.0, y: percent_f = 0.0) {
         self.x = x
         self.y = y
     }

@@ -68,7 +68,7 @@ public struct FieldCoordinate {
         return gu_field_coordinate(position: self.position.rawValue, heading: self.heading)
     }
 
-    public init(position: CartesianCoordinate, heading: degrees_t) {
+    public init(position: CartesianCoordinate = CartesianCoordinate(), heading: degrees_t = 0) {
         self.position = position
         self.heading = heading
     }

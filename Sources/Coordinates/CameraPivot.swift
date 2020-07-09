@@ -81,7 +81,7 @@ public struct CameraPivot {
         return cameraPivot
     }
 
-    public init(pitch: degrees_f, yaw: degrees_f, cameras: [(Camera, centimetres_f)]) {
+    public init(pitch: degrees_f = 0, yaw: degrees_f = 0, cameras: [(Camera, centimetres_f)] = []) {
         self.pitch = pitch
         self.yaw = yaw
         self.cameras = cameras

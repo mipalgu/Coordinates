@@ -68,7 +68,7 @@ public struct CartesianCoordinate {
         return gu_cartesian_coordinate(x: self.x, y: self.y)
     }
 
-    public init(x: centimetres_t, y: centimetres_t) {
+    public init(x: centimetres_t = 0, y: centimetres_t = 0) {
         self.x = x
         self.y = y
     }
