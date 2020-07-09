@@ -78,6 +78,14 @@ public struct RelativeCoordinate {
         self.distance = other.distance
     }
 
+    public func cameraCoordinate(cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate? {
+        return self.percentCoordinate(cameraPivot: cameraPivot, camera: camera)?.cameraCoordinate(resWidth: resWidth, resHeight: resHeight)
+    }
+
+    public func pixelCoordinate(cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate? {
+        return self.percentCoordinate(cameraPivot: cameraPivot, camera: camera)?.pixelCoordinate(resWidth: resWidth, resHeight: resHeight)
+    }
+
     public func percentCoordinate(cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate? {
         var percentCoordinate = gu_percent_coordinate();
         rr_coord_to_pct_coord(self.rawValue, cameraPivot.rawValue, CInt(camera), &percentCoordinate)
