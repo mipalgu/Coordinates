@@ -100,7 +100,7 @@ public struct CameraPivot: CTypeWrapper {
                 $0[index] = camera.heightOffset
             }
         }
-        cameraPivot.numCameras = CInt(self.cameras.count)
+        cameraPivot.numCameras = min(CInt(self.cameras.count), GU_CAMERA_PIVOT_NUM_CAMERAS)
         return cameraPivot
     }
 
