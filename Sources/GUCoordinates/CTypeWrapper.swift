@@ -65,3 +65,35 @@ public protocol CTypeWrapper {
     init(_: CType)
 
 }
+
+extension CTypeWrapper where Self: Equatable, CType: Equatable {
+
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.rawValue == rhs.rawValue
+    }
+
+}
+
+extension CTypeWrapper where Self: Hashable, CType: Hashable {
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.rawValue)
+    }
+
+}
+
+extension CTypeWrapper where Self: Decodable, CType: Decodable {
+
+    public init(from decoder: Decoder) throws {
+        self.init(try CType.init(from: decoder))
+    }
+    
+}
+
+extension CTypeWrapper where Self: Encodable, CType: Encodable {
+
+    public func encode(to encoder: Encoder) throws {
+        try self.rawValue.encode(to: encoder)
+    }
+
+}
