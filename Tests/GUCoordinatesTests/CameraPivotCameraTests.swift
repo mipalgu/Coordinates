@@ -1,8 +1,8 @@
 /*
- * CameraPivot.swift 
- * Coordinates 
+ * CameraPivotCameraTests.swift 
+ * GUCoordinatesTests 
  *
- * Created by Callum McColl on 09/07/2020.
+ * Created by Callum McColl on 10/07/2020.
  * Copyright © 2020 Callum McColl. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,73 +56,23 @@
  *
  */
 
-import CGUCoordinates
+@testable import GUCoordinates
+import XCTest
 
-public struct CameraPivot: CTypeWrapper {
+final class CameraPivotCameraTests: GUCoordinatesTestCase {
 
-    public struct Camera: CTypeWrapper, Equatable, Hashable, Codable {
-
-        public var camera: GUCoordinates.Camera
-
-        public var heightOffset: centimetres_f
-
-        public var rawValue: gu_camera_pivot.camera {
-            return gu_camera_pivot.camera(camera: self.camera.rawValue, heightOffset: self.heightOffset)
-        }
-
-        public init(camera: GUCoordinates.Camera, heightOffset: centimetres_f) {
-            self.camera = camera
-            self.heightOffset = heightOffset
-        }
-
-        public init(_ other: gu_camera_pivot.camera) {
-            self.camera = GUCoordinates.Camera(other.camera)
-            self.heightOffset = other.heightOffset
-        }
-
+    static var allCases: [(String, (CameraPivotCameraTests) -> () throws -> Void)] {
+        return [
+            ("test_convertsFromCType", test_convertsFromCType)
+        ]
     }
 
-    public var pitch: degrees_f
-
-    public var yaw: degrees_f
-
-    public var cameras: [CameraPivot.Camera]
-
-    public var rawValue: gu_camera_pivot {
-        var cameraPivot = gu_camera_pivot()
-        cameraPivot.pitch = self.pitch
-        cameraPivot.yaw = self.yaw
-        for (index, camera) in self.cameras.enumerated() where index < GU_CAMERA_PIVOT_NUM_CAMERAS {
-            withUnsafeMutablePointer(to: &cameraPivot.cameras.0) {
-                $0[index] = camera.camera.rawValue
-            }
-            withUnsafeMutablePointer(to: &cameraPivot.cameraHeightOffsets.0) {
-                $0[index] = camera.heightOffset
-            }
-        }
-        cameraPivot.numCameras = CInt(self.cameras.count)
-        return cameraPivot
-    }
-
-    public init(pitch: degrees_f = 0, yaw: degrees_f = 0, cameras: [CameraPivot.Camera] = []) {
-        self.pitch = pitch
-        self.yaw = yaw
-        self.cameras = cameras
-    }
-
-    public init(_ other: gu_camera_pivot) {
-        var other = other
-        self.pitch = other.pitch
-        self.yaw = other.yaw
-        let cameras = withUnsafePointer(to: &other.cameras.0) {
-            return Array(UnsafeBufferPointer(start: $0, count: Int(min(other.numCameras, GU_CAMERA_PIVOT_NUM_CAMERAS))))
-        }
-        let cameraHeightOffsets = withUnsafePointer(to: &other.cameraHeightOffsets.0) {
-            return Array(UnsafeBufferPointer(start: $0, count: Int(min(other.numCameras, GU_CAMERA_PIVOT_NUM_CAMERAS))))
-        }
-        self.cameras = zip(cameras, cameraHeightOffsets).map { CameraPivot.Camera(camera: GUCoordinates.Camera($0), heightOffset: $1) }
+    func test_convertsFromCType() {
+        let cType = gu_camera_pivot.camera(
+            camera: gu_camera(height: 23.2, centerOffset: 12.3, vDirection: 80.1, vFov: 66.7, hFov: 12.2),
+            heightOffset: 10.02
+        )
+        super.convertibleTest(cType, to: CameraPivot.Camera.self)
     }
 
 }
-
-extension CameraPivot: Equatable, Hashable, Codable {}
