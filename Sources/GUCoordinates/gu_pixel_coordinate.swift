@@ -1,5 +1,5 @@
 /*
- * gu_camera_coordinate.swift 
+ * gu_pixel_coordinate.swift 
  * GUCoordinates 
  *
  * Created by Callum McColl on 10/07/2020.
@@ -58,9 +58,9 @@
 
 import CGUCoordinates
 
-extension gu_camera_coordinate: Equatable {
+extension gu_pixel_coordinate: Equatable {
 
-    public static func == (lhs: gu_camera_coordinate, rhs: gu_camera_coordinate) -> Bool {
+    public static func == (lhs: gu_pixel_coordinate, rhs: gu_pixel_coordinate) -> Bool {
         return lhs.x == rhs.x
             && lhs.y == rhs.y
             && lhs.res_width == rhs.res_width
@@ -69,7 +69,7 @@ extension gu_camera_coordinate: Equatable {
 
 }
 
-extension gu_camera_coordinate: Hashable {
+extension gu_pixel_coordinate: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(self.x)
@@ -80,7 +80,7 @@ extension gu_camera_coordinate: Hashable {
 
 }
 
-extension gu_camera_coordinate: Codable {
+extension gu_pixel_coordinate: Codable {
 
     enum CodingKeys: String, CodingKey {
         case x
@@ -91,8 +91,8 @@ extension gu_camera_coordinate: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let x = try values.decode(pixels_u.self, forKey: .x)
-        let y = try values.decode(pixels_u.self, forKey: .y)
+        let x = try values.decode(pixels_t.self, forKey: .x)
+        let y = try values.decode(pixels_t.self, forKey: .y)
         let res_width = try values.decode(pixels_u.self, forKey: .res_width)
         let res_height = try values.decode(pixels_u.self, forKey: .res_height)
         self.init(x: x, y: y, res_width: res_width, res_height: res_height)

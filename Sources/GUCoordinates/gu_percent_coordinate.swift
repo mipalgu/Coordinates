@@ -1,5 +1,5 @@
 /*
- * gu_camera_coordinate.swift 
+ * gu_percent_coordinate.swift 
  * GUCoordinates 
  *
  * Created by Callum McColl on 10/07/2020.
@@ -58,52 +58,41 @@
 
 import CGUCoordinates
 
-extension gu_camera_coordinate: Equatable {
+extension gu_percent_coordinate: Equatable {
 
-    public static func == (lhs: gu_camera_coordinate, rhs: gu_camera_coordinate) -> Bool {
-        return lhs.x == rhs.x
-            && lhs.y == rhs.y
-            && lhs.res_width == rhs.res_width
-            && lhs.res_height == rhs.res_height
+    public static func == (lhs: gu_percent_coordinate, rhs: gu_percent_coordinate) -> Bool {
+        return lhs.x == rhs.x && lhs.y == rhs.y
     }
 
 }
 
-extension gu_camera_coordinate: Hashable {
+extension gu_percent_coordinate: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(self.x)
         hasher.combine(self.y)
-        hasher.combine(self.res_width)
-        hasher.combine(self.res_height)
     }
 
 }
 
-extension gu_camera_coordinate: Codable {
+extension gu_percent_coordinate: Codable {
 
     enum CodingKeys: String, CodingKey {
         case x
         case y
-        case res_width
-        case res_height
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let x = try values.decode(pixels_u.self, forKey: .x)
-        let y = try values.decode(pixels_u.self, forKey: .y)
-        let res_width = try values.decode(pixels_u.self, forKey: .res_width)
-        let res_height = try values.decode(pixels_u.self, forKey: .res_height)
-        self.init(x: x, y: y, res_width: res_width, res_height: res_height)
+        let x = try values.decode(percent_f.self, forKey: .x)
+        let y = try values.decode(percent_f.self, forKey: .y)
+        self.init(x: x, y: y)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.x, forKey: .x)
         try container.encode(self.y, forKey: .y)
-        try container.encode(self.res_width, forKey: .res_width)
-        try container.encode(self.res_height, forKey: .res_height)
     }
 
 }
