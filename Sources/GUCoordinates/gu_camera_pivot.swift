@@ -90,14 +90,16 @@ extension gu_camera_pivot {
             if newValue.count > GU_CAMERA_PIVOT_NUM_CAMERAS {
                 fatalError("Attempting to assign to gu_camera_pivot.cameraList when the number of values being assigned exceed the maximum number of cameras \(GU_CAMERA_PIVOT_NUM_CAMERAS).")
             }
-            withUnsafeMutablePointer(to: &self.cameras.0) {
-                let cameras = UnsafeMutableBufferPointer(start: $0, count: newValue.count)
-                withUnsafeMutablePointer(to: &self.cameraHeightOffsets.0) {
-                    let heightOffsets = UnsafeMutableBufferPointer(start: $0, count: newValue.count)
-                    for (index, camera) in newValue.enumerated() {
-                        cameras[index] = camera.camera
-                        heightOffsets[index] = camera.heightOffset
-                    }
+            withUnsafeMutableBytes(of: &self.cameras.0) { cameraPointer in
+                let newCameras = newValue.map { $0.camera }
+                _ = newCameras.withUnsafeBytes {
+                    memcpy(cameraPointer.baseAddress, $0.baseAddress, MemoryLayout<gu_camera>.size * newValue.count)
+                }
+            }
+            withUnsafeMutableBytes(of: &self.cameraHeightOffsets.0) { heightOffsetsPointer in
+                let newOffsets = newValue.map { $0.heightOffset }
+                _ = newOffsets.withUnsafeBytes {
+                    memcpy(heightOffsetsPointer.baseAddress, $0.baseAddress, MemoryLayout<centimetres_f>.size * newValue.count)
                 }
             }
             self.numCameras = CInt(newValue.count)
