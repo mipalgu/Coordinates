@@ -58,7 +58,7 @@
 
 import CGUCoordinates
 
-public struct Camera {
+public struct Camera: CTypeWrapper {
 
     public var height: centimetres_f
 

@@ -58,7 +58,7 @@
 
 import CGUCoordinates
 
-public struct CameraPivot {
+public struct CameraPivot: CTypeWrapper {
 
     public struct Camera: Equatable, Hashable, Codable {
 

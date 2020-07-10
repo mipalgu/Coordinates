@@ -61,6 +61,9 @@ import XCTest
 
 public class GUCoordinatesTestCase: XCTestCase {
 
-    
+    func convertibleTest<T: CTypeWrapper>(_ rawValue: T.CType, to type: T.Type) where T.CType: Equatable {
+        let converted = type.init(rawValue)
+        XCTAssertEqual(converted.rawValue, rawValue)
+    }
 
 }

@@ -1,8 +1,8 @@
 /*
- * PixelCoordinate.swift 
- * Coordinates 
+ * CameraCoordinateTests.swift 
+ * GUCoordinatesTests 
  *
- * Created by Callum McColl on 09/07/2020.
+ * Created by Callum McColl on 10/07/2020.
  * Copyright © 2020 Callum McColl. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,48 +56,20 @@
  *
  */
 
-import CGUCoordinates
+@testable import GUCoordinates
+import XCTest
 
-public struct PixelCoordinate: CTypeWrapper {
+final class CameraCoordinateTests: GUCoordinatesTestCase {
 
-    public var x: pixels_t
-
-    public var y: pixels_t
-
-    public var resWidth: pixels_u
-
-    public var resHeight: pixels_u
-
-    public var cameraCoordinate: CameraCoordinate {
-        return CameraCoordinate(px_coord_to_cam_coord(self.rawValue))
+    static var allCases: [(String, (CameraCoordinateTests) -> () throws -> Void)] {
+        return [
+            ("test_convertsFromCType", test_convertsFromCType)
+        ]
     }
 
-    public var percentCoordinate: PercentCoordinate {
-        return PercentCoordinate(px_coord_to_pct_coord(self.rawValue))
-    }
-
-    public var rawValue: gu_pixel_coordinate {
-        return gu_pixel_coordinate(x: self.x, y: self.y, res_width: self.resWidth, res_height: self.resHeight)
-    }
-
-    public init(x: pixels_t = 0, y: pixels_t = 0, resWidth: pixels_u = 0, resHeight: pixels_u = 0) {
-        self.x = x
-        self.y = y
-        self.resWidth = resWidth
-        self.resHeight = resHeight
-    }
-
-    public init(_ other: gu_pixel_coordinate) {
-        self.x = other.x
-        self.y = other.y
-        self.resWidth = other.res_width
-        self.resHeight = other.res_height
-    }
-
-    public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate? {
-        return self.percentCoordinate.relativeCoordinate(cameraPivot: cameraPivot, camera: camera)
+    func test_convertsFromCType() {
+        let cType = gu_camera_coordinate(x: 123, y: 421, res_width: 1920, res_height: 1080)
+        super.convertibleTest(cType, to: CameraCoordinate.self)
     }
 
 }
-
-extension PixelCoordinate: Equatable, Hashable, Codable {}

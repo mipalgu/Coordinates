@@ -58,7 +58,7 @@
 
 import CGUCoordinates
 
-public struct CameraCoordinate {
+public struct CameraCoordinate: CTypeWrapper {
 
     public var x: pixels_u
 

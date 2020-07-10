@@ -58,7 +58,7 @@
 
 import CGUCoordinates
 
-public struct FieldCoordinate {
+public struct FieldCoordinate: CTypeWrapper {
 
     public var position: CartesianCoordinate
 

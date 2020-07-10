@@ -58,7 +58,7 @@
 
 import CGUCoordinates
 
-public struct CartesianCoordinate {
+public struct CartesianCoordinate: CTypeWrapper {
 
     public var x: centimetres_t
 

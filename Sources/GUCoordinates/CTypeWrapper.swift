@@ -1,8 +1,8 @@
 /*
- * PixelCoordinate.swift 
- * Coordinates 
+ * CTypeWrapper.swift 
+ * GUCoordinates 
  *
- * Created by Callum McColl on 09/07/2020.
+ * Created by Callum McColl on 10/07/2020.
  * Copyright © 2020 Callum McColl. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,48 +56,12 @@
  *
  */
 
-import CGUCoordinates
+public protocol CTypeWrapper {
 
-public struct PixelCoordinate: CTypeWrapper {
+    associatedtype CType
 
-    public var x: pixels_t
+    var rawValue: CType { get }
 
-    public var y: pixels_t
-
-    public var resWidth: pixels_u
-
-    public var resHeight: pixels_u
-
-    public var cameraCoordinate: CameraCoordinate {
-        return CameraCoordinate(px_coord_to_cam_coord(self.rawValue))
-    }
-
-    public var percentCoordinate: PercentCoordinate {
-        return PercentCoordinate(px_coord_to_pct_coord(self.rawValue))
-    }
-
-    public var rawValue: gu_pixel_coordinate {
-        return gu_pixel_coordinate(x: self.x, y: self.y, res_width: self.resWidth, res_height: self.resHeight)
-    }
-
-    public init(x: pixels_t = 0, y: pixels_t = 0, resWidth: pixels_u = 0, resHeight: pixels_u = 0) {
-        self.x = x
-        self.y = y
-        self.resWidth = resWidth
-        self.resHeight = resHeight
-    }
-
-    public init(_ other: gu_pixel_coordinate) {
-        self.x = other.x
-        self.y = other.y
-        self.resWidth = other.res_width
-        self.resHeight = other.res_height
-    }
-
-    public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate? {
-        return self.percentCoordinate.relativeCoordinate(cameraPivot: cameraPivot, camera: camera)
-    }
+    init(_: CType)
 
 }
-
-extension PixelCoordinate: Equatable, Hashable, Codable {}

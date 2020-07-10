@@ -58,7 +58,7 @@
 
 import CGUCoordinates
 
-public struct RelativeCoordinate {
+public struct RelativeCoordinate: CTypeWrapper {
 
     public var direction: degrees_t
 

@@ -58,7 +58,7 @@
 
 import CGUCoordinates
 
-public struct PercentCoordinate {
+public struct PercentCoordinate: CTypeWrapper {
 
     public var x: percent_f
 
