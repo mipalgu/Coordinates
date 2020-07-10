@@ -77,7 +77,7 @@ public struct CameraPivot {
 
     public var yaw: degrees_f
 
-    public var cameras: [Camera]
+    public var cameras: [CameraPivot.Camera]
 
     public var rawValue: gu_camera_pivot {
         var cameraPivot = gu_camera_pivot()
@@ -94,7 +94,7 @@ public struct CameraPivot {
         return cameraPivot
     }
 
-    public init(pitch: degrees_f = 0, yaw: degrees_f = 0, cameras: [Camera] = []) {
+    public init(pitch: degrees_f = 0, yaw: degrees_f = 0, cameras: [CameraPivot.Camera] = []) {
         self.pitch = pitch
         self.yaw = yaw
         self.cameras = cameras
@@ -110,7 +110,7 @@ public struct CameraPivot {
         let cameraHeightOffsets = withUnsafePointer(to: &other.cameraHeightOffsets.0) {
             return Array(UnsafeBufferPointer(start: $0, count: Int(min(other.numCameras, GU_CAMERA_PIVOT_NUM_CAMERAS))))
         }
-        self.cameras = zip(cameras, cameraHeightOffsets).map { Camera(camera: GUCoordinates.Camera($0), heightOffset: $1) }
+        self.cameras = zip(cameras, cameraHeightOffsets).map { CameraPivot.Camera(camera: GUCoordinates.Camera($0), heightOffset: $1) }
     }
 
 }
