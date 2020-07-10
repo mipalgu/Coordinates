@@ -23,7 +23,7 @@ let package = Package(
             name: "GUCoordinates",
             dependencies: ["CGUCoordinates"]),
         .testTarget(
-            name: "CoordinatesTests",
+            name: "GUCoordinatesTests",
             dependencies: ["GUCoordinates", "CGUCoordinates"]),
     ]
 )
