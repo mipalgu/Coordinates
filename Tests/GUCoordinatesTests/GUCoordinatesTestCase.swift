@@ -61,9 +61,33 @@ import XCTest
 
 public class GUCoordinatesTestCase: XCTestCase {
 
-    func convertibleTest<T: CTypeWrapper>(_ rawValue: T.CType, to type: T.Type) where T.CType: Equatable {
+    func convertibleTest<T: CTypeWrapper>(_ rawValue: T.CType, to type: T.Type) where T.CType: Hashable, T.CType: Encodable, T.CType: Decodable {
+        // Test can convert between types.
         let converted = type.init(rawValue)
         XCTAssertEqual(converted.rawValue, rawValue)
+        // Test hashable conformances.
+        XCTAssertEqual(rawValue.hashValue, converted.hashValue)
+        // Test Encodable/Decodable conformances.
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+        guard let rawValueData = try? encoder.encode(rawValue) else {
+            XCTFail("Unable to encode \(rawValue)")
+            return
+        }
+        guard let rawValueDecoded: T = try? decoder.decode(type, from: rawValueData) else {
+            XCTFail("Unable to decode \(rawValue)")
+            return
+        }
+        XCTAssertEqual(rawValueDecoded.rawValue, rawValue)
+        guard let convertedData = try? encoder.encode(converted) else {
+            XCTFail("Unable to encode \(converted)")
+            return
+        }
+        guard let convertedDecoded: T.CType = try? decoder.decode(T.CType.self, from: convertedData) else {
+            XCTFail("Unable to decode \(converted)")
+            return
+        }
+        XCTAssertEqual(convertedDecoded, rawValue)
     }
 
 }

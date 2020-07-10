@@ -56,7 +56,7 @@
  *
  */
 
-public protocol CTypeWrapper {
+public protocol CTypeWrapper: Hashable, Codable {
 
     associatedtype CType
 
