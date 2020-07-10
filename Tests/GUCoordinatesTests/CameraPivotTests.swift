@@ -1,5 +1,5 @@
 /*
- * CameraTests.swift 
+ * CameraPivotPivotTests.swift 
  * GUCoordinatesTests 
  *
  * Created by Callum McColl on 10/07/2020.
@@ -59,17 +59,26 @@
 @testable import GUCoordinates
 import XCTest
 
-final class CameraTests: GUCoordinatesTestCase {
+final class CameraPivotTests: GUCoordinatesTestCase {
 
-    static var allCases: [(String, (CameraTests) -> () throws -> Void)] {
+    static var allCases: [(String, (CameraPivotTests) -> () throws -> Void)] {
         return [
             ("test_convertsFromCType", test_convertsFromCType)
         ]
     }
 
     func test_convertsFromCType() {
-        let cType = gu_camera(height: 23.2, centerOffset: 12.3, vDirection: 80.1, vFov: 66.7, hFov: 12.2)
-        super.convertibleTest(cType, to: Camera.self)
+        let cType = gu_camera_pivot(
+            pitch: 12.2,
+            yaw: 0.8,
+            cameraList: [
+                gu_camera_pivot.camera(
+                    camera: gu_camera(height: 23.2, centerOffset: 12.3, vDirection: 80.1, vFov: 66.7, hFov: 12.2),
+                    heightOffset: 10.02
+                )
+            ]
+        )
+        super.convertibleTest(cType, to: CameraPivot.self)
     }
 
 }
