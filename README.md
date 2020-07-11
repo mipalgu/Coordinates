@@ -1,9 +1,8 @@
 # GUCoordinates
 
-Swift convenience wrappers around gucoordinates.
-------------------------------------------------
+*Swift convenience wrappers around gucoordinates*
 
-## Quick Start.
+## Quick Start
 
 Let's say for this scenario we are using the cameras on the nao robot:
 ```swift
