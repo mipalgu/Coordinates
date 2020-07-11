@@ -58,38 +58,159 @@
 
 import CGUCoordinates
 
+/**
+ *  A cartesian_coordinate is a general coordinate for representing positions
+ *  on a tow dimensional plane. 
+ * 
+ *  This coordinate describes the position through the x and y axes. The
+ *  `CartesianCoordiante` is generally used for the coordinate system of the
+ *  soccer field. This describes the world (or more specifically the field)
+ *  in terms of the location of each side of the soccer field. The home side
+ *  is in the west, whereas the away side is in the east. Because of this, it
+ *  may not be a good idea to repurpose this coordinate for use in other
+ *  applications since the x and y coordinates of this coordinate must be in
+ *  centimetres.
+ *
+ *  The field coordinate system can be depicted graphically as follows:
+ *  ```
+ *                                     ^
+ *                                     |
+ *                                   -x|
+ *       --------------------------------------------------------------
+ *      |                              |                               |
+ *      |                  180 degrees |                               |
+ *      |                             -|-          * (-90cm, 120cm)    |
+ *      |-                           / | \                            -|
+ *   -y | |                         |  |  | 90 degrees               | | y
+ *  <---|-|-------------------------|--+--|--------------------------|-|--->
+ *      | |             270 degrees |  |  |                          | |
+ *      |-                           \ | /                            -|
+ *      |                             -|-                              |
+ *      |                              | 0 degrees                     |
+ *      |                              |                               |
+ *       --------------------------------------------------------------
+ *                                     |
+ *                                    x|
+ *                                     V
+ *  ```
+ *
+ *  When describing objects that face in certain directions it is important
+ *  to disregard this coordinate and instead use `FieldCoordinate`.
+ */
 public struct CartesianCoordinate: CTypeWrapper {
 
+    /**
+     *  The x coordinate of the position in centimetres.
+     */
     public var x: centimetres_t
 
+    /**
+     *  The y coordinate of the position in centimetres.
+     */
     public var y: centimetres_t
 
+    /**
+     *  Represent this coordinate using the underlying C type
+     *  `gu_cartesian_coordinate`.
+     */
     public var rawValue: gu_cartesian_coordinate {
         return gu_cartesian_coordinate(x: self.x, y: self.y)
     }
 
+    /**
+     *  Create a new `CartesianCoordinate`.
+     *
+     *  - Parameter x: The x coordinate of the position within the field.
+     *
+     *  - Parameter y: The y coordinate of the position within the field.
+     */
     public init(x: centimetres_t = 0, y: centimetres_t = 0) {
         self.x = x
         self.y = y
     }
 
+    /**
+     *  Create a new `CartesianCoordinate` by copying the values from the
+     *  underlying c type `gu_cartesian_coordinate`.
+     *
+     *  - Parameter other: An instance of `gu_cartesian_coordinate` which
+     *  contains the values that will be copied.
+     */
     public init(_ other: gu_cartesian_coordinate) {
         self.x = other.x
         self.y = other.y
     }
 
+    /**
+     *  Calculate the position of a coordinate in relation to this coordinate.
+     *
+     *  Since a `CartesianCoordinate` does not contain a heading, we assume
+     *  here that we are facing at zero degrees.
+     *
+     *  - Parameter coord: The position of the coordinate in relation to
+     *  this coordinate.
+     *
+     *  - Returns: A new `CartesianCoordinate` calculated in relation to this
+     *  coordinate.
+     */
     public func cartesianCoordinate(at coord: RelativeCoordinate) -> CartesianCoordinate {
         return CartesianCoordinate(rr_coord_to_cartesian_coord_from_source(coord.rawValue, self.rawValue))
     }
 
+    /**
+     *  Calculate the `RelativeCoordinate` to a target coordinate.
+     *
+     *  Since a `CartesianCoordinate` does not contain a heading, we assume
+     *  here that we are facing at zero degrees.
+     *
+     *  - Parameter coord: The target coordinate.
+     *
+     *  - Returns: A new `RelativeCoordinate` pointing towards `coord` from
+     *  this coordinate.
+     */
     public func relativeCoordinate(to coord: CartesianCoordinate) -> RelativeCoordinate {
         return RelativeCoordinate(cartesian_coord_to_rr_coord_from_source(self.rawValue, coord.rawValue))
     }
 
+    /**
+     *  Calculate the `RelativeCoordinate` to a target coordinate.
+     *
+     *  Since a `CartesianCoordinate` does not contain a heading, we assume
+     *  here that we are facing at zero degrees.
+     *
+     *  - Parameter coord: The target coordinate.
+     *
+     *  - Returns: A new `RelativeCoordinate` pointing towards `coord` from
+     *  this coordinate.
+     */
     public func relativeCoordinate(to coord: FieldCoordinate) -> RelativeCoordinate {
         self.relativeCoordinate(to: coord.position)
     }
 
+    /**
+     *  Calculate the position of an object in an image in relation to this
+     *  coordinate.
+     *
+     *  Since a `CartesianCoordinate` does not contain a heading, we assume
+     *  here that we are facing at zero degrees.
+     *
+     *  - Parameter coord: The pixel in the image representing the object.
+     *
+     *  - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+     *  of the pivot point in which the camera is placed, as well as detailing
+     *  the cameras attached to the pivot point.
+     *
+     *  - Parameter camera: The index of the camera which recorded the image
+     *  containing the pixel represented by `coord`. This index should reference
+     *  a valid `Camera` within the `cameras` array within
+     *  `cameraPivot.cameras`.
+     *
+     *  - Returns: A new `CartesianCoordinate` calculated in relation to this
+     *  coordinate.
+     *
+     *  - SeeAlso: `CameraCoordinate`.
+     *  - SeeAlso: `CameraPivot`.
+     */
     public func cartesianCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate? {
         guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
             return nil
@@ -97,6 +218,30 @@ public struct CartesianCoordinate: CTypeWrapper {
         return self.cartesianCoordinate(at: rel)
     }
 
+    /**
+     *  Calculate the position of an object in an image in relation to this
+     *  coordinate.
+     *
+     *  Since a `CartesianCoordinate` does not contain a heading, we assume
+     *  here that we are facing at zero degrees.
+     *
+     *  - Parameter coord: The pixel in the image representing the object.
+     *
+     *  - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+     *  of the pivot point in which the camera is placed, as well as detailing
+     *  the cameras attached to the pivot point.
+     *
+     *  - Parameter camera: The index of the camera which recorded the image
+     *  containing the pixel represented by `coord`. This index should reference
+     *  a valid `Camera` within the `cameras` array within
+     *  `cameraPivot.cameras`.
+     *
+     *  - Returns: A new `CartesianCoordinate` calculated in relation to this
+     *  coordinate.
+     *
+     *  - SeeAlso: `PixelCoordinate`.
+     *  - SeeAlso: `CameraPivot`.
+     */
     public func cartesianCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate? {
         guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
             return nil
@@ -104,6 +249,30 @@ public struct CartesianCoordinate: CTypeWrapper {
         return self.cartesianCoordinate(at: rel)
     }
 
+    /**
+     *  Calculate the position of an object in an image in relation to this
+     *  coordinate.
+     *
+     *  Since a `CartesianCoordinate` does not contain a heading, we assume
+     *  here that we are facing at zero degrees.
+     *
+     *  - Parameter coord: The point in the image representing the object.
+     *
+     *  - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+     *  of the pivot point in which the camera is placed, as well as detailing
+     *  the cameras attached to the pivot point.
+     *
+     *  - Parameter camera: The index of the camera which recorded the image
+     *  containing the pixel represented by `coord`. This index should reference
+     *  a valid `Camera` within the `cameras` array within
+     *  `cameraPivot.cameras`.
+     *
+     *  - Returns: A new `CartesianCoordinate` calculated in relation to this
+     *  coordinate.
+     *
+     *  - SeeAlso: `PixelCoordinate`.
+     *  - SeeAlso: `CameraPivot`.
+     */
     public func cartesianCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate? {
         guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
             return nil
@@ -111,26 +280,200 @@ public struct CartesianCoordinate: CTypeWrapper {
         return self.cartesianCoordinate(at: rel)
     }
 
+    /**
+     *  Calculate a point in an image from a specific camera representing an
+     *  object at a given position.
+     *
+     *  Since a `CartesianCoordinate` does not contain a heading, we assume
+     *  here that we are facing at zero degrees.
+     *
+     *  - Parameter coord: The position of the object.
+     *
+     *  - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+     *  of the pivot point in which the camera is placed, as well as detailing
+     *  the cameras attached to the pivot point.
+     *
+     *  - Parameter camera: The index of the camera which recorded the image
+     *  containing the pixel represented by `coord`. This index should reference
+     *  a valid `Camera` within the `cameras` array within
+     *  `cameraPivot.cameras`.
+     *
+     *  - Returns: When successful, a new `PercentCoordinate` representing the
+     *  object in the camera. When unsuccessful (for example when the camera
+     *  cannot actually see the object) then `nil` is returned.
+     *
+     *  - SeeAlso: `PercentCoordinate`.
+     *  - SeeAlso: `CameraPivot`.
+     */
     public func percentCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate? {
         return self.relativeCoordinate(to: coord).percentCoordinate(cameraPivot: cameraPivot, camera: camera)
     }
 
+    /**
+     *  Calculate a point in an image from a specific camera representing an
+     *  object at a given position.
+     *
+     *  Since a `CartesianCoordinate` does not contain a heading, we assume
+     *  here that we are facing at zero degrees.
+     *
+     *  - Parameter coord: The position of the object.
+     *
+     *  - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+     *  of the pivot point in which the camera is placed, as well as detailing
+     *  the cameras attached to the pivot point.
+     *
+     *  - Parameter camera: The index of the camera which recorded the image
+     *  containing the pixel represented by `coord`. This index should reference
+     *  a valid `Camera` within the `cameras` array within
+     *  `cameraPivot.cameras`.
+     *
+     *  - Returns: When successful, a new `PercentCoordinate` representing the
+     *  object in the camera. When unsuccessful (for example when the camera
+     *  cannot actually see the object) then `nil` is returned.
+     *
+     *  - SeeAlso: `PercentCoordinate`.
+     *  - SeeAlso: `CameraPivot`.
+     */
     public func percentCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate? {
         return self.relativeCoordinate(to: coord).percentCoordinate(cameraPivot: cameraPivot, camera: camera)
     }
 
+    /**
+     *  Calculate a pixel within a specific image from a specific camera
+     *  representing an object at a given position.
+     *
+     *  Since a `CartesianCoordinate` does not contain a heading, we assume
+     *  here that we are facing at zero degrees.
+     *
+     *  - Parameter coord: The position of the object.
+     *
+     *  - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+     *  of the pivot point in which the camera is placed, as well as detailing
+     *  the cameras attached to the pivot point.
+     *
+     *  - Parameter camera: The index of the camera which recorded the image
+     *  containing the pixel represented by `coord`. This index should reference
+     *  a valid `Camera` within the `cameras` array within
+     *  `cameraPivot.cameras`.
+     *
+     *  - Parameter resWidth: The width of the resolution of the image that
+     *  we are placing the object in.
+     *
+     *  - Parameter resHeight: The height of the resolution of the image that
+     *  we are placing the object in.
+     *
+     *  - Returns: When successful, a new `PixelCoordinate` representing the
+     *  object in the camera. When unsuccessful (for example when the camera
+     *  cannot actually see the object) then `nil` is returned.
+     *
+     *  - SeeAlso: `PixelCoordinate`.
+     *  - SeeAlso: `CameraPivot`.
+     */
     public func pixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate? {
         return self.relativeCoordinate(to: coord).pixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
+    /**
+     *  Calculate a pixel within a specific image from a specific camera
+     *  representing an object at a given position.
+     *
+     *  Since a `CartesianCoordinate` does not contain a heading, we assume
+     *  here that we are facing at zero degrees.
+     *
+     *  - Parameter coord: The position of the object.
+     *
+     *  - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+     *  of the pivot point in which the camera is placed, as well as detailing
+     *  the cameras attached to the pivot point.
+     *
+     *  - Parameter camera: The index of the camera which recorded the image
+     *  containing the pixel represented by `coord`. This index should reference
+     *  a valid `Camera` within the `cameras` array within
+     *  `cameraPivot.cameras`.
+     *
+     *  - Parameter resWidth: The width of the resolution of the image that
+     *  we are placing the object in.
+     *
+     *  - Parameter resHeight: The height of the resolution of the image that
+     *  we are placing the object in.
+     *
+     *  - Returns: When successful, a new `PixelCoordinate` representing the
+     *  object in the camera. When unsuccessful (for example when the camera
+     *  cannot actually see the object) then `nil` is returned.
+     *
+     *  - SeeAlso: `PixelCoordinate`.
+     *  - SeeAlso: `CameraPivot`.
+     */
     public func pixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate? {
         return self.relativeCoordinate(to: coord).pixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
+    /**
+     *  Calculate a pixel within a specific image from a specific camera
+     *  representing an object at a given position.
+     *
+     *  Since a `CartesianCoordinate` does not contain a heading, we assume
+     *  here that we are facing at zero degrees.
+     *
+     *  - Parameter coord: The position of the object.
+     *
+     *  - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+     *  of the pivot point in which the camera is placed, as well as detailing
+     *  the cameras attached to the pivot point.
+     *
+     *  - Parameter camera: The index of the camera which recorded the image
+     *  containing the pixel represented by `coord`. This index should reference
+     *  a valid `Camera` within the `cameras` array within
+     *  `cameraPivot.cameras`.
+     *
+     *  - Parameter resWidth: The width of the resolution of the image that
+     *  we are placing the object in.
+     *
+     *  - Parameter resHeight: The height of the resolution of the image that
+     *  we are placing the object in.
+     *
+     *  - Returns: When successful, a new `CameraCoordinate` representing the
+     *  object in the camera. When unsuccessful (for example when the camera
+     *  cannot actually see the object) then `nil` is returned.
+     *
+     *  - SeeAlso: `CameraCoordinate`.
+     *  - SeeAlso: `CameraPivot`.
+     */
     public func cameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate? {
         return self.relativeCoordinate(to: coord).cameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
+    /**
+     *  Calculate a pixel within a specific image from a specific camera
+     *  representing an object at a given position.
+     *
+     *  Since a `CartesianCoordinate` does not contain a heading, we assume
+     *  here that we are facing at zero degrees.
+     *
+     *  - Parameter coord: The position of the object.
+     *
+     *  - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+     *  of the pivot point in which the camera is placed, as well as detailing
+     *  the cameras attached to the pivot point.
+     *
+     *  - Parameter camera: The index of the camera which recorded the image
+     *  containing the pixel represented by `coord`. This index should reference
+     *  a valid `Camera` within the `cameras` array within
+     *  `cameraPivot.cameras`.
+     *
+     *  - Parameter resWidth: The width of the resolution of the image that
+     *  we are placing the object in.
+     *
+     *  - Parameter resHeight: The height of the resolution of the image that
+     *  we are placing the object in.
+     *
+     *  - Returns: When successful, a new `CameraCoordinate` representing the
+     *  object in the camera. When unsuccessful (for example when the camera
+     *  cannot actually see the object) then `nil` is returned.
+     *
+     *  - SeeAlso: `CameraCoordinate`.
+     *  - SeeAlso: `CameraPivot`.
+     */
     public func cameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate? {
         return self.relativeCoordinate(to: coord).cameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
