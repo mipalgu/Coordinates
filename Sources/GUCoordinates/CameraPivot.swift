@@ -58,23 +58,66 @@
 
 import CGUCoordinates
 
+/**
+ *  A `CameraPivot` represents the pivot point which a `Camera` is attached to.
+ *
+ *  If a camera is on the ground, then there is no pivot point. If the camera
+ *  is on the end of a stick then the pivot point is the bottom of the stick.
+ *  If the camera is on the head of the robot, then the pivot point is the
+ *  neck of the robot.
+ */
 public struct CameraPivot: CTypeWrapper {
 
+    /**
+     *  `CameraPivot.Camera` provides a convenient structre which makes dealing
+     *  with `gu_camera` object easier. This is because the underlying C
+     *  structure of `gu_camera_pivot` contains two parallel arrays --- one
+     *  containing the actual `gu_camera` instances, and the other for
+     *  containing the relative heights from the pivot point to the camera.
+     *  This structure therefore hides the fact that there are parrallel arrays
+     *  and provides an interface for a single entry in each of these arrays.
+     */
     public struct Camera: CTypeWrapper, Equatable, Hashable, Codable {
 
+        /**
+         *  The `Camera`.
+         */
         public var camera: GUCoordinates.Camera
 
+        /**
+         *  The vertical distance from the pivot point to the center of the
+         *  camera.
+         */
         public var heightOffset: centimetres_f
 
+        /**
+         *  Represent this coordinate using the underlying type
+         *  `gu_camera_pivot.camera`.
+         */
         public var rawValue: gu_camera_pivot.camera {
             return gu_camera_pivot.camera(camera: self.camera.rawValue, heightOffset: self.heightOffset)
         }
 
+        /**
+         *  Create a new `CameraPivot.Camera`.
+         *
+         *  - Parameter camera: The `Camera`.
+         *
+         *  - Parameter heightOffset: The vertical distance from the pivot
+         *  point to the center of the camera.
+         */
         public init(camera: GUCoordinates.Camera, heightOffset: centimetres_f) {
             self.camera = camera
             self.heightOffset = heightOffset
         }
 
+        /**
+         *  Create a new `CameraPivot.Camera` by copying the values from the
+         *  underlying type `gu_camera_pivot.camera`.
+         *
+         *  - Parameter other: An instance of `gu_camera_pivot.camera` which
+         *  contains the values that will be copied.
+         */
         public init(_ other: gu_camera_pivot.camera) {
             self.camera = GUCoordinates.Camera(other.camera)
             self.heightOffset = other.heightOffset
@@ -82,12 +125,24 @@ public struct CameraPivot: CTypeWrapper {
 
     }
 
+    /**
+     *  The vertical orientation of the pivot point.
+     */
     public var pitch: degrees_f
 
+    /**
+     *  The horizontal orientation of the pivot point.
+     */
     public var yaw: degrees_f
 
+    /**
+     *  The `CameraPivot.Camera`s attached to this pivot point.
+     */
     public var cameras: [CameraPivot.Camera]
 
+    /**
+     *  Represent this coordinate using the underlying C type `gu_camera_pivot`.
+     */
     public var rawValue: gu_camera_pivot {
         var cameraPivot = gu_camera_pivot()
         cameraPivot.pitch = self.pitch
@@ -104,12 +159,29 @@ public struct CameraPivot: CTypeWrapper {
         return cameraPivot
     }
 
+    /**
+     *  Create a new `CameraPivot`.
+     *
+     *  - Parameter pitch: The vertical orientation of the pivot point.
+     *
+     *  - Parameter yaw: The horizontal orientation of the pivot point.
+     *
+     *  - Parameter cameras: The `CameraPivot.Camera`s attached to this pivot
+     *  point.
+     */
     public init(pitch: degrees_f = 0, yaw: degrees_f = 0, cameras: [CameraPivot.Camera] = []) {
         self.pitch = pitch
         self.yaw = yaw
         self.cameras = cameras
     }
 
+    /**
+     *  Create a new `CameraPivot` by copying the values from the
+     *  underlying c type `gu_camera_pivot`.
+     *
+     *  - Parameter other: An instance of `gu_camera_pivot` which contains
+     *  the values that will be copied.
+     */
     public init(_ other: gu_camera_pivot) {
         var other = other
         self.pitch = other.pitch
