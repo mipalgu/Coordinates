@@ -56,18 +56,42 @@
  *
  */
 
+/**
+ *  `CTypeWrapper` provides a common interface for swift types that convert
+ *  and provide the functionality of underlying C types.
+ *
+ *  In such a case, some functionality needs to be provided. The swift type
+ *  must be able to be converted from the underlying C type, but must also
+ *  provide the ability to be converted to the underlying C type.
+ *
+ *  This protocol also requires that conforming types behave the same way
+ *  when it comes to equality, hashing, encoding and decoding using the
+ *  `Equatable`, `Hashable`, `Encodable` and `Decodable` protocols.
+ */
 public protocol CTypeWrapper: Hashable, Codable {
 
+    /**
+     *  The type of the underlying C type that the conforming type is wrapping.
+     */
     associatedtype CType
 
+    /**
+     *  Convert `self` to the underlying C type.
+     */
     var rawValue: CType { get }
 
+    /**
+     *  Initialise the conforming type from the underlying C type.
+     */
     init(_: CType)
 
 }
 
 extension CTypeWrapper where Self: Equatable, CType: Equatable {
 
+    /**
+     *  Delegates equality to the underlying C type.
+     */
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.rawValue == rhs.rawValue
     }
@@ -76,6 +100,9 @@ extension CTypeWrapper where Self: Equatable, CType: Equatable {
 
 extension CTypeWrapper where Self: Hashable, CType: Hashable {
 
+    /**
+     *  Delegates hashing functionality to the underlying C type.
+     */
     public func hash(into hasher: inout Hasher) {
         hasher.combine(self.rawValue)
     }
@@ -84,6 +111,9 @@ extension CTypeWrapper where Self: Hashable, CType: Hashable {
 
 extension CTypeWrapper where Self: Decodable, CType: Decodable {
 
+    /**
+     *  Delegates decoding to the underlying C type.
+     */
     public init(from decoder: Decoder) throws {
         self.init(try CType.init(from: decoder))
     }
@@ -92,6 +122,9 @@ extension CTypeWrapper where Self: Decodable, CType: Decodable {
 
 extension CTypeWrapper where Self: Encodable, CType: Encodable {
 
+    /**
+     *  Delegates encoding to the underlying C type.
+     */
     public func encode(to encoder: Encoder) throws {
         try self.rawValue.encode(to: encoder)
     }
