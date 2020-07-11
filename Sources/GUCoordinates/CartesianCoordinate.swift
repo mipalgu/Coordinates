@@ -63,7 +63,7 @@ import CGUCoordinates
  *  on a tow dimensional plane. 
  * 
  *  This coordinate describes the position through the x and y axes. The
- *  `CartesianCoordiante` is generally used for the coordinate system of the
+ *  `CartesianCoordinate` is generally used for the coordinate system of the
  *  soccer field. This describes the world (or more specifically the field)
  *  in terms of the location of each side of the soccer field. The home side
  *  is in the west, whereas the away side is in the east. Because of this, it
@@ -90,7 +90,7 @@ import CGUCoordinates
  *      |                              |                               |
  *       --------------------------------------------------------------
  *                                     |
- *                                    x|
+ *                 HOME               x|              AWAY
  *                                     V
  *  ```
  *
@@ -270,7 +270,7 @@ public struct CartesianCoordinate: CTypeWrapper {
      *  - Returns: A new `CartesianCoordinate` calculated in relation to this
      *  coordinate.
      *
-     *  - SeeAlso: `PixelCoordinate`.
+     *  - SeeAlso: `PercentCoordinate`.
      *  - SeeAlso: `CameraPivot`.
      */
     public func cartesianCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate? {
