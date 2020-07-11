@@ -71,12 +71,8 @@ final class CameraPivotTests: GUCoordinatesTestCase {
         let cType = gu_camera_pivot(
             pitch: 12.2,
             yaw: 0.8,
-            cameraList: [
-                gu_camera_pivot.camera(
-                    camera: gu_camera(height: 23.2, centerOffset: 12.3, vDirection: 80.1, vFov: 66.7, hFov: 12.2),
-                    heightOffset: 10.02
-                )
-            ]
+            height: 41.7,
+            cameraList: [gu_camera(height: 23.2, centerOffset: 12.3, vDirection: 80.1, vFov: 66.7, hFov: 12.2)]
         )
         super.convertibleTest(cType, to: CameraPivot.self)
     }

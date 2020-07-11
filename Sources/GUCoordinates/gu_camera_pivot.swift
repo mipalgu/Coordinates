@@ -60,27 +60,15 @@ import CGUCoordinates
 
 extension gu_camera_pivot {
 
-    public struct camera: Hashable, Codable {
-            
-        var camera: gu_camera
-
-        var heightOffset: centimetres_f
-
-    }
-
-    var cameraList: [gu_camera_pivot.camera] {
+    var cameraList: [gu_camera] {
         get {
             if self.numCameras == 0 {
                 return []
             }
             var cameras = self.cameras
-            var cameraHeightOffsets = self.cameraHeightOffsets
             return withUnsafePointer(to: &cameras.0) {
-                let cameras = UnsafeBufferPointer(start: $0, count: Int(min(self.numCameras, GU_CAMERA_PIVOT_NUM_CAMERAS)))
-                return withUnsafePointer(to: &cameraHeightOffsets.0) {
-                    let heightOffsets = UnsafeBufferPointer(start: $0, count: Int(min(self.numCameras, GU_CAMERA_PIVOT_NUM_CAMERAS)))
-                    return zip(cameras, heightOffsets).map { gu_camera_pivot.camera(camera: $0, heightOffset: $1) }
-                }
+                let buffer = UnsafeBufferPointer(start: $0, count: Int(min(self.numCameras, GU_CAMERA_PIVOT_NUM_CAMERAS)))
+                return Array(buffer)
             }
         } set {
             if newValue.isEmpty {
@@ -91,25 +79,19 @@ extension gu_camera_pivot {
                 fatalError("Attempting to assign to gu_camera_pivot.cameraList when the number of values being assigned exceed the maximum number of cameras \(GU_CAMERA_PIVOT_NUM_CAMERAS).")
             }
             withUnsafeMutableBytes(of: &self.cameras.0) { cameraPointer in
-                let newCameras = newValue.map { $0.camera }
-                _ = newCameras.withUnsafeBytes {
+                _ = newValue.withUnsafeBytes {
                     memcpy(cameraPointer.baseAddress, $0.baseAddress, MemoryLayout<gu_camera>.size * newValue.count)
-                }
-            }
-            withUnsafeMutableBytes(of: &self.cameraHeightOffsets.0) { heightOffsetsPointer in
-                let newOffsets = newValue.map { $0.heightOffset }
-                _ = newOffsets.withUnsafeBytes {
-                    memcpy(heightOffsetsPointer.baseAddress, $0.baseAddress, MemoryLayout<centimetres_f>.size * newValue.count)
                 }
             }
             self.numCameras = CInt(newValue.count)
         }
     }
 
-    public init(pitch: degrees_f, yaw: degrees_f, cameraList: [gu_camera_pivot.camera]) {
+    public init(pitch: degrees_f, yaw: degrees_f, height: centimetres_f, cameraList: [gu_camera]) {
         self.init()
         self.pitch = pitch
         self.yaw = yaw
+        self.height = height
         self.cameraList = cameraList
     }
 
@@ -131,6 +113,7 @@ extension gu_camera_pivot: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(self.pitch)
         hasher.combine(self.yaw)
+        hasher.combine(self.height)
         hasher.combine(self.cameraList)
         hasher.combine(self.numCameras)
     }
@@ -142,6 +125,7 @@ extension gu_camera_pivot: Codable {
     enum CodingKeys: String, CodingKey {
         case pitch
         case yaw
+        case height
         case cameraList
     }
 
@@ -149,14 +133,16 @@ extension gu_camera_pivot: Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let pitch = try values.decode(degrees_f.self, forKey: .pitch)
         let yaw = try values.decode(degrees_f.self, forKey: .yaw)
-        let cameraList = try values.decode([gu_camera_pivot.camera].self, forKey: .cameraList)
-        self.init(pitch: pitch, yaw: yaw, cameraList: cameraList)
+        let height = try values.decode(centimetres_f.self, forKey: .height)
+        let cameraList = try values.decode([gu_camera].self, forKey: .cameraList)
+        self.init(pitch: pitch, yaw: yaw, height: height, cameraList: cameraList)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.pitch, forKey: .pitch)
         try container.encode(self.yaw, forKey: .yaw)
+        try container.encode(self.height, forKey: .height)
         try container.encode(self.cameraList, forKey: .cameraList)
     }
 
