@@ -84,7 +84,7 @@ public struct CameraPivot: CTypeWrapper {
     public var height: centimetres_f
 
     /**
-     *  The `CameraPivot.Camera`s attached to this pivot point.
+     *  The `Camera`s attached to this pivot point.
      */
     public var cameras: [Camera]
 
