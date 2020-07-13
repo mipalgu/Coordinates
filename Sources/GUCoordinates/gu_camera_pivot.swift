@@ -100,10 +100,10 @@ extension gu_camera_pivot {
 extension gu_camera_pivot: Equatable {
 
     public static func == (lhs: gu_camera_pivot, rhs: gu_camera_pivot) -> Bool {
-        if lhs.pitch != rhs.pitch || lhs.yaw != rhs.yaw || lhs.numCameras != rhs.numCameras {
-            return false
-        }
-        return lhs.cameraList == rhs.cameraList
+        return lhs.pitch != rhs.pitch
+            || lhs.yaw != rhs.yaw
+            || lhs.numCameras != rhs.numCameras
+            || lhs.cameraList == rhs.cameraList
     }
 
 }
