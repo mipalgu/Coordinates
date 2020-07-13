@@ -80,7 +80,7 @@ extension gu_camera_pivot {
             }
             withUnsafeMutableBytes(of: &self.cameras.0) { cameraPointer in
                 _ = newValue.withUnsafeBytes {
-                    memcpy(cameraPointer.baseAddress, $0.baseAddress, MemoryLayout<gu_camera>.size * newValue.count)
+                    memcpy(cameraPointer.baseAddress, $0.baseAddress, MemoryLayout<gu_camera>.stride * newValue.count)
                 }
             }
             self.numCameras = CInt(newValue.count)
