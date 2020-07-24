@@ -125,7 +125,7 @@ public struct FieldCoordinate: CTypeWrapper {
     
     public var heading: degrees_t
 
-// MARK: Converting to/from the Underlying C Type.
+// MARK: Converting to/from the Underlying C Type
     
     /// Represent this coordinate using the underlying C type
     /// `gu_field_coordinate`.
@@ -143,7 +143,7 @@ public struct FieldCoordinate: CTypeWrapper {
         self.heading = other.heading
     }
     
-// MARK: Creating a FieldCoordinate.
+// MARK: Creating a FieldCoordinate
 
     /// Create a new `FieldCoordinate`.
     ///
@@ -155,7 +155,7 @@ public struct FieldCoordinate: CTypeWrapper {
         self.heading = heading
     }
     
-// MARK: Calculating Coordinates Around The Field.
+// MARK: Calculating Coordinates Around The Field
 
     /// Calculate the position of a coordinate in relation to this coordinate.
     ///
@@ -359,7 +359,7 @@ public struct FieldCoordinate: CTypeWrapper {
         return self.fieldCoordinate(at: rel, heading: heading)
     }
 
-// MARK: Calculating Relative Coordinates to Objects on the Field.
+// MARK: Calculating Relative Coordinates to Objects on the Field
     
     /// Calculate the `RelativeCoordinate` to a target coordinate.
     ///
@@ -384,7 +384,7 @@ public struct FieldCoordinate: CTypeWrapper {
         return self.relativeCoordinate(to: coord.position)
     }
 
-// MARK: Safe Calculations for Calculating Image Coordinate to Objects on the Field.
+// MARK: Safe Calculations for Calculating Image Coordinate to Objects on the Field
 
     
     /// Calculate a pixel within a specific image from a specific camera
@@ -864,7 +864,7 @@ public struct FieldCoordinate: CTypeWrapper {
         self.relativeCoordinate(to: coord).clampedPercentCoordinate(cameraPivot: cameraPivot, camera: camera, tolerance: tolerance)
     }
     
-// MARK: Unsafe Calculations for Calculating Image Coordinate to Objects on the Field.
+// MARK: Unsafe Calculations for Calculating Image Coordinate to Objects on the Field
     
     /// Calculate a pixel within a specific image from a specific camera
     /// representing an object at a given position.
