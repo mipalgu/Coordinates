@@ -58,130 +58,78 @@
 
 import CGUCoordinates
 
-/**
- *  A `PixelCoordinate` represents the coordinate of a pixel within an image
- *  in centered pixel coordinates. This coordinate system is defined using
- *  4 fields: (x, y, resWidth, resHeight). The x and y fields must conform to
- *  the following constraint:
- *      `-floor((resWidth - 1) / 2) <= x <= ceil((resWidth - 1) / 2)`,
- *      `-floor((resHeight - 1) / 2) <= y <= ceil((resHeight - 1) / 2)`.
- *  This places the (0, 0) point in the center of the image. The coordinate
- *  system can be depicted graphically as follows:
- *  ```
- *                             ceil((resHeight - 1) / 2)
- *                                        ---
- *                                         ^
- *                                         |
- *                                        y|
- *                                         |
- *                                -x       |        x
- *  -floor((resWidth - 1) / 2) |<----------|---------->| ceil((resWidth - 1) / 2)
- *                                   (0,0)*|
- *                                         |
- *                                       -y|
- *                                         |
- *                                         V
- *                                        ---
- *                            -floor((resHeight - 1) / 2)
- *  ```
- *  Importantly here, the (0, 0) pixel is in the 3rd quadrant. This is because
- *  when even numbers are used for resWidth and resHeight, the (0, 0) point
- *  would be between pixels. Below is a table detailing the bounds for common
- *  resolutions:
- *
- *             Resolution      |                    left/rightmost pixel                |               bottom/topmost pixel
- *       (resWidth, resHeight) | (-floor((resWidth - 1) / 2), ceil((resWidth - 1) / 2)) | (-floor((resHeight - 1) / 2), ceil(resHeight - 1) / 2)
- *      -----------------------+--------------------------------------------------------+--------------------------------------------------------
- *       (640, 480)            | (-319, 320)                                            | (-239, 240)
- *       (800, 600)            | (-399, 400)                                            | (-299, 300)
- *       (1280, 720)           | (-639, 640)                                            | (-359, 360)
- *       (1920, 1080)          | (-959, 960)                                            | (-539, 540)
- */
+/// A `PixelCoordinate` represents the coordinate of a pixel within an image
+/// in centered pixel coordinates. This coordinate system is defined using
+/// 4 fields: (x, y, resWidth, resHeight). The x and y fields must conform to
+/// the following constraint:
+///     `-floor((resWidth - 1) / 2) <= x <= ceil((resWidth - 1) / 2)`,
+///     `-floor((resHeight - 1) / 2) <= y <= ceil((resHeight - 1) / 2)`.
+/// This places the (0, 0) point in the center of the image. The coordinate
+/// system can be depicted graphically as follows:
+/// ```
+///                            ceil((resHeight - 1) / 2)
+///                                       ---
+///                                        ^
+///                                        |
+///                                       y|
+///                                        |
+///                               -x       |        x
+/// -floor((resWidth - 1) / 2) |<----------|---------->| ceil((resWidth - 1) / 2)
+///                                  (0,0)*|
+///                                        |
+///                                      -y|
+///                                        |
+///                                        V
+///                                       ---
+///                           -floor((resHeight - 1) / 2)
+/// ```
+/// Importantly here, the (0, 0) pixel is in the 3rd quadrant. This is because
+/// when even numbers are used for resWidth and resHeight, the (0, 0) point
+/// would be between pixels. Below is a table detailing the bounds for common
+/// resolutions:
+///
+///            Resolution      |                    left/rightmost pixel                |               bottom/topmost pixel
+///      (resWidth, resHeight) | (-floor((resWidth - 1) / 2), ceil((resWidth - 1) / 2)) | (-floor((resHeight - 1) / 2), ceil(resHeight - 1) / 2)
+///     -----------------------+--------------------------------------------------------+--------------------------------------------------------
+///      (640, 480)            | (-319, 320)                                            | (-239, 240)
+///      (800, 600)            | (-399, 400)                                            | (-299, 300)
+///      (1280, 720)           | (-639, 640)                                            | (-359, 360)
+///      (1920, 1080)          | (-959, 960)                                            | (-539, 540)
 public struct PixelCoordinate: CTypeWrapper {
 
-    /**
-     *  The x coordinate of the pixel within the image.
-     *
-     *  - Attention: The x coordinate must be in the range of:
-     *      -floor((`resWidth` - 1) / 2) <= `x` <= ceil((`resWidth` - 1) / 2)
-     */
+// MARK: Properties
+    
+    /// The x coordinate of the pixel within the image.
+    ///
+    /// - Attention: The x coordinate must be in the range of:
+    ///     `-floor((resWidth - 1) / 2) <= x <= ceil((resWidth - 1) / 2)`
     public var x: pixels_t
 
-    /**
-     *  The y coordinate of the pixel within the image.
-     *
-     *  - Attention: The y coordinate must be in the range of:
-     *      -floor((`resHeight` - 1) / 2) <= `y` <= ceil((`resHeight` - 1) / 2)
-     */
+    /// The y coordinate of the pixel within the image.
+    ///
+    /// - Attention: The y coordinate must be in the range of:
+    ///     `-floor((resHeight - 1) / 2) <= y <= ceil((resHeight - 1) / 2)`
     public var y: pixels_t
 
-    /**
-     *  The widith of the resolution of the image. For example: 1920.
-     */
+    /// The width of the resolution of the image. For example: 1920.
     public var resWidth: pixels_u
 
-    /**
-     *  The height of the resolution of the image. For example: 1080.
-     */
+    /// The height of the resolution of the image. For example: 1080.
     public var resHeight: pixels_u
+    
+// MARK: Converting to/from the Underlying C Type
 
-    /**
-     *  Convert this coordinate to a `CameraCoordinate`.
-     *
-     *  This creates a new `CameraCoordinate` which represents this pixel
-     *  in camera coordinates.
-     *
-     *  - SeeAlso: `CameraCoordinate`.
-     */
-    public var cameraCoordinate: CameraCoordinate {
-        return CameraCoordinate(px_coord_to_cam_coord(self.rawValue))
-    }
-
-    /**
-     *  Convert this coordinate to a `PercentCoordinate`.
-     *
-     *  This creates a new `PercentCoordinate` which represents this pixel
-     *  in centered percentage coordinates.
-     *
-     *  - SeeAlso: `PercentCoordinate`.
-     */
-    public var percentCoordinate: PercentCoordinate {
-        return PercentCoordinate(px_coord_to_pct_coord(self.rawValue))
-    }
-
-    /**
-     *  Represent this coordinate using the underlying C type
-     *  `gu_pixel_coordinate`.
-     */
+    /// Represent this coordinate using the underlying C type
+    /// `gu_pixel_coordinate`.
     public var rawValue: gu_pixel_coordinate {
         return gu_pixel_coordinate(x: self.x, y: self.y, res_width: self.resWidth, res_height: self.resHeight)
     }
-
-    /**
-     *  Create a new `PixelCoordinate`.
-     *
-     *  - Parameter x: The x coordinate of the pixel within the image.
-     *
-     *  - Parameter y: The y coordinate of the pixel within the image.
-     *
-     *  - Parameter resWidth: The width of the resolution of the image.
-     *
-     *  - Parameter resHeight: The height of the resolution of the image.
-     */
-    public init(x: pixels_t = 0, y: pixels_t = 0, resWidth: pixels_u = 0, resHeight: pixels_u = 0) {
-        self.x = x
-        self.y = y
-        self.resWidth = resWidth
-        self.resHeight = resHeight
-    }
-
-    /**
-     *  Create a new `PixelCoordinate` by copying the values from the
-     *  underlying c type `gu_pixel_coordinate`.
-     *
-     *  - Parameter other: An instance of `gu_pixel_coordinate` which contains
-     *  the values that will be copied.
-     */
+    
+    /// Create a new `PixelCoordinate` by copying the values from the
+    /// underlying c type `gu_pixel_coordinate`.
+    ///
+    /// - Parameter other: An instance of `gu_pixel_coordinate` which contains
+    /// the values that will be copied.
     public init(_ other: gu_pixel_coordinate) {
         self.x = other.x
         self.y = other.y
@@ -189,26 +137,66 @@ public struct PixelCoordinate: CTypeWrapper {
         self.resHeight = other.res_height
     }
 
-    /**
-     *  Convert this coordinate to a `RelativeCoordinate`.
-     *
-     *  - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-     *  of the pivot point in which the camera is placed, as well as detailing
-     *  the cameras attached to the pivot point.
-     *
-     *  - Parameter camera: The index of the camera which recorded the image
-     *  containing the pixel represented by `self`. This index should reference
-     *  a valid `Camera` within the `cameras` array within
-     *  `cameraPivot.cameras`.
-     *
-     *  - Returns: When successful, this function returns the
-     *  `RelativeCoordinate` representing the object in the image at the pixel
-     *  `self`. If unable to calculate the `RelativeCoordinate` then this
-     *  function returns `nil`.
-     *
-     *  - SeeAlso: `CameraPivot`.
-     *  - SeeAlso: `Camera`.
-     */
+// MARK: Creating a PixelCoordinate
+
+    /// Create a new `PixelCoordinate`.
+    ///
+    /// - Parameter x: The x coordinate of the pixel within the image.
+    ///
+    /// - Parameter y: The y coordinate of the pixel within the image.
+    ///
+    /// - Parameter resWidth: The width of the resolution of the image.
+    ///
+    /// - Parameter resHeight: The height of the resolution of the image.
+    public init(x: pixels_t = 0, y: pixels_t = 0, resWidth: pixels_u = 0, resHeight: pixels_u = 0) {
+        self.x = x
+        self.y = y
+        self.resWidth = resWidth
+        self.resHeight = resHeight
+    }
+    
+// MARK: Converting To Other Image Coordinates
+    
+    /// Convert this coordinate to a `CameraCoordinate`.
+    ///
+    /// This creates a new `CameraCoordinate` which represents this pixel
+    /// in camera coordinates.
+    ///
+    /// - SeeAlso: `CameraCoordinate`.
+    public var cameraCoordinate: CameraCoordinate {
+        return CameraCoordinate(px_coord_to_cam_coord(self.rawValue))
+    }
+
+    /// Convert this coordinate to a `PercentCoordinate`.
+    ///
+    /// This creates a new `PercentCoordinate` which represents this pixel
+    /// in centered percentage coordinates.
+    ///
+    /// - SeeAlso: `PercentCoordinate`.
+    public var percentCoordinate: PercentCoordinate {
+        return PercentCoordinate(px_coord_to_pct_coord(self.rawValue))
+    }
+    
+// MARK: Converting To Relative Coordinates
+
+    /// Convert this coordinate to a `RelativeCoordinate`.
+    ///
+    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+    /// of the pivot point in which the camera is placed, as well as detailing
+    /// the cameras attached to the pivot point.
+    ///
+    /// - Parameter camera: The index of the camera which recorded the image
+    /// containing the pixel represented by `self`. This index should reference
+    /// a valid `Camera` within the `cameras` array within
+    /// `cameraPivot.cameras`.
+    ///
+    /// - Returns: When successful, this function returns the
+    /// `RelativeCoordinate` representing the object in the image at the pixel
+    /// `self`. If unable to calculate the `RelativeCoordinate` then this
+    /// function returns `nil`.
+    ///
+    /// - SeeAlso: `CameraPivot`.
+    /// - SeeAlso: `Camera`.
     public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate? {
         return self.percentCoordinate.relativeCoordinate(cameraPivot: cameraPivot, camera: camera)
     }
