@@ -58,138 +58,130 @@
 
 import CGUCoordinates
 
-/**
- *  A `PercentCoordinate` represents coordinates within an image
- *  as points in centered percentage coordinates. This coordinate systems is
- *  defined using 2 fields: (x, y) where the (0, 0) point is in the center.
- *  This would infer that the coordinate system is the normal cartesian
- *  coordinate system, however, the x and y fields must conform to the following
- *  constraints:
- *      `-1.0 <= x <= 1.0`, `-1.0 <= y <= 1.0`.
- *
- *  The coordinate system can be depicted graphically as follows:
- *  ```
- *                    1.0
- *                    ---
- *                     ^
- *                     |
- *                    y|
- *                     |
- *            -x       |(0,0)   x
- *    -1.0 |<----------*---------->| 1.0
- *                     |
- *                     |
- *                   -y|
- *                     |
- *                     V
- *                    ---
- *                   -1.0
- *  ```
- *  This coordinate system can be used to simplify calculations that do not
- *  require the resolution of the image.
- */
+/// A `PercentCoordinate` represents coordinates within an image
+/// as points in centered percentage coordinates. This coordinate systems is
+/// defined using 2 fields: (x, y) where the (0, 0) point is in the center.
+/// This would infer that the coordinate system is the normal cartesian
+/// coordinate system, however, the x and y fields must conform to the following
+/// constraints:
+///     `-1.0 <= x <= 1.0`, `-1.0 <= y <= 1.0`.
+///
+/// The coordinate system can be depicted graphically as follows:
+/// ```
+///                   1.0
+///                   ---
+///                    ^
+///                    |
+///                   y|
+///                    |
+///           -x       |(0,0)   x
+///   -1.0 |<----------*---------->| 1.0
+///                    |
+///                    |
+///                  -y|
+///                    |
+///                    V
+///                   ---
+///                  -1.0
+/// ```
+/// This coordinate system can be used to simplify calculations that do not
+/// require the resolution of the image.
 public struct PercentCoordinate: CTypeWrapper {
 
-    /**
-     *  The x coordinate of the point within the image as a percentage.
-     *
-     *  - Attention: The x coordinate must be in the range of:
-     *      `-1.0 <= x <= 1.0`
-     */
+// MARK: Properties
+    
+    /// The x coordinate of the point within the image as a percentage.
+    ///
+    /// - Attention: The x coordinate must be in the range of:
+    ///     `-1.0 <= x <= 1.0`
     public var x: percent_f
 
-    /**
-     *  The y coordinate of the point within the image as a percentage.
-     *
-     *  - Attention: The y coordinate must be in the range of:
-     *      `-1.0 <= y <= 1.0`
-     */
+    /// The y coordinate of the point within the image as a percentage.
+    ///
+    /// - Attention: The y coordinate must be in the range of:
+    ///     `-1.0 <= y <= 1.0`
     public var y: percent_f
 
-    /**
-     *  Represent this coordinate using the underlying C type
-     *  `gu_percent_coordinate`.
-     */
+// MARK: Converting to/from the Underlying C Type
+    
+    /// Represent this coordinate using the underlying C type
+    /// `gu_percent_coordinate`.
     public var rawValue: gu_percent_coordinate {
         return gu_percent_coordinate(x: self.x, y: self.y)
     }
-
-    /**
-     *  Create a new `PercentCoordinate`.
-     *
-     *  - Parameter x: The x coordinate of the point within the image.
-     *
-     *  - Parameter y: The y coordinate of the point within the image.
-     */
-    public init(x: percent_f = 0.0, y: percent_f = 0.0) {
-        self.x = x
-        self.y = y
-    }
-
-    /**
-     *  Create a new `PercentCoordinate` by copying the values from the
-     *  underlying c type `gu_percent_coordinate`.
-     *
-     *  - Parameter other: An instance of `gu_percent_coordinate` which contains
-     *  the values that will be copied.
-     */
+    
+    /// Create a new `PercentCoordinate` by copying the values from the
+    /// underlying c type `gu_percent_coordinate`.
+    ///
+    /// - Parameter other: An instance of `gu_percent_coordinate` which contains
+    /// the values that will be copied.
     public init(_ other: gu_percent_coordinate) {
         self.x = other.x
         self.y = other.y
     }
+    
+// MARK: Creating a PercentCoordinate
 
-    /**
-     *  Convert this coordinate to a `CameraCoordinate`.
-     *
-     *  - Parameter resWidth: The width of the resolution of the image that we
-     *  are converting to.
-     *
-     *  - Parameter resHeight: The height of the resolution of the image that we
-     *  are converting to.
-     *
-     *  - Returns: A new `CameraCoordinate` representing `self` in camera
-     *  coordinates.
-     */
+    /// Create a new `PercentCoordinate`.
+    ///
+    /// - Parameter x: The x coordinate of the point within the image.
+    ///
+    /// - Parameter y: The y coordinate of the point within the image.
+    public init(x: percent_f = 0.0, y: percent_f = 0.0) {
+        self.x = x
+        self.y = y
+    }
+    
+// MARK: Converting To Other Image Coordinates
+
+    /// Convert this coordinate to a `CameraCoordinate`.
+    ///
+    /// - Parameter resWidth: The width of the resolution of the image that we
+    /// are converting to.
+    ///
+    /// - Parameter resHeight: The height of the resolution of the image that we
+    /// are converting to.
+    ///
+    /// - Returns: A new `CameraCoordinate` representing `self` in camera
+    /// coordinates.
     public func cameraCoordinate(resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate {
         return self.pixelCoordinate(resWidth: resWidth, resHeight: resHeight).cameraCoordinate
     }
 
-    /**
-     *  Convert this coordinate to a `PixelCoordinate`.
-     *
-     *  - Parameter resWidth: The width of the resolution of the image that we
-     *  are converting to.
-     *
-     *  - Parameter resHeight: The height of the resolution of the image that we
-     *  are converting to.
-     *
-     *  - Returns: A new `PixelCoordinate` representing `self` in centered
-     *  pixel coordinates.
-     */
+    /// Convert this coordinate to a `PixelCoordinate`.
+    ///
+    /// - Parameter resWidth: The width of the resolution of the image that we
+    /// are converting to.
+    ///
+    /// - Parameter resHeight: The height of the resolution of the image that we
+    /// are converting to.
+    ///
+    /// - Returns: A new `PixelCoordinate` representing `self` in centered
+    /// pixel coordinates.
     public func pixelCoordinate(resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate {
         return PixelCoordinate(pct_coord_to_px_coord(self.rawValue, resWidth, resHeight))
     }
+    
+// MARK: Converting To Relative Coordinates
 
-    /**
-     *  Convert this coordinate to a `RelativeCoordinate`.
-     *
-     *  - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-     *  of the pivot point in which the camera is placed, as well as detailing
-     *  the cameras attached to the pivot point.
-     *
-     *  - Parameter camera: The index of the camera which recorded the image
-     *  containing the pixel represented by `self`. This index should reference
-     *  a valid `Camera` within the `cameras` array within
-     *  `cameraPivot.cameras`.
-     *
-     *  - Returns: When successful, this function returns the
-     *  `RelativeCoordinate` representing the object in the image at the pixel
-     *  `self`. If unable to calculate the `RelativeCoordinate` then this
-     *  function returns `nil`.
-     *
-     *  - SeeAlso: `CameraPivot`.
-     *  - SeeAlso: `Camera`.
-     */
+    /// Convert this coordinate to a `RelativeCoordinate`.
+    ///
+    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+    /// of the pivot point in which the camera is placed, as well as detailing
+    /// the cameras attached to the pivot point.
+    ///
+    /// - Parameter camera: The index of the camera which recorded the image
+    /// containing the pixel represented by `self`. This index should reference
+    /// a valid `Camera` within the `cameras` array within
+    /// `cameraPivot.cameras`.
+    ///
+    /// - Returns: When successful, this function returns the
+    /// `RelativeCoordinate` representing the object in the image at the pixel
+    /// `self`. If unable to calculate the `RelativeCoordinate` then this
+    /// function returns `nil`.
+    ///
+    /// - SeeAlso: `CameraPivot`.
+    /// - SeeAlso: `Camera`.
     public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate? {
         var relativeCoordinate = gu_relative_coordinate()
         guard pct_coord_to_rr_coord(self.rawValue, cameraPivot.rawValue, &relativeCoordinate, CInt(camera)) else {
