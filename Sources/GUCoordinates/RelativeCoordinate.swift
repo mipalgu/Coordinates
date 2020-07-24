@@ -287,6 +287,49 @@ public struct RelativeCoordinate: CTypeWrapper {
     public func fieldCoordinate(heading: degrees_t) -> FieldCoordinate {
         return FieldCoordinate(rr_coord_to_field_coord(self.rawValue, heading))
     }
+    
+    public func unsafeCameraCoordinate(cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate {
+        return self.unsafePixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight).cameraCoordinate
+    }
+    
+    public func unsafePixelCoordinate(cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate {
+        return self.unsafePercentCoordinate(cameraPivot: cameraPivot, camera: camera).pixelCoordinate(resWidth: resWidth, resHeight: resHeight)
+    }
+    
+    public func unsafePercentCoordinate(cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate {
+        return PercentCoordinate(unsafe_rr_coord_to_pct_coord(self.rawValue, cameraPivot.rawValue, CInt(camera)))
+    }
+    
+    public func unsafeClampedCameraCoordinate(cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u, tolerance: percent_f? = nil) -> CameraCoordinate {
+        return self.unsafeClampedPixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance).cameraCoordinate
+    }
+    
+    public func unsafeClampedPixelCoordinate(cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u, tolerance: percent_f? = nil) -> PixelCoordinate {
+        return self.unsafeClampedPercentCoordinate(cameraPivot: cameraPivot, camera: camera, tolerance: tolerance).pixelCoordinate(resWidth: resWidth, resHeight: resHeight)
+    }
+    
+    public func unsafeClampedPercentCoordinate(cameraPivot: CameraPivot, camera: Int, tolerance: percent_f? = nil) -> PercentCoordinate {
+        guard let tolerance = tolerance else {
+            return PercentCoordinate(unsafe_clamped_rr_coord_to_pct_coord(self.rawValue, cameraPivot.rawValue, CInt(camera)))
+        }
+        return PercentCoordinate(unsafe_clamped_tolerance_rr_coord_to_pct_coord(self.rawValue, cameraPivot.rawValue, CInt(camera), tolerance))
+    }
+    
+    public func clampedCameraCoordinate(cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u, tolerance: percent_f) -> CameraCoordinate? {
+        return self.clampedPixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)?.cameraCoordinate
+    }
+    
+    public func clampedPixelCoordinate(cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u, tolerance: percent_f) -> PixelCoordinate? {
+        return self.clampedPercentCoordinate(cameraPivot: cameraPivot, camera: camera, tolerance: tolerance)?.pixelCoordinate(resWidth: resWidth, resHeight: resHeight)
+    }
+    
+    public func clampedPercentCoordinate(cameraPivot: CameraPivot, camera: Int, tolerance: percent_f) -> PercentCoordinate? {
+        var temp = gu_percent_coordinate()
+        guard clamped_tolerance_rr_coord_to_pct_coord(self.rawValue, cameraPivot.rawValue, CInt(camera), tolerance, &temp) else {
+            return nil
+        }
+        return PercentCoordinate(temp)
+    }
 
 }
 
