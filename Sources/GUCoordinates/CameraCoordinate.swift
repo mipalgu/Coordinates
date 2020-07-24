@@ -58,115 +58,63 @@
 
 import CGUCoordinates
 
-/**
- *  A `CameraCoordinate` represents a coordinate of a pixel within an image
- *  where the (0, 0) coordinate is in the top left hand corner of the image.
- *  The x increases to the right, and the y coordinate increases down. A
- *  `CameraCoordinate` is defined using 4 fields: (x, y, resWidth, resHeight)
- *  depicted graphically as follows:
- *  ```
- *    (0,0)          x       resWidth
- *      * ---------------------->|
- *      |
- *      |
- *      |
- *    y |
- *      |
- *      |
- *      |
- *      V
- *     ---
- *  resHeight
- *  ```
- *
- *  The x and y fields must conform to the following constraints:
- *      `0 <= x < resWidth`, `0 <= y < resHeight`.
- */
+/// A `CameraCoordinate` represents a coordinate of a pixel within an image
+/// where the (0, 0) coordinate is in the top left hand corner of the image.
+/// The x increases to the right, and the y coordinate increases down. A
+/// `CameraCoordinate` is defined using 4 fields: (x, y, resWidth, resHeight)
+/// depicted graphically as follows:
+/// ```
+///   (0,0)          x       resWidth
+///     * ---------------------->|
+///     |
+///     |
+///     |
+///   y |
+///     |
+///     |
+///     |
+///     V
+///    ---
+/// resHeight
+/// ```
+///
+/// The x and y fields must conform to the following constraints:
+///     `0 <= x < resWidth`, `0 <= y < resHeight`.
 public struct CameraCoordinate: CTypeWrapper {
 
-    /**
-     *  The x coordinate of the pixel within the image.
-     *
-     *  - Attention: The x coordinate must be in the range of:
-     *      0 <= `x` < `resWidth`
-     */
+// MARK: Properties
+    
+    /// The x coordinate of the pixel within the image.
+    ///
+    /// - Attention: The x coordinate must be in the range of:
+    ///     `0 <= x < resWidth`
     public var x: pixels_u
 
-    /**
-     *  The y coordinate of the pixel within the image.
-     *  
-     *  - Attention: The y coordinate must be in the range of:
-     *      0 <= `y` <= `resHeight`
-     */
+    /// The y coordinate of the pixel within the image.
+    ///
+    /// - Attention: The y coordinate must be in the range of:
+    ///     `0 <= y <= `resHeight`
     public var y: pixels_u
 
-    /**
-     *  The width of the resolution of the image. For example: 1920.
-     */
+    /// The width of the resolution of the image. For example: 1920.
     public var resWidth: pixels_u
 
-    /**
-     *  The height of the resolution of the image. For example: 1080.
-     */
+    /// The height of the resolution of the image. For example: 1080.
     public var resHeight: pixels_u
 
-    /**
-     *  Convert this coordinate to a `PixelCoordinate`.
-     *
-     *  This creates a new `PixelCoordinate` which represents this coordinate
-     *  in centered pixel coordinates.
-     *
-     *  - SeeAlso: `PixelCoordinate`.
-     */
-    public var pixelCoordinate: PixelCoordinate {
-        return PixelCoordinate(cam_coord_to_px_coord(self.rawValue));
-    }
+// MARK: Converting to/from the Underlying C Type
 
-    /**
-     *  Convert this coordinate to a `PercentCoordinate`.
-     *
-     *  This creates a new `PercentCoordinate` which represents this coordinate
-     *  in centered percentage coordinates.
-     *
-     *  - SeeAlso: `PercentCoordinate`.
-     */
-    public var percentCoordinate: PercentCoordinate {
-        return self.pixelCoordinate.percentCoordinate
-    }
-
-    /**
-     *  Represent this coordinate using the underlying C type 
-     *  `gu_camera_coordinate`.
-     */
+    /// Represent this coordinate using the underlying C type
+    /// `gu_camera_coordinate`.
     public var rawValue: gu_camera_coordinate {
         return gu_camera_coordinate(x: self.x, y: self.y, res_width: self.resWidth, res_height: self.resHeight)
     }
-
-    /**
-     *  Create a new `CameraCoordinate`.
-     *
-     *  - Parameter x: The x coordinate of the pixel within the image.
-     *
-     *  - Parameter y: The y coordinate of the pixel within the image.
-     *
-     *  - Parameter resWidth: The width of the resolution of the image.
-     *
-     *  - Parameter resHeight: The height of the resolution of the image.
-     */
-    public init(x: pixels_u = 0, y: pixels_u = 0, resWidth: pixels_u = 0, resHeight: pixels_u = 0) {
-        self.x = x
-        self.y = y
-        self.resWidth = resWidth
-        self.resHeight = resHeight
-    }
-
-    /**
-     *  Create a new `CameraCoordinate` by copying the values from the
-     *  underlying c type `gu_camera_coordinate`.
-     *
-     *  - Parameter other: An instance of `gu_camera_coordinate` which contains
-     *  the values that will be copied.
-     */
+    
+    /// Create a new `CameraCoordinate` by copying the values from the
+    /// underlying c type `gu_camera_coordinate`.
+    ///
+    /// - Parameter other: An instance of `gu_camera_coordinate` which contains
+    /// the values that will be copied.
     public init(_ other: gu_camera_coordinate) {
         self.x = other.x
         self.y = other.y
@@ -174,26 +122,64 @@ public struct CameraCoordinate: CTypeWrapper {
         self.resHeight = other.res_height
     }
 
-    /**
-     *  Convert this coordinate to a `RelativeCoordinate`.
-     *
-     *  - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-     *  of the pivot point in which the camera is placed, as well as detailing
-     *  the cameras attached to the pivot point.
-     *
-     *  - Parameter camera: The index of the camera which recorded the image
-     *  containing the pixel represented by `self`. This index should reference
-     *  a valid `Camera` within the `cameras` array within
-     *  `cameraPivot.cameras`.
-     *
-     *  - Returns: When successful, this function returns the
-     *  `RelativeCoordinate` representing the object in the image at the pixel
-     *  `self`. If unable to calculate the `RelativeCoordinate` then this
-     *  function returns `nil`.
-     *
-     *  - SeeAlso: `CameraPivot`.
-     *  - SeeAlso: `Camera`.
-     */
+    /// Create a new `CameraCoordinate`.
+    ///
+    /// - Parameter x: The x coordinate of the pixel within the image.
+    ///
+    /// - Parameter y: The y coordinate of the pixel within the image.
+    ///
+    /// - Parameter resWidth: The width of the resolution of the image.
+    ///
+    /// - Parameter resHeight: The height of the resolution of the image.
+    public init(x: pixels_u = 0, y: pixels_u = 0, resWidth: pixels_u = 0, resHeight: pixels_u = 0) {
+        self.x = x
+        self.y = y
+        self.resWidth = resWidth
+        self.resHeight = resHeight
+    }
+    
+// MARK: Converting To Other Image Coordinates
+    
+    /// Convert this coordinate to a `PixelCoordinate`.
+    ///
+    /// This creates a new `PixelCoordinate` which represents this coordinate
+    /// in centered pixel coordinates.
+    ///
+    /// - SeeAlso: `PixelCoordinate`.
+    public var pixelCoordinate: PixelCoordinate {
+        return PixelCoordinate(cam_coord_to_px_coord(self.rawValue));
+    }
+
+    /// Convert this coordinate to a `PercentCoordinate`.
+    ///
+    /// This creates a new `PercentCoordinate` which represents this coordinate
+    /// in centered percentage coordinates.
+    ///
+    /// - SeeAlso: `PercentCoordinate`.
+    public var percentCoordinate: PercentCoordinate {
+        return self.pixelCoordinate.percentCoordinate
+    }
+    
+// MARK: Converting To Relative Coordinates
+
+    /// Convert this coordinate to a `RelativeCoordinate`.
+    ///
+    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+    /// of the pivot point in which the camera is placed, as well as detailing
+    /// the cameras attached to the pivot point.
+    ///
+    /// - Parameter camera: The index of the camera which recorded the image
+    /// containing the pixel represented by `self`. This index should reference
+    /// a valid `Camera` within the `cameras` array within
+    /// `cameraPivot.cameras`.
+    ///
+    /// - Returns: When successful, this function returns the
+    /// `RelativeCoordinate` representing the object in the image at the pixel
+    /// `self`. If unable to calculate the `RelativeCoordinate` then this
+    /// function returns `nil`.
+    ///
+    /// - SeeAlso: `CameraPivot`.
+    /// - SeeAlso: `Camera`.
     public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate? {
         return self.percentCoordinate.relativeCoordinate(cameraPivot: cameraPivot, camera: camera)
     }
