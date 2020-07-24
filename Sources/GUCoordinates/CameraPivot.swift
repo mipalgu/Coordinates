@@ -58,39 +58,31 @@
 
 import CGUCoordinates
 
-/**
- *  A `CameraPivot` represents the pivot point which a `Camera` is attached to.
- *
- *  If a camera is on the ground, then there is no pivot point. If the camera
- *  is on the end of a stick then the pivot point is the bottom of the stick.
- *  If the camera is on the head of the robot, then the pivot point is the
- *  neck of the robot.
- */
+/// A `CameraPivot` represents the pivot point which a `Camera` is attached to.
+///
+/// If a camera is on the ground, then there is no pivot point. If the camera
+/// is on the end of a stick then the pivot point is the bottom of the stick.
+/// If the camera is on the head of the robot, then the pivot point is the
+/// neck of the robot.
 public struct CameraPivot: CTypeWrapper {
 
-    /**
-     *  The vertical orientation of the pivot point.
-     */
+// MARK: Properties
+    
+    /// The vertical orientation of the pivot point.
     public var pitch: degrees_f
 
-    /**
-     *  The horizontal orientation of the pivot point.
-     */
+    /// The horizontal orientation of the pivot point.
     public var yaw: degrees_f
 
-    /**
-     *  The vertical distance from the ground to the pivot point.
-     */
+    /// The vertical distance from the ground to the pivot point.
     public var height: centimetres_f
 
-    /**
-     *  The `Camera`s attached to this pivot point.
-     */
+    /// The `Camera`s attached to this pivot point.
     public var cameras: [Camera]
 
-    /**
-     *  Represent this coordinate using the underlying C type `gu_camera_pivot`.
-     */
+// MARK: Converting to/from the Underlying C Type
+    
+    /// Represent this coordinate using the underlying C type `gu_camera_pivot`.
     public var rawValue: gu_camera_pivot {
         var cameraPivot = gu_camera_pivot()
         cameraPivot.pitch = self.pitch
@@ -104,34 +96,12 @@ public struct CameraPivot: CTypeWrapper {
         cameraPivot.numCameras = min(CInt(self.cameras.count), GU_CAMERA_PIVOT_NUM_CAMERAS)
         return cameraPivot
     }
-
-    /**
-     *  Create a new `CameraPivot`.
-     *
-     *  - Parameter pitch: The vertical orientation of the pivot point.
-     *
-     *  - Parameter yaw: The horizontal orientation of the pivot point.
-     *
-     *  - Parameter height: The vertical distance from the ground to the pivot
-     *  point.
-     *
-     *  - Parameter cameras: The `Camera`s attached to this pivot
-     *  point.
-     */
-    public init(pitch: degrees_f = 0, yaw: degrees_f = 0, height: centimetres_f = 0.0, cameras: [Camera] = []) {
-        self.pitch = pitch
-        self.yaw = yaw
-        self.height = height
-        self.cameras = cameras
-    }
-
-    /**
-     *  Create a new `CameraPivot` by copying the values from the
-     *  underlying c type `gu_camera_pivot`.
-     *
-     *  - Parameter other: An instance of `gu_camera_pivot` which contains
-     *  the values that will be copied.
-     */
+    
+    /// Create a new `CameraPivot` by copying the values from the
+    /// underlying c type `gu_camera_pivot`.
+    ///
+    /// - Parameter other: An instance of `gu_camera_pivot` which contains
+    /// the values that will be copied.
     public init(_ other: gu_camera_pivot) {
         var other = other
         self.pitch = other.pitch
@@ -141,6 +111,26 @@ public struct CameraPivot: CTypeWrapper {
             let buffer = UnsafeBufferPointer(start: $0, count: Int(min(other.numCameras, GU_CAMERA_PIVOT_NUM_CAMERAS)))
             return buffer.map { Camera($0) }
         }
+    }
+    
+// MARK: Creating a CameraPivot
+
+    /// Create a new `CameraPivot`.
+    ///
+    /// - Parameter pitch: The vertical orientation of the pivot point.
+    ///
+    /// - Parameter yaw: The horizontal orientation of the pivot point.
+    ///
+    /// - Parameter height: The vertical distance from the ground to the pivot
+    /// point.
+    ///
+    /// - Parameter cameras: The `Camera`s attached to this pivot
+    /// point.
+    public init(pitch: degrees_f = 0, yaw: degrees_f = 0, height: centimetres_f = 0.0, cameras: [Camera] = []) {
+        self.pitch = pitch
+        self.yaw = yaw
+        self.height = height
+        self.cameras = cameras
     }
 
 }
