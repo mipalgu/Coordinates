@@ -100,3 +100,400 @@ ball to the goal:
 ```swift
 let goalRelativeFromRelativeBall = ballRelativeFromRobot.relativeCoordinate(to: goalRelativeFromRobot) // RelativeCoordinate(direction: 5, distance: 316)
 ```
+
+## Coordinate Systems
+
+GUCoordinates is a library containing conversion functions between several coordinate
+systems. We classify the coordinates systems in general as
+
+1. Image Coordinate Systems
+2. Relative Coordinate System
+3. Field Coordinate Systems.
+
+### Image Coordinate Systems
+---------------------------------------
+
+There are three coordinate systems used to represent images, these are
+
+1. Camera Coordinates
+2. Centered Pixel Coordinates
+3. Percentage Coordinates
+
+#### Camera Coordinates
+--------------------------------
+
+The camera coordinate system is the coordinate system representing images that come
+directly from a camera. This is the coordinate system classicaly used in computer science
+where the top left hand corner contains the (0, 0) point where the x increases to the right
+and the y increases down. There are no negative values allowed. The `CameraCoordinate`
+struct represents a coordinate in this coordinate system and is defined using four fields
+(`x`, `y`, `resWidth`, `resHeight`) representing the x coordinate, y coordinate, width of the
+image resolution and height of the image resolution respectively. The coordinate system
+can be represented graphically as follows:
+ ```
+  (0,0)          x       resWidth
+    * ---------------------->|
+    |
+    |
+    |
+  y |
+    |
+    |
+    |
+    V
+   ---
+ resHeight
+```
+
+#### Centered Pixel Coordinates --- Resolution Dependent Image Coordinates
+------------------------------------------------------------------------------------------------
+
+Centered Pixel Coordinates is the coordinate system posted by vision.  The
+`PixelCoordinate` struct represents the coordinate of a pixel within an image
+in centered pixel coordinates. This coordinate system is defined using
+four fields: (`x`, `y`, `resWidth`, `resHeight`) representing the x and y coordinate, the width
+of the image resolution and the height of the image resolution respectively. The x and y
+fields must conform to the following constraints:
+    `-floor((resWidth - 1) / 2) <= x <= ceil((resWidth - 1) / 2)`,
+    `-floor((resHeight - 1) / 2) <= y <= ceil((resHeight - 1) / 2)`.
+This places the (0, 0) point in the center of the image. The coordinate
+system can be depicted graphically as follows:
+```
+                           ceil((resHeight - 1) / 2)
+                                      ---
+                                       ^
+                                       |
+                                      y|
+                                       |
+                              -x       |        x
+-floor((resWidth - 1) / 2) |<----------|---------->| ceil((resWidth - 1) / 2)
+                                 (0,0)*|
+                                       |
+                                     -y|
+                                       |
+                                       V
+                                      ---
+                          -floor((resHeight - 1) / 2)
+```
+Importantly here, the (0, 0) pixel is in the 3rd quadrant. This is because
+when even numbers are used for `resWidth` and `resHeight`, the (0, 0) point
+would be between pixels. Below is a table detailing the bounds for common
+resolutions:
+
+           Resolution      |                    left/rightmost pixel                |               bottom/topmost pixel
+     (resWidth, resHeight) | (-floor((resWidth - 1) / 2), ceil((resWidth - 1) / 2)) | (-floor((resHeight - 1) / 2), ceil(resHeight - 1) / 2)
+    -----------------------+--------------------------------------------------------+--------------------------------------------------------
+     (640, 480)            | (-319, 320)                                            | (-239, 240)
+     (800, 600)            | (-399, 400)                                            | (-299, 300)
+     (1280, 720)           | (-639, 640)                                            | (-359, 360)
+     (1920, 1080)          | (-959, 960)                                            | (-539, 540)
+
+#### Percentage Coordinates --- Resolution Independent Coordinates
+--------------------------------------------------------------------------------------
+
+The percentage coordinate system is the useful for algorithms that don't require the image
+resolution. The `PercentCoordinate` struct represents a point within this coordinate
+system and is defined using two fields: (`x`, `y`) representing the x and y coordinates. The
+(0, 0) point is in the center of the image. This would infer that the coordinate system is the
+normal cartesian coordinate system, however, the x and y fields must conform to the
+following constraints:
+    `-1.0 <= x <= 1.0`,
+    `-1.0 <= y <= 1.0`.
+
+The coordinate system can be depicted graphically as follows:
+ ```
+                  1.0
+                  ---
+                   ^
+                   |
+                  y|
+                   |
+          -x       |(0,0)   x
+  -1.0 |<----------*---------->| 1.0
+                   |
+                   |
+                 -y|
+                   |
+                   V
+                  ---
+                 -1.0
+```
+
+### Relative Coordinates
+-------------------------------
+
+The `RelativeCoordinate` struct represents a coordinate within this coordinate system.
+The relative coordinate system describes the distance and direction that one coordinate
+is from another. We categorise these two coordinates as the source and
+the target. The target is where the `RelativeCoordinate` is pointing
+towards and the source is where the `RelativeCoordinate` is pointing from.
+`RelativeCoordinate` is a polar coordinate in the form of phi, r where phi
+is the direction and r is the distance to the coordinate.
+
+The direction is an angle in degrees. A positive value for direction
+indicates that the target is on the left. A negative value indicates that
+the target is on the right. A value of zero indicates that the target is
+directly in front of source.
+
+### Field Coordinate Systems
+-------------------------------------
+
+The field coordinate systems describe where object are in the world. There are two
+coordinate systems used, which are:
+
+1. Cartesian Coordinates, and
+2. Field Coordinates
+
+#### Cartesian Coordinate
+---------------------------------
+
+The cartesian coordinate represents the position of an object in the world.
+A cartesian coordinate is a general coordinate for representing positions
+on a two dimensional plane.
+
+This coordinate describes the position through the x and y axes. The
+`CartesianCoordinate` struct is generally used for the coordinate system of the
+soccer field. This describes the world (or more specifically the soccer field)
+in terms of the location of each side of the soccer field. The home side
+is in the west, whereas the away side is in the east.
+
+If the field is viewed where the home side is in the west and the
+away side is in the east, then the x axis runs north to south. The
+y axis runs west to east. A negative x value indicates a position
+in the northern half of the field while a positive x value indicates
+a position in the southern half of the field. A negative y value
+indicates a position in the western side of the field whereas a positive
+y value indicates a position in the eastern side of the field. A value
+of zero for both x and y indicate that the object is in the middle of
+the field.
+
+As an example, if we take an actual full sized 100 meter field, then
+the middle of the goal line on the home side of the field would be at
+the coordinates (0, -50). The middle of the away goal line would be
+(0, 50). The middle line which separates the two sides of a field which 
+is 60 meters wide runs from the points (-30, 0) to (30, 0). 
+
+The field coordinate system can be depicted graphically as follows:
+ ```
+                                   ^
+                                   |
+                                 -x|
+     --------------------------------------------------------------
+    |                              |                               |
+    |                              |                               |
+    |                             -|-          * (-90cm, 120cm)    |
+    |-                           / | \                            -|
+ -y | |                         |  |  |                          | | y
+<---|-|-------------------------|--+--|--------------------------|-|--->
+    | |                         |  |  |                          | |
+    |-                           \ | /                            -|
+    |                             -|-                              |
+    |                              |                               |
+    |                              |                               |
+     --------------------------------------------------------------
+                                   |
+               HOME               x|              AWAY
+                                   V
+```
+
+When describing objects that face in certain directions it is important
+to disregard this coordinate and instead use `FieldCoordinate`.
+
+#### Field Coordinate
+---------------------------
+
+A field coordinate represents an object on the soccer field that not only has a position,
+but also has a direction which the object is facing. The `FieldCoordinate` struct is used
+to represent objects within this coordinate system. A `FieldCoordinate` is defined using
+two fields (`position`, `heading`) representing the position on the field (a
+`CartesianCoordinate`) and the direction which the object is facing.
+
+If the field is viewed where the home side is in the west and the
+away side is in the east, then the x axis runs north to south. The
+y axis runs west to east. A negative x value indicates a position
+in the northern half of the field while a positive x value indicates
+a position in the southern half of the field. A negative y value
+indicates a position in the western side of the field whereas a positive
+y value indicates a position in the eastern side of the field. A value
+of zero for both x and y indicate that the object is in the middle of
+the field.
+
+As an example, if we take an actual full sized 100 meter field, then
+the middle of the goal line on the home side of the field would be at
+the coordinates (0, -50). The middle of the away goal line would be
+(0, 50). The middle line which separates the two sides of a field which 
+is 60 meters wide runs from the points (-30, 0) to (30, 0). 
+
+The direction runs counter clockwise where the
+zero direction faces directly south. Therefore, 90 degrees points
+directly east, 180 degrees points directly north and 270 degrees points
+directly west.
+
+The field coordinate system can be depicted graphically as follows:
+```
+                                   ^
+                                   |
+                                 -x|
+     --------------------------------------------------------------
+    |                              |                               |
+    |                  180 degrees |                               |
+    |                             -|-         *-> (-90cm, 120cm, 90 degrees)
+    |-                           / | \                            -|
+ -y | |                         |  |  | 90 degrees               | | y
+<---|-|-------------------------|--+--|--------------------------|-|--->
+    | |             270 degrees |  |  |                          | |
+    |-                           \ | /                            -|
+    |                             -|-                              |
+    |                              | 0 degrees                     |
+    |                              |                               |
+     --------------------------------------------------------------
+                                   |
+               HOME               x|              AWAY
+                                   V
+```
+
+## Converting Between Coordinate Systems
+
+Several conversion functions are available which make converting between different
+coordinate systems trivial. In general, it is possible to convert between all coordinate
+systems in both directions:
+```
+    camera    --->   pixel     --->  percent    --->  relative   ---> cartesian
+  coordinate       coordinate       coordinate       coordinate       coordinate
+  
+                                                         |                |   
+                                                         |                |
+                                                         |                V
+                                                         |
+                                                         |--------->    field
+                                                         
+                                                         |----------  coordinate
+                                                         |
+                                                         |                |
+                                                         |                |
+                                                         V                V
+                                                                          
+    camera    <---   pixel     <---  percent    <---  relative   <--- cartesian
+  coordinate       coordinate       coordinate       coordinate       coordinate
+```
+
+however, there is some error that propogates since different coordinate systems have different
+precisions:
+```
+camera coordinate != camera coordinate -> field coordinate -> camera coordinate
+camera coordinate ~= camera coordinate -> field coordinate -> camera coordinate
+```
+
+### Converting Between Image Coordinate Systems
+----------------------------------------------------------------
+
+In general, converting between images is very straightforward. Any of the image coordinate
+system structs (`CameraCoordinate`, `PixelCoordinate`, `PercentCoordinate`) contain
+getters and functions for performing the conversions:
+```swift
+let cameraCoordinate = CameraCoordinate(x: 12, y: 23, resWidth: 640, resHeight: 480)
+let pixelCoordinate = cameraCoordinate.pixelCoordinate
+let percentCoordinate = cameraCoordinate.percentCoordinate
+```
+
+However, converting from percent coordinate requires that you provide the resolution width
+and height of the image:
+```swift
+let percentCoordinate = PercentCoordinate(x: -0.2, y: 0.5)
+let pixelCoordinate = percentCoordinate.pixelCoordinate(resWidth: 640, resHeight: 480)
+let cameraCoordinate = percentCoordinate.cameraCoordinate(resWidth: 640, resHeight: 480)
+```
+
+This does however, let you represent the same position in images with different resolutions:
+```swift
+let cameraCoordinate = CameraCoordinate(x: 12, y: 23, resWidth: 640, resHeight: 480)
+let percentCoordinate = cameraCoordinate.percentCoordinate
+let newCameraCoordinate = percentCoordinate.cameraCoordinate(resWidth: 1920, resHeight: 1080)
+```
+
+### Converting Between Image Coordinate Systems and the Relative Coordinate System
+-------------------------------------------------------------------------------------------------------------
+
+Converting between the image coordinate systems and the relative coordinate system
+is more complicated. Firstly information such as the height and field of view of the
+camera is required to know how a pixel in an image for example translates to a distance
+and direction. The `CameraPivot` and `Camera` structs are provided for this purpose.
+
+The `CameraPivot` struct provides the necessary information regarding the pivot point
+that a camera is attached to. If a camera is on the ground, then there is no pivot point.
+If the camera is on the end of a stick then the pivot point is the bottom of the stick.
+If the camera is on the head of the robot, then the pivot point is the neck of the robot.
+
+The `Camera`  struct provides information on a camera which is attached to a
+`CameraPivot`. The way this works, is that the `Camera` struct provides information about
+the camera (such as field of view and orientation) as well as information on where the camera
+is situation in relation to the `CameraPivot`. The `CameraPivot` describes where that pivot
+is in relation to the wider world.
+
+The following is an example of how the `CameraPivot` and `Camera` structs work to
+describe the cameras on a Nao robot:
+```swift
+let naoHead = CameraPivot(
+    yaw: 0.0,
+    pitch: 0.0,
+    height: 41.7,
+    cameras: [
+        // Top Camera
+        Camera(
+            height: 6.364,
+            centerOffset: 5.871,
+            vDirection: 1.2,
+            vFov: 47.64,
+            hFov: 60.97
+        ),
+        // Bottom Camera
+        Camera(
+            height: 1.774,
+            centerOffset: 5.071,
+            vDirection: 39.7,
+            vFov: 47.64,
+            hFov: 60.97
+        )
+    ]
+)
+// Camera indexes
+let topCamera = 0
+let bottomCamera = 1
+```
+
+The `yaw` and `pitch` fields represent the orientation of the neck joint. The `height` is the
+distance from the ground vertically to the neck. The `cameras` array contains information
+about the each of the cameras: the `height` is the distance vertically from the neck to the
+base of the camera, the `centerOffset` represents how far the camera is from
+the center of the robot, the `vDirection` represents the vertical orientation of
+the camera from the horizontal line, the `vFov` and `hFov` represent the vertical and
+horizontal field of view of the camera respectively.
+
+#### Converting To Relative Coordinates
+--------------------------------------------------
+
+Converting an image coordinate to a relative coordinate may fail. This is because the
+algorithm that converts from image coordinates to relative coordinates can only gauge the
+distance of objects that are on the ground. If the pixel repesents on object that is above
+the horizontal line of the camera with regards to the ground, then the conversion will fail.
+Because of this, two variants (safe and unsafe) of the conversion are provided. The safe
+versions of the conversion functions return an optional which will only contain a value when
+the conversion is successful. The unsafe variants will always return a result, however,
+if there is a situation where the conversion fails, then the resulting values will be estimated ---
+the distance will be set to the largest possible value for objects in the sky for example.
+
+In general, to distinguish between the two variants, the `unsafe` prefix is used for the unsafe
+variants of the conversion functions:
+
+```swift
+let percentCoordinate = PercentCoordinate(x: -0.9, y: 0.83)
+guard let safeRelativeCoordinate = percentCoordinate.relativeCoordinate(cameraPivot: naoHead, camera: topCamera) else {
+    fatalError("The coordinate represents an object in the sky.")
+}
+let unsafeRelativeCoordinate = percentCoordinate.unsafeRelativeCoordinate(cameraPivot: naoHead, camera: topCamera) // Maximum distance
+```
+
+#### Converting To Image Coordinates
+------------------------------------------------
+
+
