@@ -1,8 +1,31 @@
-# GUCoordinates
-
+GUCoordinates
+============
 *Swift convenience wrappers around gucoordinates*
 
-## Quick Start
+------------------------------------------------------------
+
+# Table Of Contents
+
+- [Quick Start](#quick-start)
+- [Coordinate Systems](#coordinate-systems)
+  * [Image Coordinate Systems](#image-coordinate-systems)
+    + [Camera Coordinates](#camera-coordinates)
+    + [Centered Pixel Coordinates --- Resolution Dependent Image Coordinates](#centered-pixel-coordinates-resolution-dependent-image-coordinates)
+    + [Percentage Coordinates --- Resolution Independent Coordinates](#percentage-coordinates-resolution-independent-coordinates)
+  * [Relative Coordinates](#relative-coordinates)
+  * [Field Coordinate Systems](#field-coordinate-systems)
+    + [Cartesian Coordinate](#cartesian-coordinate)
+    + [Field Coordinate](#field-coordinate)
+- [Converting Between Coordinate Systems](#converting-between-coordinate-systems)
+  * [Converting Between Image Coordinate Systems](#converting-between-image-coordinate-systems)
+  * [Converting Between Image Coordinate Systems and the Relative Coordinate System](#converting-between-image-coordinate-systems-and-the-relative-coordinate-system)
+    + [Converting To Relative Coordinates](#converting-to-relative-coordinates)
+    + [Converting To Image Coordinates](#converting-to-image-coordinates)
+      - [Clamped Conversions](#clamped-conversions)
+  * [Converting Between the Relative Coordinate System and the Field Coordinate Systems](#converting-between-the-relative-coordinate-system-and-the-field-coordinate-systems)
+  * [Converting From Any Coordinate System to Any Other Coordinate System](#converting-from-any-coordinate-system-to-any-other-coordinate-system)
+
+# Quick Start
 
 Let's say for this scenario we are using the cameras on the nao robot:
 ```swift
@@ -101,7 +124,7 @@ ball to the goal:
 let goalRelativeFromRelativeBall = ballRelativeFromRobot.relativeCoordinate(to: goalRelativeFromRobot) // RelativeCoordinate(direction: 5, distance: 316)
 ```
 
-## Coordinate Systems
+# Coordinate Systems
 
 GUCoordinates is a library containing conversion functions between several coordinate
 systems. We classify the coordinates systems in general as
@@ -110,8 +133,7 @@ systems. We classify the coordinates systems in general as
 2. Relative Coordinate System
 3. Field Coordinate Systems.
 
-### Image Coordinate Systems
----------------------------------------
+## Image Coordinate Systems
 
 There are three coordinate systems used to represent images, these are
 
@@ -119,7 +141,7 @@ There are three coordinate systems used to represent images, these are
 2. Centered Pixel Coordinates
 3. Percentage Coordinates
 
-#### Camera Coordinates
+### Camera Coordinates
 --------------------------------
 
 The camera coordinate system is the coordinate system representing images that come
@@ -145,7 +167,7 @@ can be represented graphically as follows:
  resHeight
 ```
 
-#### Centered Pixel Coordinates --- Resolution Dependent Image Coordinates
+### Centered Pixel Coordinates --- Resolution Dependent Image Coordinates
 ------------------------------------------------------------------------------------------------
 
 Centered Pixel Coordinates is the coordinate system posted by vision.  The
@@ -188,7 +210,7 @@ resolutions:
      (1280, 720)           | (-639, 640)                                            | (-359, 360)
      (1920, 1080)          | (-959, 960)                                            | (-539, 540)
 
-#### Percentage Coordinates --- Resolution Independent Coordinates
+### Percentage Coordinates --- Resolution Independent Coordinates
 --------------------------------------------------------------------------------------
 
 The percentage coordinate system is the useful for algorithms that don't require the image
@@ -219,8 +241,7 @@ The coordinate system can be depicted graphically as follows:
                  -1.0
 ```
 
-### Relative Coordinates
--------------------------------
+## Relative Coordinates
 
 The `RelativeCoordinate` struct represents a coordinate within this coordinate system.
 The relative coordinate system describes the distance and direction that one coordinate
@@ -235,8 +256,7 @@ indicates that the target is on the left. A negative value indicates that
 the target is on the right. A value of zero indicates that the target is
 directly in front of source.
 
-### Field Coordinate Systems
--------------------------------------
+## Field Coordinate Systems
 
 The field coordinate systems describe where object are in the world. There are two
 coordinate systems used, which are:
@@ -244,7 +264,7 @@ coordinate systems used, which are:
 1. Cartesian Coordinates, and
 2. Field Coordinates
 
-#### Cartesian Coordinate
+### Cartesian Coordinate
 ---------------------------------
 
 The cartesian coordinate represents the position of an object in the world.
@@ -299,7 +319,7 @@ The field coordinate system can be depicted graphically as follows:
 When describing objects that face in certain directions it is important
 to disregard this coordinate and instead use `FieldCoordinate`.
 
-#### Field Coordinate
+### Field Coordinate
 ---------------------------
 
 A field coordinate represents an object on the soccer field that not only has a position,
@@ -352,7 +372,7 @@ The field coordinate system can be depicted graphically as follows:
                                    V
 ```
 
-## Converting Between Coordinate Systems
+# Converting Between Coordinate Systems
 
 Several conversion functions are available which make converting between different
 coordinate systems trivial. In general, it is possible to convert between all coordinate
@@ -384,8 +404,7 @@ camera coordinate != camera coordinate -> field coordinate -> camera coordinate
 camera coordinate ~= camera coordinate -> field coordinate -> camera coordinate
 ```
 
-### Converting Between Image Coordinate Systems
-----------------------------------------------------------------
+## Converting Between Image Coordinate Systems
 
 In general, converting between images is very straightforward. Any of the image coordinate
 system structs (`CameraCoordinate`, `PixelCoordinate`, `PercentCoordinate`) contain
@@ -411,8 +430,7 @@ let percentCoordinate = cameraCoordinate.percentCoordinate
 let newCameraCoordinate = percentCoordinate.cameraCoordinate(resWidth: 1920, resHeight: 1080)
 ```
 
-### Converting Between Image Coordinate Systems and the Relative Coordinate System
--------------------------------------------------------------------------------------------------------------
+## Converting Between Image Coordinate Systems and the Relative Coordinate System
 
 Converting between the image coordinate systems and the relative coordinate system
 is more complicated. Firstly information such as the height and field of view of the
@@ -469,7 +487,7 @@ the center of the robot, the `vDirection` represents the vertical orientation of
 the camera from the horizontal line, the `vFov` and `hFov` represent the vertical and
 horizontal field of view of the camera respectively.
 
-#### Converting To Relative Coordinates
+### Converting To Relative Coordinates
 --------------------------------------------------
 
 Converting an image coordinate to a relative coordinate may fail. This is because the
@@ -484,7 +502,6 @@ the distance will be set to the largest possible value for objects in the sky fo
 
 In general, to distinguish between the two variants, the `unsafe` prefix is used for the unsafe
 variants of the conversion functions:
-
 ```swift
 let percentCoordinate = PercentCoordinate(x: -0.9, y: 0.83)
 guard let safeRelativeCoordinate = percentCoordinate.relativeCoordinate(cameraPivot: naoHead, camera: topCamera) else {
@@ -493,7 +510,72 @@ guard let safeRelativeCoordinate = percentCoordinate.relativeCoordinate(cameraPi
 let unsafeRelativeCoordinate = percentCoordinate.unsafeRelativeCoordinate(cameraPivot: naoHead, camera: topCamera) // Maximum distance
 ```
 
-#### Converting To Image Coordinates
+### Converting To Image Coordinates
 ------------------------------------------------
 
+Converting from a relative coordinate to an image coordinate may fail when the object
+described by the relative coordinate is not viewable by the camera. Again, because of this,
+two variants (safe and unsafe) of the conversion functions are provided. The safe
+versions of the conversion functions return an optional which will only contain a value
+when the object is actually viewable by the camera. The unsafe variants will always return
+a result, however, the resulting image coordinate will not be bound by the usual bounds
+of the coordinate system. For example, for percentage coordinates, this means that the x
+and y values may go above 1.0 and below -1.0.
 
+In general, to distinguish between the two variants, the `unsafe` prefix is used for the unsafe
+variants of the conversion functions:
+```swift
+let relativeCoordinate = RelativeCoordinate(direction: -160, distance: 10)
+guard let safePercentCoordinate = relativeCoordinate.percentCoordinate(cameraPivot: naoHead, camera: topCamera) else {
+    fatalError("The object is not viewable by the camera.")
+}
+let unsafePercentCoordinate = relativeCoordinate.unsafePercentCoordinate(cameraPivot: naoHead, camera: topCamera) // Outside bounds of image.
+```
+
+#### Clamped Conversions
+
+In rare circumstances, particularly when the object is at the edge of the cameras view, the
+conversion functions will place the object outside the bounds of the image. If this is
+unacceptable, then several `clamped` variants of the conversion functions are available.
+These conversion function variants will attempt to adjust the result of the conversion so that
+the resulting coordinate is within the coordinate system's bounds. Again, there are unsafe
+and safe variants of these clamp conversion functions:
+```swift
+let relativeCoordinate = RelativeCoordinate(direction: 30, distance: 108)
+let alwaysClamped = relativeCoordinate.unsafeClampedPercentCoordinate(cameraPivot: naoHead, camera: topCamera) // Always will clamp the result to [-1.0, 1.0]
+let unsafeClamped = relativeCoordinate.unsafeClampedPercentCoordinate(cameraPivot: naoHead, camera: topCamera, tolerance: 0.04) // Will clamp if the coordinate is within this tolerance.
+// Will attempt to clamp if the coordinate is within the tolerance, otherwise will fail.
+guard let safeClamped = relativeCoordinate.clampedPercentCoordinate(cameraPivot: naoHead, camera: topCamera, tolerance: 0.04) else {
+    fatalError("The object is not viewable by the camera.")
+}
+```
+
+## Converting Between the Relative Coordinate System and the Field Coordinate Systems
+
+Converting between the relative coordinate system and the field coordinate systems is
+straightforward. It is possible to get the relative coordinate to specific points on the field
+and calculate new positions on the field from a relative coordinate:
+```swift
+let fieldPosition = FieldCoordinate(position: CartesianCoordinate(x: -90, y: 120), heading: 70)
+let ballPosition = CartesianCoordinate(x: -82, y: 145)
+let relativeCoordinate = fieldPosition.relativeCoordinate(to: ballPosition)
+let reversedBallPosition = fieldPosition.cartesianCoordinate(at: relativeCoordinate)
+```
+
+## Converting From Any Coordinate System to Any Other Coordinate System
+
+There exist shortcut function which allow you to convert from any coordinate system to
+any other coordinate system. These are composed from all the conversion functions
+previously discussed:
+```swift
+let fieldPosition = FieldCoordinate(position: CartesianCoordinate(x: -90, y: 120), heading: 70)
+let cameraCoordinate = CameraCoordinate(x: 12, y: 23, resWidth: 640, resHeight: 480)
+guard let cartesianCoordinate = fieldPosition.cartesianCoordinate(at: cameraCoordinate, cameraPivot: naoHead, camera: bottomCamera) else {
+    fatalError("The object represented by cameraCoordinate is in the sky.")
+}
+
+let ballPosition = CartesianCoordinate(x: -82, y: 145)
+guard let ballInCamera = fieldPosition.clampedCameraCoordinate(to: ballPosition, cameraPivot: naoHead, camera: bottomCamera, resWidth: 640, resHeight: 480, tolerance: 0.04) else {
+    fatalError("The ball is not viewable by the camera.")
+}
+```
