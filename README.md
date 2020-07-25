@@ -2,7 +2,7 @@ GUCoordinates
 ============
 *Swift convenience wrappers around gucoordinates*
 
-------------------------------------------------------------
+---
 
 # Table Of Contents
 
@@ -25,6 +25,7 @@ GUCoordinates
   * [Converting Between the Relative Coordinate System and the Field Coordinate Systems](#converting-between-the-relative-coordinate-system-and-the-field-coordinate-systems)
   * [Converting From Any Coordinate System to Any Other Coordinate System](#converting-from-any-coordinate-system-to-any-other-coordinate-system)
 
+---
 
 # Quick Start
 
@@ -125,6 +126,8 @@ ball to the goal:
 let goalRelativeFromRelativeBall = ballRelativeFromRobot.relativeCoordinate(to: goalRelativeFromRobot) // RelativeCoordinate(direction: 5, distance: 316)
 ```
 
+---
+
 # Coordinate Systems
 
 GUCoordinates is a library containing conversion functions between several coordinate
@@ -143,7 +146,7 @@ There are three coordinate systems used to represent images, these are
 3. Percentage Coordinates
 
 ### Camera Coordinates
---------------------------------
+___
 
 The camera coordinate system is the coordinate system representing images that come
 directly from a camera. This is the coordinate system classicaly used in computer science
@@ -169,7 +172,7 @@ can be represented graphically as follows:
 ```
 
 ### Centered Pixel Coordinates
-------------------------------------------------------------------------------------------------
+___
 
 Centered Pixel Coordinates is the coordinate system posted by vision.  The
 `PixelCoordinate` struct represents the coordinate of a pixel within an image
@@ -212,7 +215,7 @@ resolutions:
      (1920, 1080)          | (-959, 960)                                            | (-539, 540)
 
 ### Percentage Coordinates
---------------------------------------------------------------------------------------
+___
 
 The percentage coordinate system is the useful for algorithms that don't require the image
 resolution. The `PercentCoordinate` struct represents a point within this coordinate
@@ -266,7 +269,7 @@ coordinate systems used, which are:
 2. Field Coordinates
 
 ### Cartesian Coordinate
----------------------------------
+___
 
 The cartesian coordinate represents the position of an object in the world.
 A cartesian coordinate is a general coordinate for representing positions
@@ -321,7 +324,7 @@ When describing objects that face in certain directions it is important
 to disregard this coordinate and instead use `FieldCoordinate`.
 
 ### Field Coordinate
----------------------------
+___
 
 A field coordinate represents an object on the soccer field that not only has a position,
 but also has a direction which the object is facing. The `FieldCoordinate` struct is used
@@ -372,6 +375,8 @@ The field coordinate system can be depicted graphically as follows:
                HOME               x|              AWAY
                                    V
 ```
+
+---
 
 # Converting Between Coordinate Systems
 
@@ -489,7 +494,7 @@ the camera from the horizontal line, the `vFov` and `hFov` represent the vertica
 horizontal field of view of the camera respectively.
 
 ### Converting To Relative Coordinates
---------------------------------------------------
+___
 
 Converting an image coordinate to a relative coordinate may fail. This is because the
 algorithm that converts from image coordinates to relative coordinates can only gauge the
@@ -512,7 +517,7 @@ let unsafeRelativeCoordinate = percentCoordinate.unsafeRelativeCoordinate(camera
 ```
 
 ### Converting To Image Coordinates
-------------------------------------------------
+___
 
 Converting from a relative coordinate to an image coordinate may fail when the object
 described by the relative coordinate is not viewable by the camera. Again, because of this,
