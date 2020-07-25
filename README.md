@@ -10,8 +10,8 @@ GUCoordinates
 - [Coordinate Systems](#coordinate-systems)
   * [Image Coordinate Systems](#image-coordinate-systems)
     + [Camera Coordinates](#camera-coordinates)
-    + [Centered Pixel Coordinates --- Resolution Dependent Image Coordinates](#centered-pixel-coordinates-resolution-dependent-image-coordinates)
-    + [Percentage Coordinates --- Resolution Independent Coordinates](#percentage-coordinates-resolution-independent-coordinates)
+    + [Centered Pixel Coordinates](#centered-pixel-coordinates)
+    + [Percentage Coordinates](#percentage-coordinates)
   * [Relative Coordinates](#relative-coordinates)
   * [Field Coordinate Systems](#field-coordinate-systems)
     + [Cartesian Coordinate](#cartesian-coordinate)
@@ -24,6 +24,7 @@ GUCoordinates
       - [Clamped Conversions](#clamped-conversions)
   * [Converting Between the Relative Coordinate System and the Field Coordinate Systems](#converting-between-the-relative-coordinate-system-and-the-field-coordinate-systems)
   * [Converting From Any Coordinate System to Any Other Coordinate System](#converting-from-any-coordinate-system-to-any-other-coordinate-system)
+
 
 # Quick Start
 
@@ -167,7 +168,7 @@ can be represented graphically as follows:
  resHeight
 ```
 
-### Centered Pixel Coordinates --- Resolution Dependent Image Coordinates
+### Centered Pixel Coordinates
 ------------------------------------------------------------------------------------------------
 
 Centered Pixel Coordinates is the coordinate system posted by vision.  The
@@ -210,7 +211,7 @@ resolutions:
      (1280, 720)           | (-639, 640)                                            | (-359, 360)
      (1920, 1080)          | (-959, 960)                                            | (-539, 540)
 
-### Percentage Coordinates --- Resolution Independent Coordinates
+### Percentage Coordinates
 --------------------------------------------------------------------------------------
 
 The percentage coordinate system is the useful for algorithms that don't require the image
