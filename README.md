@@ -34,8 +34,8 @@ Let's say for this scenario we are using the cameras on the nao robot:
 import GUCoordinates
 
 let naoHead = CameraPivot(
-    yaw: 0.0,
     pitch: 0.0,
+    yaw: 0.0,
     height: 41.7,
     cameras: [
         // Top Camera
@@ -458,8 +458,8 @@ The following is an example of how the `CameraPivot` and `Camera` structs work t
 describe the cameras on a Nao robot:
 ```swift
 let naoHead = CameraPivot(
-    yaw: 0.0,
     pitch: 0.0,
+    yaw: 0.0,
     height: 41.7,
     cameras: [
         // Top Camera
