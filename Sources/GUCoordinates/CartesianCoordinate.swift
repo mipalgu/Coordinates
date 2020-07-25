@@ -239,6 +239,90 @@ public struct CartesianCoordinate: CTypeWrapper {
         return self.cartesianCoordinate(at: rel)
     }
     
+    /// Calculate the position of an object in an image in relation to this
+    /// coordinate.
+    ///
+    /// - Parameter coord: The pixel in the image representing the object.
+    ///
+    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+    /// of the pivot pixel in which the camera is placed, as well as detailing
+    /// the cameras attached to the pivot point.
+    ///
+    /// - Parameter camera: The index of the camera which recorded the image
+    /// containing the point represented by `coord`. This index should reference
+    /// a valid `Camera` within the `cameras` array within
+    /// `cameraPivot.cameras`.
+    ///
+    /// - Returns: A new `CartesianCoordinate` calculated in relation to this
+    /// coordinate.
+    ///
+    /// - Warning: Only use this function if you are positive that the pixel in
+    /// the image represented by `coord` is representing an object on the ground.
+    /// If this is not the case, then the maximum value for the distance will
+    /// be used.
+    ///
+    /// - SeeAlso: `CameraCoordinate`.
+    /// - SeeAlso: `CameraPivot`.
+    public func unsafeCartesianCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate {
+        return cartesianCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera))
+    }
+    
+    /// Calculate the position of an object in an image in relation to this
+    /// coordinate.
+    ///
+    /// - Parameter coord: The pixel in the image representing the object.
+    ///
+    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+    /// of the pivot pixel in which the camera is placed, as well as detailing
+    /// the cameras attached to the pivot point.
+    ///
+    /// - Parameter camera: The index of the camera which recorded the image
+    /// containing the point represented by `coord`. This index should reference
+    /// a valid `Camera` within the `cameras` array within
+    /// `cameraPivot.cameras`.
+    ///
+    /// - Returns: A new `CartesianCoordinate` calculated in relation to this
+    /// coordinate.
+    ///
+    /// - Warning: Only use this function if you are positive that the pixel in
+    /// the image represented by `coord` is representing an object on the ground.
+    /// If this is not the case, then the maximum value for the distance will
+    /// be used.
+    ///
+    /// - SeeAlso: `PixelCoordinate`.
+    /// - SeeAlso: `CameraPivot`.
+    public func unsafeCartesianCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate {
+        return cartesianCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera))
+    }
+    
+    /// Calculate the position of an object in an image in relation to this
+    /// coordinate.
+    ///
+    /// - Parameter coord: The point in the image representing the object.
+    ///
+    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+    /// of the pivot point in which the camera is placed, as well as detailing
+    /// the cameras attached to the pivot point.
+    ///
+    /// - Parameter camera: The index of the camera which recorded the image
+    /// containing the point represented by `coord`. This index should reference
+    /// a valid `Camera` within the `cameras` array within
+    /// `cameraPivot.cameras`.
+    ///
+    /// - Returns: A new `CartesianCoordinate` calculated in relation to this
+    /// coordinate.
+    ///
+    /// - Warning: Only use this function if you are positive that the point in
+    /// the image represented by `coord` is representing an object on the ground.
+    /// If this is not the case, then the maximum value for the distance will
+    /// be used.
+    ///
+    /// - SeeAlso: `PercentCoordinate`.
+    /// - SeeAlso: `CameraPivot`.
+    public func unsafeCartesianCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate {
+        return cartesianCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera))
+    }
+    
 // MARK: Calculating Relative Coordinates to Objects on the Field
     
     /// Calculate the `RelativeCoordinate` to a target coordinate.

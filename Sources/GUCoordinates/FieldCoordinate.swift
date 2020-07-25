@@ -114,15 +114,13 @@ public struct FieldCoordinate: CTypeWrapper {
     /// is 60 meters wide runs from the points (-30, 0) to (30, 0).
     public var position: CartesianCoordinate
 
-    
-     /// The direction where the object is facing.
+    /// The direction where the object is facing.
     ///
     /// If the field is viewed where the home side is in the west and the away
     /// side is in the ast, then the direction runs counter clockwise where the
     /// zero direction faces directly south. Therefore, 90 degrees points
     /// directly east, 180 degrees points directly north and 270 degrees points
     /// directly west.
-    
     public var heading: degrees_t
 
 // MARK: Converting to/from the Underlying C Type
@@ -182,7 +180,6 @@ public struct FieldCoordinate: CTypeWrapper {
         return FieldCoordinate(rr_coord_to_field_coord_from_source(coord.rawValue, self.rawValue, heading))
     }
 
-    
     /// Calculate the position of an object in an image in relation to this
     /// coordinate.
     ///
@@ -202,7 +199,6 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    
     public func cartesianCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate? {
         guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
             return nil
@@ -210,7 +206,6 @@ public struct FieldCoordinate: CTypeWrapper {
         return self.cartesianCoordinate(at: rel)
     }
 
-    
     /// Calculate the position of an object in an image in relation to this
     /// coordinate.
     ///
@@ -230,7 +225,6 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    
     public func cartesianCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate? {
         guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
             return nil
@@ -238,7 +232,6 @@ public struct FieldCoordinate: CTypeWrapper {
         return self.cartesianCoordinate(at: rel)
     }
 
-    
     /// Calculate the position of an object in an image in relation to this
     /// coordinate.
     ///
@@ -249,7 +242,7 @@ public struct FieldCoordinate: CTypeWrapper {
     /// the cameras attached to the pivot point.
     ///
     /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
+    /// containing the point represented by `coord`. This index should reference
     /// a valid `Camera` within the `cameras` array within
     /// `cameraPivot.cameras`.
     ///
@@ -258,7 +251,6 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    
     public func cartesianCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate? {
         guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
             return nil
@@ -266,7 +258,6 @@ public struct FieldCoordinate: CTypeWrapper {
         return self.cartesianCoordinate(at: rel)
     }
 
-    
     /// Calculate the position of an object in an image in relation to this
     /// coordinate.
     ///
@@ -289,7 +280,6 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    
     public func fieldCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate? {
         guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
             return nil
@@ -297,7 +287,6 @@ public struct FieldCoordinate: CTypeWrapper {
         return self.fieldCoordinate(at: rel, heading: heading)
     }
 
-    
     /// Calculate the position of an object in an image in relation to this
     /// coordinate.
     ///
@@ -320,7 +309,6 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    
     public func fieldCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate? {
         guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
             return nil
@@ -328,11 +316,123 @@ public struct FieldCoordinate: CTypeWrapper {
         return self.fieldCoordinate(at: rel, heading: heading)
     }
 
+    /// Calculate the position of an object in an image in relation to this
+    /// coordinate.
+    ///
+    /// - Parameter coord: The point in the image representing the object.
+    ///
+    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+    /// of the pivot point in which the camera is placed, as well as detailing
+    /// the cameras attached to the pivot point.
+    ///
+    /// - Parameter camera: The index of the camera which recorded the image
+    /// containing the point represented by `coord`. This index should reference
+    /// a valid `Camera` within the `cameras` array within
+    /// `cameraPivot.cameras`.
+    ///
+    /// - Parameter heading: The direction in which the new coordinate
+    /// is facing.
+    ///
+    /// - Returns: A new `FieldCoordinate` calculated in relation to this
+    /// coordinate.
+    ///
+    /// - SeeAlso: `PercentCoordinate`.
+    /// - SeeAlso: `CameraPivot`.
+    public func fieldCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate? {
+        guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
+            return nil
+        }
+        return self.fieldCoordinate(at: rel, heading: heading)
+    }
+    
+    /// Calculate the position of an object in an image in relation to this
+    /// coordinate.
+    ///
+    /// - Parameter coord: The pixel in the image representing the object.
+    ///
+    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+    /// of the pivot pixel in which the camera is placed, as well as detailing
+    /// the cameras attached to the pivot point.
+    ///
+    /// - Parameter camera: The index of the camera which recorded the image
+    /// containing the point represented by `coord`. This index should reference
+    /// a valid `Camera` within the `cameras` array within
+    /// `cameraPivot.cameras`.
+    ///
+    /// - Returns: A new `CartesianCoordinate` calculated in relation to this
+    /// coordinate.
+    ///
+    /// - Warning: Only use this function if you are positive that the pixel in
+    /// the image represented by `coord` is representing an object on the ground.
+    /// If this is not the case, then the maximum value for the distance will
+    /// be used.
+    ///
+    /// - SeeAlso: `CameraCoordinate`.
+    /// - SeeAlso: `CameraPivot`.
+    public func unsafeCartesianCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate {
+        return cartesianCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera))
+    }
+    
+    /// Calculate the position of an object in an image in relation to this
+    /// coordinate.
+    ///
+    /// - Parameter coord: The pixel in the image representing the object.
+    ///
+    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+    /// of the pivot pixel in which the camera is placed, as well as detailing
+    /// the cameras attached to the pivot point.
+    ///
+    /// - Parameter camera: The index of the camera which recorded the image
+    /// containing the point represented by `coord`. This index should reference
+    /// a valid `Camera` within the `cameras` array within
+    /// `cameraPivot.cameras`.
+    ///
+    /// - Returns: A new `CartesianCoordinate` calculated in relation to this
+    /// coordinate.
+    ///
+    /// - Warning: Only use this function if you are positive that the pixel in
+    /// the image represented by `coord` is representing an object on the ground.
+    /// If this is not the case, then the maximum value for the distance will
+    /// be used.
+    ///
+    /// - SeeAlso: `PixelCoordinate`.
+    /// - SeeAlso: `CameraPivot`.
+    public func unsafeCartesianCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate {
+        return cartesianCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera))
+    }
     
     /// Calculate the position of an object in an image in relation to this
     /// coordinate.
     ///
     /// - Parameter coord: The point in the image representing the object.
+    ///
+    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+    /// of the pivot point in which the camera is placed, as well as detailing
+    /// the cameras attached to the pivot point.
+    ///
+    /// - Parameter camera: The index of the camera which recorded the image
+    /// containing the point represented by `coord`. This index should reference
+    /// a valid `Camera` within the `cameras` array within
+    /// `cameraPivot.cameras`.
+    ///
+    /// - Returns: A new `CartesianCoordinate` calculated in relation to this
+    /// coordinate.
+    ///
+    /// - Warning: Only use this function if you are positive that the point in
+    /// the image represented by `coord` is representing an object on the ground.
+    /// If this is not the case, then the maximum value for the distance will
+    /// be used.
+    ///
+    /// - SeeAlso: `PercentCoordinate`.
+    /// - SeeAlso: `CameraPivot`.
+    public func unsafeCartesianCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate {
+        return cartesianCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera))
+    }
+    
+    /// Calculate the position of an object in an image in relation to this
+    /// coordinate.
+    ///
+    /// - Parameter coord: The pixel in the image representing the object.
     ///
     /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
     /// of the pivot point in which the camera is placed, as well as detailing
@@ -349,14 +449,77 @@ public struct FieldCoordinate: CTypeWrapper {
     /// - Returns: A new `FieldCoordinate` calculated in relation to this
     /// coordinate.
     ///
+    /// - Warning: Only use this function if you are positive that the pixel in
+    /// the image represented by `coord` is representing an object on the ground.
+    /// If this is not the case, then the maximum value for the distance will
+    /// be used.
+    ///
+    /// - SeeAlso: `CameraCoordinate`.
+    /// - SeeAlso: `CameraPivot`.
+    public func unsafeFieldCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate {
+        return fieldCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera), heading: heading)
+    }
+    
+    /// Calculate the position of an object in an image in relation to this
+    /// coordinate.
+    ///
+    /// - Parameter coord: The pixel in the image representing the object.
+    ///
+    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+    /// of the pivot point in which the camera is placed, as well as detailing
+    /// the cameras attached to the pivot point.
+    ///
+    /// - Parameter camera: The index of the camera which recorded the image
+    /// containing the pixel represented by `coord`. This index should reference
+    /// a valid `Camera` within the `cameras` array within
+    /// `cameraPivot.cameras`.
+    ///
+    /// - Parameter heading: The direction in which the new coordinate
+    /// is facing.
+    ///
+    /// - Returns: A new `FieldCoordinate` calculated in relation to this
+    /// coordinate.
+    ///
+    /// - Warning: Only use this function if you are positive that the pixel in
+    /// the image represented by `coord` is representing an object on the ground.
+    /// If this is not the case, then the maximum value for the distance will
+    /// be used.
+    ///
+    /// - SeeAlso: `PixelCoordinate`.
+    /// - SeeAlso: `CameraPivot`.
+    public func unsafeFieldCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate {
+        return fieldCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera), heading: heading)
+    }
+    
+    /// Calculate the position of an object in an image in relation to this
+    /// coordinate.
+    ///
+    /// - Parameter coord: The point in the image representing the object.
+    ///
+    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
+    /// of the pivot point in which the camera is placed, as well as detailing
+    /// the cameras attached to the pivot point.
+    ///
+    /// - Parameter camera: The index of the camera which recorded the image
+    /// containing the point represented by `coord`. This index should reference
+    /// a valid `Camera` within the `cameras` array within
+    /// `cameraPivot.cameras`.
+    ///
+    /// - Parameter heading: The direction in which the new coordinate
+    /// is facing.
+    ///
+    /// - Returns: A new `FieldCoordinate` calculated in relation to this
+    /// coordinate.
+    ///
+    /// - Warning: Only use this function if you are positive that the point in
+    /// the image represented by `coord` is representing an object on the ground.
+    /// If this is not the case, then the maximum value for the distance will
+    /// be used.
+    ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    
-    public func fieldCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate? {
-        guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
-            return nil
-        }
-        return self.fieldCoordinate(at: rel, heading: heading)
+    public func unsafeFieldCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate {
+        return fieldCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera), heading: heading)
     }
 
 // MARK: Calculating Relative Coordinates to Objects on the Field
@@ -367,26 +530,22 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - Returns: A new `RelativeCoordinate` pointing towards `coord` from
     /// this coordinate.
-    
     public func relativeCoordinate(to coord: CartesianCoordinate) -> RelativeCoordinate {
         return RelativeCoordinate(field_coord_to_rr_coord_to_target(self.rawValue, coord.rawValue))
     }
 
-    
     /// Calculate the `RelativeCoordinate` to a target coordinate.
     ///
     /// - Parameter coord: The target coordinate.
     ///
     /// - Returns: A new `RelativeCoordinate` pointing towards `coord` from
     /// this coordinate.
-    
     public func relativeCoordinate(to coord: FieldCoordinate) -> RelativeCoordinate {
         return self.relativeCoordinate(to: coord.position)
     }
 
 // MARK: Safe Calculations for Calculating Image Coordinate to Objects on the Field
 
-    
     /// Calculate a pixel within a specific image from a specific camera
     /// representing an object at a given position.
     ///
@@ -413,12 +572,10 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    
     public func cameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate? {
         return self.relativeCoordinate(to: coord).cameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
-    
     /// Calculate a pixel within a specific image from a specific camera
     /// representing an object at a given position.
     ///
@@ -445,12 +602,10 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    
     public func cameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate? {
         return self.relativeCoordinate(to: coord).cameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
-    
     /// Calculate a pixel within a specific image from a specific camera
     /// representing an object at a given position.
     ///
@@ -477,12 +632,10 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    
     public func pixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate? {
         return self.relativeCoordinate(to: coord).pixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
-    
     /// Calculate a pixel within a specific image from a specific camera
     /// representing an object at a given position.
     ///
@@ -509,12 +662,10 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    
     public func pixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate? {
         return self.relativeCoordinate(to: coord).pixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
-    
     /// Calculate a point in an image from a specific camera representing an
     /// object at a given position.
     ///
@@ -535,12 +686,10 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    
     public func percentCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate? {
         self.relativeCoordinate(to: coord).percentCoordinate(cameraPivot: cameraPivot, camera: camera)
     }
 
-    
     /// Calculate a point in an image from a specific camera representing an
     /// object at a given position.
     ///
@@ -561,7 +710,6 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    
     public func percentCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate? {
         self.relativeCoordinate(to: coord).percentCoordinate(cameraPivot: cameraPivot, camera: camera)
     }
