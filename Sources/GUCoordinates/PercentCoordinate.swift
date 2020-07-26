@@ -183,11 +183,8 @@ public struct PercentCoordinate: CTypeWrapper {
     /// - SeeAlso: `CameraPivot`.
     /// - SeeAlso: `Camera`.
     public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate? {
-        var relativeCoordinate = gu_relative_coordinate()
-        guard pct_coord_to_rr_coord(self.rawValue, cameraPivot.rawValue, &relativeCoordinate, CInt(camera)) else {
-            return nil
-        }
-        return RelativeCoordinate(relativeCoordinate)
+        let temp = pct_coord_to_rr_coord(self.rawValue, cameraPivot.rawValue, CInt(camera))
+        return temp.has_value ? RelativeCoordinate(temp.value) : nil
     }
     
     /// Convert this coordinate to a `RelativeCoordinate`.

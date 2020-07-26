@@ -269,11 +269,8 @@ public struct RelativeCoordinate: CTypeWrapper {
     /// - SeeAlso: `Camera`.
     /// - SeeAlso: `PercentCoordinate`.
     public func percentCoordinate(cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate? {
-        var percentCoordinate = gu_percent_coordinate();
-        guard rr_coord_to_pct_coord(self.rawValue, cameraPivot.rawValue, CInt(camera), &percentCoordinate) else {
-            return nil
-        }
-        return PercentCoordinate(percentCoordinate)
+        let temp = rr_coord_to_pct_coord(self.rawValue, cameraPivot.rawValue, CInt(camera))
+        return temp.has_value ? PercentCoordinate(temp.value) : nil
     }
     
     /// Calculate a pixel within a specific image from a specific camera
@@ -416,11 +413,8 @@ public struct RelativeCoordinate: CTypeWrapper {
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
     public func clampedPercentCoordinate(cameraPivot: CameraPivot, camera: Int, tolerance: percent_f) -> PercentCoordinate? {
-        var temp = gu_percent_coordinate()
-        guard clamped_tolerance_rr_coord_to_pct_coord(self.rawValue, cameraPivot.rawValue, CInt(camera), tolerance, &temp) else {
-            return nil
-        }
-        return PercentCoordinate(temp)
+        let temp = clamped_tolerance_rr_coord_to_pct_coord(self.rawValue, cameraPivot.rawValue, CInt(camera), tolerance)
+        return temp.has_value ? PercentCoordinate(temp.value) : nil
     }
     
 // MARK: Unsafe Calculations for Converting to Image Coordinates
