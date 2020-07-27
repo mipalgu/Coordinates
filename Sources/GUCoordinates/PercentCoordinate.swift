@@ -101,6 +101,28 @@ public struct PercentCoordinate: CTypeWrapper {
     /// - Attention: The y coordinate must be in the range of:
     ///     `-1.0 <= y <= 1.0`
     public var y: percent_f
+    
+// MARK: Bounds
+    
+    /// The lowest possible value of `x` that is within the image.
+    public var xLowerBound: percent_f {
+        return gu_percent_coordinate_x_lower_bound(self.rawValue)
+    }
+    
+    /// The highest possible value of `x` that is within the image.
+    public var xUpperBound: percent_f {
+        return gu_percent_coordinate_x_upper_bound(self.rawValue)
+    }
+    
+    /// The lowest possible value of `y` that is within the image.
+    public var yLowerBound: percent_f {
+        return gu_percent_coordinate_y_lower_bound(self.rawValue)
+    }
+    
+    /// The highest possible value of `y` that is within the image.
+    public var yUpperBound: percent_f {
+        return gu_percent_coordinate_y_upper_bound(self.rawValue)
+    }
 
 // MARK: Converting to/from the Underlying C Type
     

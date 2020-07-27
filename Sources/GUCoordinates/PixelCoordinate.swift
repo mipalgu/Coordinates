@@ -117,6 +117,28 @@ public struct PixelCoordinate: CTypeWrapper {
     /// The height of the resolution of the image. For example: 1080.
     public var resHeight: pixels_u
     
+// MARK: Bounds
+    
+    /// The lowest possible value of `x` that is within the image.
+    public var xLowerBound: pixels_t {
+        return gu_pixel_coordinate_x_lower_bound(self.rawValue)
+    }
+    
+    /// The highest possible value of `x` that is within the image.
+    public var xUpperBound: pixels_t {
+        return gu_pixel_coordinate_x_upper_bound(self.rawValue)
+    }
+    
+    /// The lowest possible value of `y` that is within the image.
+    public var yLowerBound: pixels_t {
+        return gu_pixel_coordinate_y_lower_bound(self.rawValue)
+    }
+    
+    /// The highest possible value of `y` that is within the image.
+    public var yUpperBound: pixels_t {
+        return gu_pixel_coordinate_y_upper_bound(self.rawValue)
+    }
+    
 // MARK: Converting to/from the Underlying C Type
 
     /// Represent this coordinate using the underlying C type
