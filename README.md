@@ -133,9 +133,9 @@ let goalRelativeFromRelativeBall = ballRelativeFromRobot.relativeCoordinate(to: 
 GUCoordinates is a library containing conversion functions between several coordinate
 systems. We classify the coordinates systems in general as
 
-1. Image Coordinate Systems
-2. Relative Coordinate System
-3. Field Coordinate Systems.
+1. image coordinate systems,
+2. the relative coordinate system, and,
+3. the field coordinate system.
 
 ## Image Coordinate Systems
 
@@ -245,7 +245,7 @@ The coordinate system can be depicted graphically as follows:
                  -1.0
 ```
 
-## Relative Coordinates
+## The Relative Coordinate System
 
 The `RelativeCoordinate` struct represents a coordinate within this coordinate system.
 The relative coordinate system describes the distance and direction that one coordinate
@@ -298,26 +298,12 @@ as follows:
                                     +/- 180 degrees
 ```
 
-## Field Coordinate Systems
+## The Field Coordinate System
 
-The field coordinate systems describe where object are in the world. There are two
-coordinate systems used, which are:
-
-1. Cartesian Coordinates, and
-2. Field Coordinates
-
-### Cartesian Coordinate
-___
-
-The cartesian coordinate represents the position of an object in the world.
-A cartesian coordinate is a general coordinate for representing positions
-on a two dimensional plane.
-
-This coordinate describes the position through the x and y axes. The
-`CartesianCoordinate` struct is generally used for the coordinate system of the
+The field coordinate systems describe where object are in the world.
+Cartesian coordinates are generally used for the coordinate system of the
 soccer field. This describes the world (or more specifically the soccer field)
-in terms of the location of each side of the soccer field. The home side
-is in the west, whereas the away side is in the east.
+in terms of the location of each side of the soccer field.
 
 If the field is viewed where the home side is in the west and the
 away side is in the east, then the x axis runs north to south. The
@@ -329,13 +315,22 @@ y value indicates a position in the eastern side of the field. A value
 of zero for both x and y indicate that the object is in the middle of
 the field.
 
-As an example, if we take an actual full sized 100 meter field, then
+There are two structs used to describe object within this coordinate system:
+
+1. `CartesianCoordinate`, and,
+2. `FieldCoordinates`
+
+### Cartesian Coordinate
+___
+
+This coordinate describes the position through the x and y axes. As an example, if we take
+an actual full sized 100 meter field, then
 the middle of the goal line on the home side of the field would be at
 the coordinates (0, -50). The middle of the away goal line would be
 (0, 50). The middle line which separates the two sides of a field which 
 is 60 meters wide runs from the points (-30, 0) to (30, 0). 
 
-The field coordinate system can be depicted graphically as follows:
+The cartesian coordiante can be depicted graphically as follows:
  ```
                                     ^
                                     |
@@ -358,40 +353,23 @@ The field coordinate system can be depicted graphically as follows:
                                     V
 ```
 
-When describing objects that face in certain directions it is important
-to disregard this coordinate and instead use `FieldCoordinate`.
+Note that this coordinate does not handle objects that can face (or have a bearing/heading)
+in a certain direction. For this requirement, use a `FieldCoordinate`.
 
 ### Field Coordinate
 ___
 
 A field coordinate represents an object on the soccer field that not only has a position,
-but also has a direction which the object is facing. The `FieldCoordinate` struct is used
-to represent objects within this coordinate system. A `FieldCoordinate` is defined using
+but also has a direction which the object is facing.  A `FieldCoordinate` is defined using
 two fields (`position`, `heading`) representing the position on the field (a
-`CartesianCoordinate`) and the direction which the object is facing.
+`CartesianCoordinate`) and the direction (degrees) which the object is facing.
 
-If the field is viewed where the home side is in the west and the
-away side is in the east, then the x axis runs north to south. The
-y axis runs west to east. A negative x value indicates a position
-in the northern half of the field while a positive x value indicates
-a position in the southern half of the field. A negative y value
-indicates a position in the western side of the field whereas a positive
-y value indicates a position in the eastern side of the field. A value
-of zero for both x and y indicate that the object is in the middle of
-the field.
-
-As an example, if we take an actual full sized 100 meter field, then
-the middle of the goal line on the home side of the field would be at
-the coordinates (0, -50). The middle of the away goal line would be
-(0, 50). The middle line which separates the two sides of a field which 
-is 60 meters wide runs from the points (-30, 0) to (30, 0). 
-
-The direction runs counter clockwise where the
-zero direction faces directly south. Therefore, 90 degrees points
+The direction runs counter clockwise where 0 degrees
+faces directly south; therefore, 90 degrees points
 directly east, 180 degrees points directly north and 270 degrees points
 directly west.
 
-The field coordinate system can be depicted graphically as follows:
+A `FieldCoordinate` can be depicted graphically as follows:
 ```
                                    ^
                                    |
@@ -612,14 +590,60 @@ There exist shortcut function which allow you to convert from any coordinate sys
 any other coordinate system. These are composed from all the conversion functions
 previously discussed:
 ```swift
-let fieldPosition = FieldCoordinate(position: CartesianCoordinate(x: -90, y: 120), heading: 70)
+let fieldPosition = FieldCoordinate(
+        position: CartesianCoordinate(x: -90, y: 120),
+        heading: 70
+    )
+
+// Calculate the field position of an object from camera coordinates.
 let cameraCoordinate = CameraCoordinate(x: 12, y: 23, resWidth: 640, resHeight: 480)
-guard let cartesianCoordinate = fieldPosition.cartesianCoordinate(at: cameraCoordinate, cameraPivot: naoHead, camera: bottomCamera) else {
+guard let cartesianCoordinate = fieldPosition.cartesianCoordinate(
+        at: cameraCoordinate,
+        cameraPivot: naoHead,
+        camera: bottomCamera
+    )
+else {
     fatalError("The object represented by cameraCoordinate is in the sky.")
 }
 
+// Calculate the camera coordinate of an object on the field.
 let ballPosition = CartesianCoordinate(x: -82, y: 145)
-guard let ballInCamera = fieldPosition.clampedCameraCoordinate(to: ballPosition, cameraPivot: naoHead, camera: bottomCamera, resWidth: 640, resHeight: 480, tolerance: 0.04) else {
+guard let ballInCamera = fieldPosition.clampedCameraCoordinate(
+        to: ballPosition,
+        cameraPivot: naoHead,
+        camera: bottomCamera,
+        resWidth: 640,
+        resHeight: 480,
+        tolerance: 0.04
+    )
+else {
     fatalError("The ball is not viewable by the camera.")
 }
+```
+
+Ofcourse, unsafe variants of these functions exist for conversions that may fail:
+```swift
+let fieldPosition = FieldCoordinate(
+        position: CartesianCoordinate(x: -90, y: 120),
+        heading: 70
+    )
+
+// Calculate the field position of an object from camera coordinates.
+let cameraCoordinate = CameraCoordinate(x: 12, y: 23, resWidth: 640, resHeight: 480)
+let cartesianCoordinate = fieldPosition.unsafeCartesianCoordinate(
+        at: cameraCoordinate,
+        cameraPivot: naoHead,
+        camera: bottomCamera
+    )
+
+// Calculate the camera coordinate of an object on the field.
+let ballPosition = CartesianCoordinate(x: -82, y: 145)
+let ballInCamera = fieldPosition.unsafeClampedCameraCoordinate(
+        to: ballPosition,
+        cameraPivot: naoHead,
+        camera: bottomCamera,
+        resWidth: 640,
+        resHeight: 480,
+        tolerance: 0.04
+    )
 ```
