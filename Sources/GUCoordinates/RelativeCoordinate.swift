@@ -72,6 +72,45 @@ import CGUCoordinates
 /// indicates that the target is on the left. A negative value indicates that
 /// the target is on the right. A value of zero indicates that the target is
 /// directly in front of source.
+///
+/// The relative coordinate system can be viewed graphically as follows:
+/// ```text
+///                                       0 degrees
+///                                                 * (-10 degrees, 40 cm)
+///                           \               |               /
+///                            \              |              /
+///                             \             |             /
+///                              \     ||| ///|/// |||     /
+///                               \|//        |        //|/
+///                            |// \          |          / //|
+///                         |//     \         |         /     //|
+///                       |//        \   / ///|/// /   /        //|
+///                     |//          |\/      |      //|          //|
+///                    |//        |//  \      |      /  //|        //|
+///                   |//       |//     \     |     /     //|       //|
+///                  |//      |//        \    |    /        //|      //|
+///                 |//      |//          \/ -|- //          //|      //|
+///                 //|     ,//         /- \  |  / -/         //,     |//
+///                `//`     |//        |-   \ | /   -|        //|     `//`
+///                |//      |//        -     \|/     -        //|      //|
+///  90 degrees    |/-      |//       |-      V      -|       //|      -/|    -90 degrees
+///                |//      |//        -    (0,0)    -        //|      //|
+///                ,//,     |//        |-           -|        //|     ,//,
+///                 //|     `//         /-         -/         //`     |//
+///                 |//      |//           / - - /           //|      //|
+///                  |//      |//                           //|      //|
+///                   |//       |//                       //|       //|
+///                    |//        |//                   //|        //|
+///                     |//          |//             //|          //|
+///                       |//            / /// /// /            //|
+///                         |//                               //|
+///                            |//                         //|
+///                                |//                 //|
+///                                    ||| /// /// |||
+///
+///
+///                                    +/- 180 degrees
+/// ```
 public struct RelativeCoordinate: CTypeWrapper {
 
 // MARK: Properties
