@@ -57,6 +57,7 @@
  */
 
 import CGUCoordinates
+import GUUnits
 
 
 /// A field_coordinate is a coordinate for an object that faces a certain
@@ -121,14 +122,14 @@ public struct FieldCoordinate: CTypeWrapper {
     /// zero direction faces directly south. Therefore, 90 degrees points
     /// directly east, 180 degrees points directly north and 270 degrees points
     /// directly west.
-    public var heading: degrees_t
+    public var heading: Degrees_t
 
 // MARK: Converting to/from the Underlying C Type
     
     /// Represent this coordinate using the underlying C type
     /// `gu_field_coordinate`.
     public var rawValue: gu_field_coordinate {
-        return gu_field_coordinate(position: self.position.rawValue, heading: self.heading)
+        return gu_field_coordinate(position: self.position.rawValue, heading: self.heading.rawValue)
     }
     
     /// Create a new `FieldCoordinate` by copying the values from the
@@ -137,8 +138,10 @@ public struct FieldCoordinate: CTypeWrapper {
     /// - Parameter other: An instance of `gu_field_coordinate` which
     /// contains the values that will be copied.
     public init(_ other: gu_field_coordinate) {
-        self.position = CartesianCoordinate(other.position)
-        self.heading = other.heading
+        self.init(
+            position: CartesianCoordinate(other.position),
+            heading: Degrees_t(rawValue: other.heading)
+        )
     }
     
 // MARK: Creating a FieldCoordinate
@@ -148,7 +151,7 @@ public struct FieldCoordinate: CTypeWrapper {
     /// - Parameter position: The position within the field.
     ///
     /// - Parameter heading: The direction that this coordinate is facing
-    public init(position: CartesianCoordinate = CartesianCoordinate(), heading: degrees_t = 0) {
+    public init(position: CartesianCoordinate = CartesianCoordinate(), heading: Degrees_t = 0) {
         self.position = position
         self.heading = heading
     }
@@ -176,8 +179,8 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - Returns: A new `FieldCoordinate` calculated in relation to this
     /// coordinate.
-    public func fieldCoordinate(at coord: RelativeCoordinate, heading: degrees_t) -> FieldCoordinate {
-        return FieldCoordinate(rr_coord_to_field_coord_from_source(coord.rawValue, self.rawValue, heading))
+    public func fieldCoordinate(at coord: RelativeCoordinate, heading: Degrees_t) -> FieldCoordinate {
+        return FieldCoordinate(rr_coord_to_field_coord_from_source(coord.rawValue, self.rawValue, heading.rawValue))
     }
 
     /// Calculate the position of an object in an image in relation to this
@@ -280,7 +283,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func fieldCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate? {
+    public func fieldCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int, heading: Degrees_t) -> FieldCoordinate? {
         guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
             return nil
         }
@@ -309,7 +312,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func fieldCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate? {
+    public func fieldCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int, heading: Degrees_t) -> FieldCoordinate? {
         guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
             return nil
         }
@@ -338,7 +341,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func fieldCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate? {
+    public func fieldCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int, heading: Degrees_t) -> FieldCoordinate? {
         guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
             return nil
         }
@@ -456,7 +459,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeFieldCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate {
+    public func unsafeFieldCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int, heading: Degrees_t) -> FieldCoordinate {
         return fieldCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera), heading: heading)
     }
     
@@ -487,7 +490,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeFieldCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate {
+    public func unsafeFieldCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int, heading: Degrees_t) -> FieldCoordinate {
         return fieldCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera), heading: heading)
     }
     
@@ -518,7 +521,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeFieldCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int, heading: degrees_t) -> FieldCoordinate {
+    public func unsafeFieldCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int, heading: Degrees_t) -> FieldCoordinate {
         return fieldCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera), heading: heading)
     }
 
@@ -572,7 +575,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func cameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate? {
+    public func cameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> CameraCoordinate? {
         return self.relativeCoordinate(to: coord).cameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
@@ -602,7 +605,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func cameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate? {
+    public func cameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> CameraCoordinate? {
         return self.relativeCoordinate(to: coord).cameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
@@ -632,7 +635,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func pixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate? {
+    public func pixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> PixelCoordinate? {
         return self.relativeCoordinate(to: coord).pixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
@@ -662,7 +665,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func pixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate? {
+    public func pixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> PixelCoordinate? {
         return self.relativeCoordinate(to: coord).pixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
@@ -753,7 +756,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func clampedCameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u, tolerance: percent_f) -> CameraCoordinate? {
+    public func clampedCameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_f) -> CameraCoordinate? {
         return self.relativeCoordinate(to: coord).clampedCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
     }
 
@@ -796,7 +799,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func clampedCameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u, tolerance: percent_f) -> CameraCoordinate? {
+    public func clampedCameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_f) -> CameraCoordinate? {
         return self.relativeCoordinate(to: coord).clampedCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
     }
 
@@ -851,7 +854,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func clampedPixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u, tolerance: percent_f) -> PixelCoordinate? {
+    public func clampedPixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_f) -> PixelCoordinate? {
         return self.relativeCoordinate(to: coord).clampedPixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
     }
 
@@ -906,7 +909,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func clampedPixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u, tolerance: percent_f) -> PixelCoordinate? {
+    public func clampedPixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_f) -> PixelCoordinate? {
         return self.relativeCoordinate(to: coord).clampedPixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
     }
 
@@ -957,7 +960,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func clampedPercentCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, tolerance: percent_f) -> PercentCoordinate? {
+    public func clampedPercentCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, tolerance: Percent_f) -> PercentCoordinate? {
         self.relativeCoordinate(to: coord).clampedPercentCoordinate(cameraPivot: cameraPivot, camera: camera, tolerance: tolerance)
     }
 
@@ -1008,7 +1011,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func clampedPercentCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, tolerance: percent_f) -> PercentCoordinate? {
+    public func clampedPercentCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, tolerance: Percent_f) -> PercentCoordinate? {
         self.relativeCoordinate(to: coord).clampedPercentCoordinate(cameraPivot: cameraPivot, camera: camera, tolerance: tolerance)
     }
     
@@ -1045,7 +1048,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeCameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate {
+    public func unsafeCameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> CameraCoordinate {
         return self.relativeCoordinate(to: coord).unsafeCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
@@ -1080,7 +1083,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeCameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate {
+    public func unsafeCameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> CameraCoordinate {
         return self.relativeCoordinate(to: coord).unsafeCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
@@ -1115,7 +1118,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafePixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate {
+    public func unsafePixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> PixelCoordinate {
         return self.relativeCoordinate(to: coord).unsafePixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
@@ -1150,7 +1153,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafePixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate {
+    public func unsafePixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> PixelCoordinate {
         return self.relativeCoordinate(to: coord).unsafePixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
@@ -1282,7 +1285,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeClampedCameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u, tolerance: percent_f? = nil) -> CameraCoordinate {
+    public func unsafeClampedCameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_f? = nil) -> CameraCoordinate {
         return self.relativeCoordinate(to: coord).unsafeClampedCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
     }
 
@@ -1342,7 +1345,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeClampedCameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u, tolerance: percent_f? = nil) -> CameraCoordinate {
+    public func unsafeClampedCameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_f? = nil) -> CameraCoordinate {
         return self.relativeCoordinate(to: coord).unsafeClampedCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
     }
 
@@ -1407,7 +1410,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeClampedPixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u, tolerance: percent_f? = nil) -> PixelCoordinate {
+    public func unsafeClampedPixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_f? = nil) -> PixelCoordinate {
         return self.relativeCoordinate(to: coord).unsafeClampedPixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
     }
 
@@ -1472,7 +1475,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeClampedPixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: pixels_u, resHeight: pixels_u, tolerance: percent_f? = nil) -> PixelCoordinate {
+    public func unsafeClampedPixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_f? = nil) -> PixelCoordinate {
         return self.relativeCoordinate(to: coord).unsafeClampedPixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
     }
 
@@ -1533,7 +1536,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeClampedPercentCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, tolerance: percent_f? = nil) -> PercentCoordinate {
+    public func unsafeClampedPercentCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, tolerance: Percent_f? = nil) -> PercentCoordinate {
         self.relativeCoordinate(to: coord).unsafeClampedPercentCoordinate(cameraPivot: cameraPivot, camera: camera, tolerance: tolerance)
     }
 
@@ -1594,7 +1597,7 @@ public struct FieldCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeClampedPercentCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, tolerance: percent_f? = nil) -> PercentCoordinate {
+    public func unsafeClampedPercentCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, tolerance: Percent_f? = nil) -> PercentCoordinate {
         self.relativeCoordinate(to: coord).unsafeClampedPercentCoordinate(cameraPivot: cameraPivot, camera: camera, tolerance: tolerance)
     }
 

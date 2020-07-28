@@ -57,6 +57,7 @@
  */
 
 import CGUCoordinates
+import GUUnits
 
 /// A `PercentCoordinate` represents coordinates within an image
 /// as points in centered percentage coordinates. This coordinate systems is
@@ -94,34 +95,34 @@ public struct PercentCoordinate: CTypeWrapper {
     ///
     /// - Attention: The x coordinate must be in the range of:
     ///     `-1.0 <= x <= 1.0`
-    public var x: percent_f
+    public var x: Percent_f
 
     /// The y coordinate of the point within the image as a percentage.
     ///
     /// - Attention: The y coordinate must be in the range of:
     ///     `-1.0 <= y <= 1.0`
-    public var y: percent_f
+    public var y: Percent_f
     
 // MARK: Bounds
     
     /// The lowest possible value of `x` that is within the image.
-    public var xLowerBound: percent_f {
-        return gu_percent_coordinate_x_lower_bound(self.rawValue)
+    public var xLowerBound: Percent_f {
+        return Percent_f(rawValue: gu_percent_coordinate_x_lower_bound(self.rawValue))
     }
     
     /// The highest possible value of `x` that is within the image.
-    public var xUpperBound: percent_f {
-        return gu_percent_coordinate_x_upper_bound(self.rawValue)
+    public var xUpperBound: Percent_f {
+        return Percent_f(rawValue: gu_percent_coordinate_x_upper_bound(self.rawValue))
     }
     
     /// The lowest possible value of `y` that is within the image.
-    public var yLowerBound: percent_f {
-        return gu_percent_coordinate_y_lower_bound(self.rawValue)
+    public var yLowerBound: Percent_f {
+        return Percent_f(rawValue: gu_percent_coordinate_y_lower_bound(self.rawValue))
     }
     
     /// The highest possible value of `y` that is within the image.
-    public var yUpperBound: percent_f {
-        return gu_percent_coordinate_y_upper_bound(self.rawValue)
+    public var yUpperBound: Percent_f {
+        return Percent_f(rawValue: gu_percent_coordinate_y_upper_bound(self.rawValue))
     }
 
 // MARK: Converting to/from the Underlying C Type
@@ -129,7 +130,7 @@ public struct PercentCoordinate: CTypeWrapper {
     /// Represent this coordinate using the underlying C type
     /// `gu_percent_coordinate`.
     public var rawValue: gu_percent_coordinate {
-        return gu_percent_coordinate(x: self.x, y: self.y)
+        return gu_percent_coordinate(x: self.x.rawValue, y: self.y.rawValue)
     }
     
     /// Create a new `PercentCoordinate` by copying the values from the
@@ -138,8 +139,10 @@ public struct PercentCoordinate: CTypeWrapper {
     /// - Parameter other: An instance of `gu_percent_coordinate` which contains
     /// the values that will be copied.
     public init(_ other: gu_percent_coordinate) {
-        self.x = other.x
-        self.y = other.y
+        self.init(
+            x: Percent_f(rawValue: other.x),
+            y: Percent_f(rawValue: other.y)
+        )
     }
     
 // MARK: Creating a PercentCoordinate
@@ -149,7 +152,7 @@ public struct PercentCoordinate: CTypeWrapper {
     /// - Parameter x: The x coordinate of the point within the image.
     ///
     /// - Parameter y: The y coordinate of the point within the image.
-    public init(x: percent_f = 0.0, y: percent_f = 0.0) {
+    public init(x: Percent_f = 0.0, y: Percent_f = 0.0) {
         self.x = x
         self.y = y
     }
@@ -166,7 +169,7 @@ public struct PercentCoordinate: CTypeWrapper {
     ///
     /// - Returns: A new `CameraCoordinate` representing `self` in camera
     /// coordinates.
-    public func cameraCoordinate(resWidth: pixels_u, resHeight: pixels_u) -> CameraCoordinate {
+    public func cameraCoordinate(resWidth: Pixels_u, resHeight: Pixels_u) -> CameraCoordinate {
         return self.pixelCoordinate(resWidth: resWidth, resHeight: resHeight).cameraCoordinate
     }
 
@@ -180,8 +183,8 @@ public struct PercentCoordinate: CTypeWrapper {
     ///
     /// - Returns: A new `PixelCoordinate` representing `self` in centered
     /// pixel coordinates.
-    public func pixelCoordinate(resWidth: pixels_u, resHeight: pixels_u) -> PixelCoordinate {
-        return PixelCoordinate(pct_coord_to_px_coord(self.rawValue, resWidth, resHeight))
+    public func pixelCoordinate(resWidth: Pixels_u, resHeight: Pixels_u) -> PixelCoordinate {
+        return PixelCoordinate(pct_coord_to_px_coord(self.rawValue, resWidth.rawValue, resHeight.rawValue))
     }
     
 // MARK: Converting To Relative Coordinates

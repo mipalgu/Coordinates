@@ -57,3 +57,4 @@
  */
 
 @_exported import CGUCoordinates
+@_exported import GUUnits

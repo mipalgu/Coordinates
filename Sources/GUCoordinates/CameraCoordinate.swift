@@ -57,6 +57,7 @@
  */
 
 import CGUCoordinates
+import GUUnits
 
 /// A `CameraCoordinate` represents a coordinate of a pixel within an image
 /// where the (0, 0) coordinate is in the top left hand corner of the image.
@@ -88,40 +89,40 @@ public struct CameraCoordinate: CTypeWrapper {
     ///
     /// - Attention: The x coordinate must be in the range of:
     ///     `0 <= x < resWidth`
-    public var x: pixels_u
+    public var x: Pixels_u
 
     /// The y coordinate of the pixel within the image.
     ///
     /// - Attention: The y coordinate must be in the range of:
     ///     `0 <= y <= `resHeight`
-    public var y: pixels_u
+    public var y: Pixels_u
 
     /// The width of the resolution of the image. For example: 1920.
-    public var resWidth: pixels_u
+    public var resWidth: Pixels_u
 
     /// The height of the resolution of the image. For example: 1080.
-    public var resHeight: pixels_u
+    public var resHeight: Pixels_u
     
 // MARK: Bounds
     
     /// The lowest possible value of `x` that is within the image.
-    public var xLowerBound: pixels_t {
-        return gu_camera_coordinate_x_lower_bound(self.rawValue)
+    public var xLowerBound: Pixels_t {
+        return Pixels_t(rawValue: gu_camera_coordinate_x_lower_bound(self.rawValue))
     }
     
     /// The highest possible value of `x` that is within the image.
-    public var xUpperBound: pixels_t {
-        return gu_camera_coordinate_x_upper_bound(self.rawValue)
+    public var xUpperBound: Pixels_t {
+        return Pixels_t(rawValue: gu_camera_coordinate_x_upper_bound(self.rawValue))
     }
     
     /// The lowest possible value of `y` that is within the image.
-    public var yLowerBound: pixels_t {
-        return gu_camera_coordinate_y_lower_bound(self.rawValue)
+    public var yLowerBound: Pixels_t {
+        return Pixels_t(rawValue: gu_camera_coordinate_y_lower_bound(self.rawValue))
     }
     
     /// The highest possible value of `y` that is within the image.
-    public var yUpperBound: pixels_t {
-        return gu_camera_coordinate_y_upper_bound(self.rawValue)
+    public var yUpperBound: Pixels_t {
+        return Pixels_t(rawValue: gu_camera_coordinate_y_upper_bound(self.rawValue))
     }
 
 // MARK: Converting to/from the Underlying C Type
@@ -129,7 +130,12 @@ public struct CameraCoordinate: CTypeWrapper {
     /// Represent this coordinate using the underlying C type
     /// `gu_camera_coordinate`.
     public var rawValue: gu_camera_coordinate {
-        return gu_camera_coordinate(x: self.x, y: self.y, res_width: self.resWidth, res_height: self.resHeight)
+        return gu_camera_coordinate(
+            x: self.x.rawValue,
+            y: self.y.rawValue,
+            res_width: self.resWidth.rawValue,
+            res_height: self.resHeight.rawValue
+        )
     }
     
     /// Create a new `CameraCoordinate` by copying the values from the
@@ -138,10 +144,13 @@ public struct CameraCoordinate: CTypeWrapper {
     /// - Parameter other: An instance of `gu_camera_coordinate` which contains
     /// the values that will be copied.
     public init(_ other: gu_camera_coordinate) {
-        self.x = other.x
-        self.y = other.y
-        self.resWidth = other.res_width
-        self.resHeight = other.res_height
+        self.init(
+            x: Pixels_u(rawValue: other.x),
+            y: Pixels_u(rawValue: other.y),
+            resWidth: Pixels_u(rawValue: other.res_width),
+            resHeight: Pixels_u(rawValue: other.res_height)
+        )
+        
     }
 
     /// Create a new `CameraCoordinate`.
@@ -153,7 +162,7 @@ public struct CameraCoordinate: CTypeWrapper {
     /// - Parameter resWidth: The width of the resolution of the image.
     ///
     /// - Parameter resHeight: The height of the resolution of the image.
-    public init(x: pixels_u = 0, y: pixels_u = 0, resWidth: pixels_u = 0, resHeight: pixels_u = 0) {
+    public init(x: Pixels_u = 0, y: Pixels_u = 0, resWidth: Pixels_u = 0, resHeight: Pixels_u = 0) {
         self.x = x
         self.y = y
         self.resWidth = resWidth

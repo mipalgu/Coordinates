@@ -57,6 +57,7 @@
  */
 
 import CGUCoordinates
+import GUUnits
 
 /// A `CameraPivot` represents the pivot point which a `Camera` is attached to.
 ///
@@ -69,13 +70,13 @@ public struct CameraPivot: CTypeWrapper {
 // MARK: Properties
     
     /// The vertical orientation of the pivot point.
-    public var pitch: degrees_f
+    public var pitch: Degrees_f
 
     /// The horizontal orientation of the pivot point.
-    public var yaw: degrees_f
+    public var yaw: Degrees_f
 
     /// The vertical distance from the ground to the pivot point.
-    public var height: centimetres_f
+    public var height: Centimetres_f
 
     /// The `Camera`s attached to this pivot point.
     public var cameras: [Camera]
@@ -85,9 +86,9 @@ public struct CameraPivot: CTypeWrapper {
     /// Represent this coordinate using the underlying C type `gu_camera_pivot`.
     public var rawValue: gu_camera_pivot {
         var cameraPivot = gu_camera_pivot()
-        cameraPivot.pitch = self.pitch
-        cameraPivot.yaw = self.yaw
-        cameraPivot.height = self.height
+        cameraPivot.pitch = self.pitch.rawValue
+        cameraPivot.yaw = self.yaw.rawValue
+        cameraPivot.height = self.height.rawValue
         for (index, camera) in self.cameras.enumerated() where index < GU_CAMERA_PIVOT_NUM_CAMERAS {
             withUnsafeMutablePointer(to: &cameraPivot.cameras.0) {
                 $0[index] = camera.rawValue
@@ -104,13 +105,15 @@ public struct CameraPivot: CTypeWrapper {
     /// the values that will be copied.
     public init(_ other: gu_camera_pivot) {
         var other = other
-        self.pitch = other.pitch
-        self.yaw = other.yaw
-        self.height = other.height
-        self.cameras = withUnsafePointer(to: &other.cameras.0) {
-            let buffer = UnsafeBufferPointer(start: $0, count: Int(min(other.numCameras, GU_CAMERA_PIVOT_NUM_CAMERAS)))
-            return buffer.map { Camera($0) }
-        }
+        self.init(
+            pitch: Degrees_f(rawValue: other.pitch),
+            yaw: Degrees_f(rawValue: other.yaw),
+            height: Centimetres_f(rawValue: other.height),
+            cameras: withUnsafePointer(to: &other.cameras.0) {
+                let buffer = UnsafeBufferPointer(start: $0, count: Int(min(other.numCameras, GU_CAMERA_PIVOT_NUM_CAMERAS)))
+                return buffer.map { Camera($0) }
+            }
+        )
     }
     
 // MARK: Creating a CameraPivot
@@ -126,7 +129,7 @@ public struct CameraPivot: CTypeWrapper {
     ///
     /// - Parameter cameras: The `Camera`s attached to this pivot
     /// point.
-    public init(pitch: degrees_f = 0, yaw: degrees_f = 0, height: centimetres_f = 0.0, cameras: [Camera] = []) {
+    public init(pitch: Degrees_f = 0, yaw: Degrees_f = 0, height: Centimetres_f = 0.0, cameras: [Camera] = []) {
         self.pitch = pitch
         self.yaw = yaw
         self.height = height
