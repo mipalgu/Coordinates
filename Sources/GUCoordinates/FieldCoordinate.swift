@@ -122,14 +122,17 @@ public struct FieldCoordinate: CTypeWrapper {
     /// zero direction faces directly south. Therefore, 90 degrees points
     /// directly east, 180 degrees points directly north and 270 degrees points
     /// directly west.
-    public var heading: Degrees_t
+    public var heading: Angle
 
 // MARK: Converting to/from the Underlying C Type
     
     /// Represent this coordinate using the underlying C type
     /// `gu_field_coordinate`.
     public var rawValue: gu_field_coordinate {
-        return gu_field_coordinate(position: self.position.rawValue, heading: self.heading.rawValue)
+        return gu_field_coordinate(
+            position: self.position.rawValue,
+            heading: self.heading.degrees_t.rawValue
+        )
     }
     
     /// Create a new `FieldCoordinate` by copying the values from the
@@ -140,7 +143,7 @@ public struct FieldCoordinate: CTypeWrapper {
     public init(_ other: gu_field_coordinate) {
         self.init(
             position: CartesianCoordinate(other.position),
-            heading: Degrees_t(rawValue: other.heading)
+            heading: Angle(Degrees_t(rawValue: other.heading))
         )
     }
     
@@ -151,7 +154,7 @@ public struct FieldCoordinate: CTypeWrapper {
     /// - Parameter position: The position within the field.
     ///
     /// - Parameter heading: The direction that this coordinate is facing
-    public init(position: CartesianCoordinate = CartesianCoordinate(), heading: Degrees_t = 0) {
+    public init(position: CartesianCoordinate = CartesianCoordinate(), heading: Angle = 0) {
         self.position = position
         self.heading = heading
     }

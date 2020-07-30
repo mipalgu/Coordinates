@@ -122,17 +122,20 @@ public struct RelativeCoordinate: CTypeWrapper {
     /// the left. A negative value indicates that the target is on the
     /// right. A value of zero indicates that the target is pointing
     /// straight ahead.
-    public var direction: Degrees_d
+    public var direction: Angle
 
     /// The distance to the target.
-    public var distance: Millimetres_u
+    public var distance: Distance
 
 // MARK: Converting to/from the Underlying C Type
     
     /// Represent this coordinate using the underlying C type
     /// `gu_relative_coordinate`.
     public var rawValue: gu_relative_coordinate {
-        return gu_relative_coordinate(direction: self.direction.rawValue, distance: self.distance.rawValue)
+        return gu_relative_coordinate(
+            direction: self.direction.degrees_d.rawValue,
+            distance: self.distance.millimetres_u.rawValue
+        )
     }
     
     /// Create a new `RelativeCoordinate` by copying the values from the
@@ -142,8 +145,8 @@ public struct RelativeCoordinate: CTypeWrapper {
     /// the values that will be copied.
     public init(_ other: gu_relative_coordinate) {
         self.init(
-            direction: Degrees_d(other.direction),
-            distance: Millimetres_u(other.distance)
+            direction: Angle(Degrees_d(other.direction)),
+            distance: Distance(Millimetres_u(other.distance))
         )
     }
 
@@ -154,7 +157,7 @@ public struct RelativeCoordinate: CTypeWrapper {
     /// - Parameter direction: The direction to the target.
     ///
     /// - Parameter distance: The distance to the target.
-    public init(direction: Degrees_d = 0, distance: Millimetres_u = 0) {
+    public init(direction: Angle = 0, distance: Distance = 0) {
         self.direction = direction
         self.distance = distance
     }

@@ -70,13 +70,13 @@ public struct CameraPivot: CTypeWrapper {
 // MARK: Properties
     
     /// The vertical orientation of the pivot point.
-    public var pitch: Degrees_d
+    public var pitch: Angle
 
     /// The horizontal orientation of the pivot point.
-    public var yaw: Degrees_d
+    public var yaw: Angle
 
     /// The vertical distance from the ground to the pivot point.
-    public var height: Centimetres_d
+    public var height: Distance
 
     /// The `Camera`s attached to this pivot point.
     public var cameras: [Camera]
@@ -86,9 +86,9 @@ public struct CameraPivot: CTypeWrapper {
     /// Represent this coordinate using the underlying C type `gu_camera_pivot`.
     public var rawValue: gu_camera_pivot {
         var cameraPivot = gu_camera_pivot()
-        cameraPivot.pitch = self.pitch.rawValue
-        cameraPivot.yaw = self.yaw.rawValue
-        cameraPivot.height = self.height.rawValue
+        cameraPivot.pitch = self.pitch.degrees_d.rawValue
+        cameraPivot.yaw = self.yaw.degrees_d.rawValue
+        cameraPivot.height = self.height.centimetres_d.rawValue
         for (index, camera) in self.cameras.enumerated() where index < GU_CAMERA_PIVOT_NUM_CAMERAS {
             withUnsafeMutablePointer(to: &cameraPivot.cameras.0) {
                 $0[index] = camera.rawValue
@@ -106,9 +106,9 @@ public struct CameraPivot: CTypeWrapper {
     public init(_ other: gu_camera_pivot) {
         var other = other
         self.init(
-            pitch: Degrees_d(rawValue: other.pitch),
-            yaw: Degrees_d(rawValue: other.yaw),
-            height: Centimetres_d(rawValue: other.height),
+            pitch: Angle(Degrees_d(rawValue: other.pitch)),
+            yaw: Angle(Degrees_d(rawValue: other.yaw)),
+            height: Distance(Centimetres_d(rawValue: other.height)),
             cameras: withUnsafePointer(to: &other.cameras.0) {
                 let buffer = UnsafeBufferPointer(start: $0, count: Int(min(other.numCameras, GU_CAMERA_PIVOT_NUM_CAMERAS)))
                 return buffer.map { Camera($0) }
@@ -129,7 +129,7 @@ public struct CameraPivot: CTypeWrapper {
     ///
     /// - Parameter cameras: The `Camera`s attached to this pivot
     /// point.
-    public init(pitch: Degrees_d = 0, yaw: Degrees_d = 0, height: Centimetres_d = 0.0, cameras: [Camera] = []) {
+    public init(pitch: Angle = 0, yaw: Angle = 0, height: Distance = 0.0, cameras: [Camera] = []) {
         self.pitch = pitch
         self.yaw = yaw
         self.height = height
