@@ -95,34 +95,34 @@ public struct PercentCoordinate: CTypeWrapper {
     ///
     /// - Attention: The x coordinate must be in the range of:
     ///     `-1.0 <= x <= 1.0`
-    public var x: Percent_f
+    public var x: Percent_d
 
     /// The y coordinate of the point within the image as a percentage.
     ///
     /// - Attention: The y coordinate must be in the range of:
     ///     `-1.0 <= y <= 1.0`
-    public var y: Percent_f
+    public var y: Percent_d
     
 // MARK: Bounds
     
     /// The lowest possible value of `x` that is within the image.
-    public var xLowerBound: Percent_f {
-        return Percent_f(rawValue: gu_percent_coordinate_x_lower_bound(self.rawValue))
+    public var xLowerBound: Percent_d {
+        return Percent_d(rawValue: gu_percent_coordinate_x_lower_bound(self.rawValue))
     }
     
     /// The highest possible value of `x` that is within the image.
-    public var xUpperBound: Percent_f {
-        return Percent_f(rawValue: gu_percent_coordinate_x_upper_bound(self.rawValue))
+    public var xUpperBound: Percent_d {
+        return Percent_d(rawValue: gu_percent_coordinate_x_upper_bound(self.rawValue))
     }
     
     /// The lowest possible value of `y` that is within the image.
-    public var yLowerBound: Percent_f {
-        return Percent_f(rawValue: gu_percent_coordinate_y_lower_bound(self.rawValue))
+    public var yLowerBound: Percent_d {
+        return Percent_d(rawValue: gu_percent_coordinate_y_lower_bound(self.rawValue))
     }
     
     /// The highest possible value of `y` that is within the image.
-    public var yUpperBound: Percent_f {
-        return Percent_f(rawValue: gu_percent_coordinate_y_upper_bound(self.rawValue))
+    public var yUpperBound: Percent_d {
+        return Percent_d(rawValue: gu_percent_coordinate_y_upper_bound(self.rawValue))
     }
 
 // MARK: Converting to/from the Underlying C Type
@@ -140,8 +140,8 @@ public struct PercentCoordinate: CTypeWrapper {
     /// the values that will be copied.
     public init(_ other: gu_percent_coordinate) {
         self.init(
-            x: Percent_f(rawValue: other.x),
-            y: Percent_f(rawValue: other.y)
+            x: Percent_d(rawValue: other.x),
+            y: Percent_d(rawValue: other.y)
         )
     }
     
@@ -152,7 +152,7 @@ public struct PercentCoordinate: CTypeWrapper {
     /// - Parameter x: The x coordinate of the point within the image.
     ///
     /// - Parameter y: The y coordinate of the point within the image.
-    public init(x: Percent_f = 0.0, y: Percent_f = 0.0) {
+    public init(x: Percent_d = 0.0, y: Percent_d = 0.0) {
         self.x = x
         self.y = y
     }

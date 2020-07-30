@@ -84,8 +84,8 @@ extension gu_percent_coordinate: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let x = try values.decode(percent_f.self, forKey: .x)
-        let y = try values.decode(percent_f.self, forKey: .y)
+        let x = try values.decode(percent_d.self, forKey: .x)
+        let y = try values.decode(percent_d.self, forKey: .y)
         self.init(x: x, y: y)
     }
 

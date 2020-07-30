@@ -74,7 +74,7 @@ public struct Camera: CTypeWrapper {
     /// a camera on a stick then it's the length of the stick. If it's a camera
     /// on the head of the robot then its the length from the neck to the
     /// camera.
-    public var height: Centimetres_f
+    public var height: Centimetres_d
 
     /// The distance the camera is from the center point. A positive value
     /// indicates that the camera is in front of the center point while a
@@ -84,19 +84,19 @@ public struct Camera: CTypeWrapper {
     /// This property is useful for when the robot is mounted on a robot
     /// and distance calculations need to be calculated from the torso,
     /// not the camera.
-    public var centerOffset: Centimetres_f
+    public var centerOffset: Centimetres_d
 
     /// The degree in which the camera is facing in the vertical direction.
     ///
     /// A positive value means that the camera is pointing more to the ground. A
     /// negative value means that the camera is pointing more to the sky.
-    public var vDirection: Degrees_f
+    public var vDirection: Degrees_d
 
     /// The vertical field of view.
-    public var vFov: Degrees_f
+    public var vFov: Degrees_d
 
     /// The horizontal field of view.
-    public var hFov: Degrees_f
+    public var hFov: Degrees_d
 
 // MARK: Converting to/from the Underlying C Type
     
@@ -118,11 +118,11 @@ public struct Camera: CTypeWrapper {
     /// the values that will be copied.
     public init(_ other: gu_camera) {
         self.init(
-            height: Centimetres_f(rawValue: other.height),
-            centerOffset: Centimetres_f(rawValue: other.centerOffset),
-            vDirection: Degrees_f(rawValue: other.vDirection),
-            vFov: Degrees_f(rawValue: other.vFov),
-            hFov: Degrees_f(rawValue: other.hFov)
+            height: Centimetres_d(rawValue: other.height),
+            centerOffset: Centimetres_d(rawValue: other.centerOffset),
+            vDirection: Degrees_d(rawValue: other.vDirection),
+            vFov: Degrees_d(rawValue: other.vFov),
+            hFov: Degrees_d(rawValue: other.hFov)
         )
     }
     
@@ -140,7 +140,7 @@ public struct Camera: CTypeWrapper {
     /// vertical direction. A positive value indicates that the camera is
     /// pointing more to the ground, whereas a negative value indicates that the
     /// camera is pointing more to the sky.
-    public init(height: Centimetres_f = 0.0, centerOffset: Centimetres_f = 0.0, vDirection: Degrees_f = 0.0, vFov: Degrees_f = 0.0, hFov: Degrees_f = 0.0) {
+    public init(height: Centimetres_d = 0.0, centerOffset: Centimetres_d = 0.0, vDirection: Degrees_d = 0.0, vFov: Degrees_d = 0.0, hFov: Degrees_d = 0.0) {
         self.height = height
         self.centerOffset = centerOffset
         self.vDirection = vDirection

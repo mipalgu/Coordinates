@@ -94,11 +94,11 @@ extension gu_camera: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let height = try values.decode(centimetres_f.self, forKey: .height)
-        let centerOffset = try values.decode(centimetres_f.self, forKey: .centerOffset)
-        let vDirection = try values.decode(degrees_f.self, forKey: .vDirection)
-        let vFov = try values.decode(degrees_f.self, forKey: .vFov)
-        let hFov = try values.decode(degrees_f.self, forKey: .hFov)
+        let height = try values.decode(centimetres_d.self, forKey: .height)
+        let centerOffset = try values.decode(centimetres_d.self, forKey: .centerOffset)
+        let vDirection = try values.decode(degrees_d.self, forKey: .vDirection)
+        let vFov = try values.decode(degrees_d.self, forKey: .vFov)
+        let hFov = try values.decode(degrees_d.self, forKey: .hFov)
         self.init(height: height, centerOffset: centerOffset, vDirection: vDirection, vFov: vFov, hFov: hFov)
     }
 

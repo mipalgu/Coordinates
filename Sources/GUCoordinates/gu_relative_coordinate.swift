@@ -84,8 +84,8 @@ extension gu_relative_coordinate: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let direction = try values.decode(degrees_t.self, forKey: .direction)
-        let distance = try values.decode(centimetres_u.self, forKey: .distance)
+        let direction = try values.decode(degrees_d.self, forKey: .direction)
+        let distance = try values.decode(millimetres_u.self, forKey: .distance)
         self.init(direction: direction, distance: distance)
     }
 

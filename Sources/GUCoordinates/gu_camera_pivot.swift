@@ -87,7 +87,7 @@ extension gu_camera_pivot {
         }
     }
 
-    public init(pitch: degrees_f, yaw: degrees_f, height: centimetres_f, cameraList: [gu_camera]) {
+    public init(pitch: degrees_d, yaw: degrees_d, height: centimetres_d, cameraList: [gu_camera]) {
         self.init()
         self.pitch = pitch
         self.yaw = yaw
@@ -131,9 +131,9 @@ extension gu_camera_pivot: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let pitch = try values.decode(degrees_f.self, forKey: .pitch)
-        let yaw = try values.decode(degrees_f.self, forKey: .yaw)
-        let height = try values.decode(centimetres_f.self, forKey: .height)
+        let pitch = try values.decode(degrees_d.self, forKey: .pitch)
+        let yaw = try values.decode(degrees_d.self, forKey: .yaw)
+        let height = try values.decode(centimetres_d.self, forKey: .height)
         let cameraList = try values.decode([gu_camera].self, forKey: .cameraList)
         self.init(pitch: pitch, yaw: yaw, height: height, cameraList: cameraList)
     }
