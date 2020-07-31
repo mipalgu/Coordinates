@@ -159,6 +159,40 @@ public struct FieldCoordinate: CTypeWrapper {
         self.heading = heading
     }
     
+// MARK: Checking Visibility of Object Around The Field
+    
+    /// Can the camera see the object?
+    ///
+    /// - Parameter coord: The location of the object on the field.
+    ///
+    /// - Parameter cameraPivot: The camera pivot which the camera is attached
+    /// to.
+    ///
+    /// - Parameter camera: The camera index for the camera in the camera
+    /// pivots `cameras` array.
+    ///
+    /// - Returns: True if the specified camera can see the object, False
+    /// otherwise.
+    public func canSee(objectAt coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int) -> Bool {
+        return cameraPivot.canSee(object: self.relativeCoordinate(to: coord), inCamera: camera)
+    }
+    
+    /// Can the camera see the object?
+    ///
+    /// - Parameter coord: The location of the object on the field.
+    ///
+    /// - Parameter cameraPivot: The camera pivot which the camera is attached
+    /// to.
+    ///
+    /// - Parameter camera: The camera index for the camera in the camera
+    /// pivots `cameras` array.
+    ///
+    /// - Returns: True if the specified camera can see the object, False
+    /// otherwise.
+    public func canSee(objectAt coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int) -> Bool {
+        return cameraPivot.canSee(object: self.relativeCoordinate(to: coord), inCamera: camera)
+    }
+    
 // MARK: Calculating Coordinates Around The Field
 
     /// Calculate the position of a coordinate in relation to this coordinate.

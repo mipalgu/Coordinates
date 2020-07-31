@@ -135,6 +135,63 @@ public struct CameraPivot: CTypeWrapper {
         self.height = height
         self.cameras = cameras
     }
+    
+// MARK: - Checking Whether Conversions Are Possible
+    
+    /// Is the object represent by the pixel in the image taken from the camera
+    /// on the ground?
+    ///
+    /// - Parameter coord: The pixel in the image representing the object.
+    ///
+    /// - Parameter camera: The camera index for the camera in the `cameras`
+    /// array.
+    ///
+    /// - Returns: True if the pixel represents an object that is on the ground.
+    /// Otherwise, False.
+    public func objectOnGround(_ coord: CameraCoordinate, forCamera camera: Int) -> Bool {
+        return self.objectOnGround(coord.percentCoordinate, forCamera: camera)
+    }
+    
+    /// Is the object represent by the pixel in the image taken from the camera
+    /// on the ground?
+    ///
+    /// - Parameter coord: The pixel in the image representing the object.
+    ///
+    /// - Parameter camera: The camera index for the camera in the `cameras`
+    /// array.
+    ///
+    /// - Returns: True if the pixel represents an object that is on the ground.
+    /// Otherwise, False.
+    public func objectOnGround(_ coord: PixelCoordinate, forCamera camera: Int) -> Bool {
+        return self.objectOnGround(coord.percentCoordinate, forCamera: camera)
+    }
+    
+    /// Is the object represent by the pixel in the image taken from the camera
+    /// on the ground?
+    ///
+    /// - Parameter coord: The pixel in the image representing the object.
+    ///
+    /// - Parameter camera: The camera index for the camera in the `cameras`
+    /// array.
+    ///
+    /// - Returns: True if the pixel represents an object that is on the ground.
+    /// Otherwise, False.
+    public func objectOnGround(_ coord: PercentCoordinate, forCamera camera: Int) -> Bool {
+        return gu_camera_pivot_object_on_ground(self.rawValue, CInt(camera), coord.rawValue)
+    }
+    
+    /// Can the camera see the object?
+    ///
+    /// - Parameter coord: The location of the object in relation to the camera.
+    ///
+    /// - Parameter camera: The camera index for the camera in the `cameras`
+    /// array.
+    ///
+    /// - Returns: True if the specified camera can see the object, False
+    /// otherwise.
+    public func canSee(object coord: RelativeCoordinate, inCamera camera: Int) -> Bool {
+        return gu_camera_pivot_can_see_object(self.rawValue, CInt(camera), coord.rawValue)
+    }
 
 }
 
