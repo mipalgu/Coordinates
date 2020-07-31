@@ -158,93 +158,6 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// Calculate the position of an object in an image in relation to this
     /// coordinate.
     ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// - Parameter coord: The pixel in the image representing the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Returns: A new `CartesianCoordinate` calculated in relation to this
-    /// coordinate.
-    ///
-    /// - SeeAlso: `CameraCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func cartesianCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate? {
-        guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
-            return nil
-        }
-        return self.cartesianCoordinate(at: rel)
-    }
-
-    /// Calculate the position of an object in an image in relation to this
-    /// coordinate.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// - Parameter coord: The pixel in the image representing the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Returns: A new `CartesianCoordinate` calculated in relation to this
-    /// coordinate.
-    ///
-    /// - SeeAlso: `PixelCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func cartesianCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate? {
-        guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
-            return nil
-        }
-        return self.cartesianCoordinate(at: rel)
-    }
-
-    /// Calculate the position of an object in an image in relation to this
-    /// coordinate.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// - Parameter coord: The point in the image representing the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Returns: A new `CartesianCoordinate` calculated in relation to this
-    /// coordinate.
-    ///
-    /// - SeeAlso: `PercentCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func cartesianCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate? {
-        guard let rel = coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera) else {
-            return nil
-        }
-        return self.cartesianCoordinate(at: rel)
-    }
-    
-    /// Calculate the position of an object in an image in relation to this
-    /// coordinate.
-    ///
     /// - Parameter coord: The pixel in the image representing the object.
     ///
     /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
@@ -266,8 +179,8 @@ public struct CartesianCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeCartesianCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate {
-        return cartesianCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera))
+    public func cartesianCoordinate(at coord: CameraCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate {
+        return cartesianCoordinate(at: coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera))
     }
     
     /// Calculate the position of an object in an image in relation to this
@@ -294,8 +207,8 @@ public struct CartesianCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeCartesianCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate {
-        return cartesianCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera))
+    public func cartesianCoordinate(at coord: PixelCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate {
+        return cartesianCoordinate(at: coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera))
     }
     
     /// Calculate the position of an object in an image in relation to this
@@ -322,8 +235,8 @@ public struct CartesianCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeCartesianCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate {
-        return cartesianCoordinate(at: coord.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera))
+    public func cartesianCoordinate(at coord: PercentCoordinate, cameraPivot: CameraPivot, camera: Int) -> CartesianCoordinate {
+        return cartesianCoordinate(at: coord.relativeCoordinate(cameraPivot: cameraPivot, camera: camera))
     }
     
 // MARK: Calculating Relative Coordinates to Objects on the Field
@@ -354,511 +267,7 @@ public struct CartesianCoordinate: CTypeWrapper {
         self.relativeCoordinate(to: coord.position)
     }
     
-// MARK: Safe Calculations for Calculating Image Coordinate to Objects on the Field
-
-    /// Calculate a point in an image from a specific camera representing an
-    /// object at a given position.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// - Parameter coord: The position of the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Returns: When successful, a new `PercentCoordinate` representing the
-    /// object in the camera. When unsuccessful (for example when the camera
-    /// cannot actually see the object) then `nil` is returned.
-    ///
-    /// - SeeAlso: `PercentCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func percentCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate? {
-        return self.relativeCoordinate(to: coord).percentCoordinate(cameraPivot: cameraPivot, camera: camera)
-    }
-
-    /// Calculate a point in an image from a specific camera representing an
-    /// object at a given position.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// - Parameter coord: The position of the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Returns: When successful, a new `PercentCoordinate` representing the
-    /// object in the camera. When unsuccessful (for example when the camera
-    /// cannot actually see the object) then `nil` is returned.
-    ///
-    /// - SeeAlso: `PercentCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func percentCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate? {
-        return self.relativeCoordinate(to: coord).percentCoordinate(cameraPivot: cameraPivot, camera: camera)
-    }
-
-    /// Calculate a pixel within a specific image from a specific camera
-    /// representing an object at a given position.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// - Parameter coord: The position of the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Parameter resWidth: The width of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter resHeight: The height of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Returns: When successful, a new `PixelCoordinate` representing the
-    /// object in the camera. When unsuccessful (for example when the camera
-    /// cannot actually see the object) then `nil` is returned.
-    ///
-    /// - SeeAlso: `PixelCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func pixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> PixelCoordinate? {
-        return self.relativeCoordinate(to: coord).pixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
-    }
-
-    /// Calculate a pixel within a specific image from a specific camera
-    /// representing an object at a given position.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// - Parameter coord: The position of the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Parameter resWidth: The width of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter resHeight: The height of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Returns: When successful, a new `PixelCoordinate` representing the
-    /// object in the camera. When unsuccessful (for example when the camera
-    /// cannot actually see the object) then `nil` is returned.
-    ///
-    /// - SeeAlso: `PixelCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func pixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> PixelCoordinate? {
-        return self.relativeCoordinate(to: coord).pixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
-    }
-
-    /// Calculate a pixel within a specific image from a specific camera
-    /// representing an object at a given position.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// - Parameter coord: The position of the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Parameter resWidth: The width of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter resHeight: The height of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Returns: When successful, a new `CameraCoordinate` representing the
-    /// object in the camera. When unsuccessful (for example when the camera
-    /// cannot actually see the object) then `nil` is returned.
-    ///
-    /// - SeeAlso: `CameraCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func cameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> CameraCoordinate? {
-        return self.relativeCoordinate(to: coord).cameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
-    }
-
-    /// Calculate a pixel within a specific image from a specific camera
-    /// representing an object at a given position.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// - Parameter coord: The position of the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Parameter resWidth: The width of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter resHeight: The height of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Returns: When successful, a new `CameraCoordinate` representing the
-    /// object in the camera. When unsuccessful (for example when the camera
-    /// cannot actually see the object) then `nil` is returned.
-    ///
-    /// - SeeAlso: `CameraCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func cameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> CameraCoordinate? {
-        return self.relativeCoordinate(to: coord).cameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
-    }
-    
-    /// Calculate a pixel within a specific image from a specific camera
-    /// representing an object at a given position.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// This function ensures that the calculated coordinate falls within the
-    /// bounds of the image when the calculated coordinate is outside the image
-    /// within the given tolerance. The tolerance represents a percentage of the
-    /// image resolution. This tolerance is applied to each axis, therefore the
-    /// x value of the coordinate will be adjusted to `resWidth - 1` if and only
-    /// if `x > resWidth && x < resWidth + resWidth * tolerance`. Similarly the
-    /// y value of the coordinate will be adjusted to `resHeight - 1` if and
-    /// only if `y > resHeight && y < resHeight + resHeight * tolerance`.
-    ///
-    /// - Parameter coord: The position of the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Parameter resWidth: The width of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter resHeight: The height of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter tolerance: A percentage of the resolution indicating an
-    /// area outside the image which, if the coordinate falls within, ajusts the
-    /// coordinate so that it is within the image.
-    ///
-    /// - Returns: When successful, a new `CameraCoordinate` representing the
-    /// object in the camera. This function returns nil when the calculated
-    /// coordinate falls outside the image bounds and the given `tolerance`.
-    ///
-    /// - SeeAlso: `CameraCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func clampedCameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_d) -> CameraCoordinate? {
-        return self.relativeCoordinate(to: coord).clampedCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
-    }
-
-    /// Calculate a pixel within a specific image from a specific camera
-    /// representing an object at a given position.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// This function ensures that the calculated coordinate falls within the
-    /// bounds of the image when the calculated coordinate is outside the image
-    /// within the given tolerance. The tolerance represents a percentage of the
-    /// image resolution. This tolerance is applied to each axis, therefore the
-    /// x value of the coordinate will be adjusted to `resWidth - 1` if and only
-    /// if `x > resWidth && x < resWidth + resWidth * tolerance`. Similarly the
-    /// y value of the coordinate will be adjusted to `resHeight - 1` if and
-    /// only if `y > resHeight && y < resHeight + resHeight * tolerance`.
-    ///
-    /// - Parameter coord: The position of the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Parameter resWidth: The width of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter resHeight: The height of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter tolerance: A percentage of the resolution indicating an
-    /// area outside the image which, if the coordinate falls within, ajusts the
-    /// coordinate so that it is within the image.
-    ///
-    /// - Returns: When successful, a new `CameraCoordinate` representing the
-    /// object in the camera. This function returns nil when the calculated
-    /// coordinate falls outside the image bounds and the given `tolerance`.
-    ///
-    /// - SeeAlso: `CameraCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func clampedCameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_d) -> CameraCoordinate? {
-        return self.relativeCoordinate(to: coord).clampedCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
-    }
-
-    /// Calculate a pixel within a specific image from a specific camera
-    /// representing an object at a given position.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// This function ensures that the
-    /// calculated coordinate falls within the bounds of the image when the
-    /// calculated coordinate is outside the image within the given `tolerance`.
-    /// The tolerance is represented as a percentage of the image resolution
-    /// and is applied to each axis. The coordinate will be
-    /// adjusted under the following conditions:
-    /// ```
-    ///     xmin = -floor((resWidth - 1) / 2.0)
-    ///     xmax = ceil((resWidth - 1) / 2.0)
-    ///     ymin = -floor((resHeight - 1) / 2.0)
-    ///     ymax = ceil((resHeight - 1) / 2.0)
-    ///     if x < xmin && x >= xmin - resWidth * tolerance
-    ///         x = xmin
-    ///     if x > xmax && x >= xmax + resWidth * tolerance
-    ///         x = xmax
-    ///     if y < ymin && y >= ymin - resHeight * tolerance
-    ///         y = ymin
-    ///     if y > ymax && y >= ymax + resHeight * tolerance
-    ///         y = ymax
-    /// ```
-    ///
-    /// - Parameter coord: The position of the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Parameter resWidth: The width of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter resHeight: The height of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter tolerance: A percentage of the resolution indicating an
-    /// area outside the image which, if the coordinate falls within, ajusts the
-    /// coordinate so that it is within the image.
-    ///
-    /// - Returns: When successful, a new `PixelCoordinate` representing the
-    /// object in the camera. This function returns nil when the calculated
-    /// coordinate falls outside the image bounds and the given `tolerance`.
-    ///
-    /// - SeeAlso: `PixelCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func clampedPixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_d) -> PixelCoordinate? {
-        return self.relativeCoordinate(to: coord).clampedPixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
-    }
-
-    /// Calculate a pixel within a specific image from a specific camera
-    /// representing an object at a given position.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// This function ensures that the
-    /// calculated coordinate falls within the bounds of the image when the
-    /// calculated coordinate is outside the image within the given `tolerance`.
-    /// The tolerance is represented as a percentage of the image resolution
-    /// and is applied to each axis. The coordinate will be
-    /// adjusted under the following conditions:
-    /// ```
-    ///     xmin = -floor((resWidth - 1) / 2.0)
-    ///     xmax = ceil((resWidth - 1) / 2.0)
-    ///     ymin = -floor((resHeight - 1) / 2.0)
-    ///     ymax = ceil((resHeight - 1) / 2.0)
-    ///     if x < xmin && x >= xmin - resWidth * tolerance
-    ///         x = xmin
-    ///     if x > xmax && x >= xmax + resWidth * tolerance
-    ///         x = xmax
-    ///     if y < ymin && y >= ymin - resHeight * tolerance
-    ///         y = ymin
-    ///     if y > ymax && y >= ymax + resHeight * tolerance
-    ///         y = ymax
-    /// ```
-    ///
-    /// - Parameter coord: The position of the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Parameter resWidth: The width of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter resHeight: The height of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter tolerance: A percentage of the resolution indicating an
-    /// area outside the image which, if the coordinate falls within, ajusts the
-    /// coordinate so that it is within the image.
-    ///
-    /// - Returns: When successful, a new `PixelCoordinate` representing the
-    /// object in the camera. This function returns nil when the calculated
-    /// coordinate falls outside the image bounds and the given `tolerance`.
-    ///
-    /// - SeeAlso: `PixelCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func clampedPixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_d) -> PixelCoordinate? {
-        return self.relativeCoordinate(to: coord).clampedPixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
-    }
-
-    /// Calculate a point within a specific image from a specific camera
-    /// representing an object at a given position.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// This function ensures that the
-    /// calculated coordinate falls within the bounds of the image when the
-    /// calculated coordinate is outside the image within the given `tolerance`.
-    /// The tolerance is represented as a percentage of the image resolution
-    /// and is applied to each axis. The coordinate will be
-    /// adjusted under the following conditions:
-    /// ```
-    ///     if x < -1.0 && x >= -1.0 - tolerance
-    ///         x = -1.0
-    ///     if x > 1.0 && x <= 1.0 + tolerance
-    ///         x = 1.0
-    ///     if y < -1.0 && y >= -1.0 - tolerance
-    ///         y = -1.0
-    ///     if y > 1.0 && y <= 1.0 + tolerance
-    ///         y = 1.0
-    /// ```
-    ///
-    /// - Parameter coord: The position of the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Parameter resWidth: The width of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter resHeight: The height of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter tolerance: A percentage of the resolution indicating an
-    /// area outside the image which, if the coordinate falls within, ajusts the
-    /// coordinate so that it is within the image.
-    ///
-    /// - Returns: When successful, a new `PercentCoordinate` representing the
-    /// object in the camera. This function returns nil when the calculated
-    /// coordinate falls outside the image bounds and the given `tolerance`.
-    ///
-    /// - SeeAlso: `PercentCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func clampedPercentCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, tolerance: Percent_d) -> PercentCoordinate? {
-        self.relativeCoordinate(to: coord).clampedPercentCoordinate(cameraPivot: cameraPivot, camera: camera, tolerance: tolerance)
-    }
-
-    /// Calculate a point within a specific image from a specific camera
-    /// representing an object at a given position.
-    ///
-    /// Since a `CartesianCoordinate` does not contain a heading, we assume
-    /// here that we are facing at zero degrees.
-    ///
-    /// This function ensures that the
-    /// calculated coordinate falls within the bounds of the image when the
-    /// calculated coordinate is outside the image within the given `tolerance`.
-    /// The tolerance is represented as a percentage of the image resolution
-    /// and is applied to each axis. The coordinate will be
-    /// adjusted under the following conditions:
-    /// ```
-    ///     if x < -1.0 && x >= -1.0 - tolerance
-    ///         x = -1.0
-    ///     if x > 1.0 && x <= 1.0 + tolerance
-    ///         x = 1.0
-    ///     if y < -1.0 && y >= -1.0 - tolerance
-    ///         y = -1.0
-    ///     if y > 1.0 && y <= 1.0 + tolerance
-    ///         y = 1.0
-    /// ```
-    ///
-    /// - Parameter coord: The position of the object.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `coord`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Parameter resWidth: The width of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter resHeight: The height of the resolution of the image that
-    /// we are placing the object in.
-    ///
-    /// - Parameter tolerance: A percentage of the resolution indicating an
-    /// area outside the image which, if the coordinate falls within, ajusts the
-    /// coordinate so that it is within the image.
-    ///
-    /// - Returns: When successful, a new `PercentCoordinate` representing the
-    /// object in the camera. This function returns nil when the calculated
-    /// coordinate falls outside the image bounds and the given `tolerance`.
-    ///
-    /// - SeeAlso: `PercentCoordinate`.
-    /// - SeeAlso: `CameraPivot`.
-    public func clampedPercentCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, tolerance: Percent_d) -> PercentCoordinate? {
-        self.relativeCoordinate(to: coord).clampedPercentCoordinate(cameraPivot: cameraPivot, camera: camera, tolerance: tolerance)
-    }
-    
-// MARK: Unsafe Calculations for Calculating Image Coordinate to Objects on the Field
+// MARK: Calculations for Calculating Image Coordinate to Objects on the Field
     
     /// Calculate a pixel within a specific image from a specific camera
     /// representing an object at a given position.
@@ -888,14 +297,12 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// - Warning: This function does not check whether the calculated coordinate
     /// is within the bounds of the `resWidth` and `resHeight`. As such you
     /// should only use this function if you are positive that the camera can
-    /// actually see the object at `coord`. If you would like to use a version
-    /// of this function that performs this bounds check then use
-    /// `cameraCoordinate(to:cameraPivot:camera:resWidth:resHeight:)`
+    /// actually see the object at `coord`.
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeCameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> CameraCoordinate {
-        return self.relativeCoordinate(to: coord).unsafeCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
+    public func cameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> CameraCoordinate {
+        return self.relativeCoordinate(to: coord).cameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
     /// Calculate a pixel within a specific image from a specific camera
@@ -926,14 +333,12 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// - Warning: This function does not check whether the calculated coordinate
     /// is within the bounds of the `resWidth` and `resHeight`. As such you
     /// should only use this function if you are positive that the camera can
-    /// actually see the object at `coord`. If you would like to use a version
-    /// of this function that performs this bounds check then use
-    /// `cameraCoordinate(to:cameraPivot:camera:resWidth:resHeight:)`
+    /// actually see the object at `coord`.
     ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeCameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> CameraCoordinate {
-        return self.relativeCoordinate(to: coord).unsafeCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
+    public func cameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> CameraCoordinate {
+        return self.relativeCoordinate(to: coord).cameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
     /// Calculate a pixel within a specific image from a specific camera
@@ -964,14 +369,12 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// - Warning: This function does not check whether the calculated coordinate
     /// is within the bounds of the `resWidth` and `resHeight`. As such you
     /// should only use this function if you are positive that the camera can
-    /// actually see the object at `coord`. If you would like to use a version
-    /// of this function that performs this bounds check then use
-    /// `pixelCoordinate(to:cameraPivot:camera:resWidth:resHeight:)`
+    /// actually see the object at `coord`.
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafePixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> PixelCoordinate {
-        return self.relativeCoordinate(to: coord).unsafePixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
+    public func pixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> PixelCoordinate {
+        return self.relativeCoordinate(to: coord).pixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
     /// Calculate a pixel within a specific image from a specific camera
@@ -1002,14 +405,12 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// - Warning: This function does not check whether the calculated coordinate
     /// is within the bounds of the `resWidth` and `resHeight`. As such you
     /// should only use this function if you are positive that the camera can
-    /// actually see the object at `coord`. If you would like to use a version
-    /// of this function that performs this bounds check then use
-    /// `pixelCoordinate(to:cameraPivot:camera:resWidth:resHeight:)`
+    /// actually see the object at `coord`.
     ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafePixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> PixelCoordinate {
-        return self.relativeCoordinate(to: coord).unsafePixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
+    public func pixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> PixelCoordinate {
+        return self.relativeCoordinate(to: coord).pixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
     /// Calculate a point within a specific image from a specific camera
@@ -1041,14 +442,12 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// - Warning: This function does not check whether the calculated coordinate
     /// is within the bounds of the `resWidth` and `resHeight`. As such you
     /// should only use this function if you are positive that the camera can
-    /// actually see the object at `coord`. If you would like to use a version
-    /// of this function that performs this bounds check then use
-    /// `percentCoordinate(to:cameraPivot:camera:)`
+    /// actually see the object at `coord`.
     ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafePercentCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate {
-        self.relativeCoordinate(to: coord).unsafePercentCoordinate(cameraPivot: cameraPivot, camera: camera)
+    public func percentCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate {
+        self.relativeCoordinate(to: coord).percentCoordinate(cameraPivot: cameraPivot, camera: camera)
     }
 
     /// Calculate a point within a specific image from a specific camera
@@ -1080,14 +479,12 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// - Warning: This function does not check whether the calculated coordinate
     /// is within the bounds of the `resWidth` and `resHeight`. As such you
     /// should only use this function if you are positive that the camera can
-    /// actually see the object at `coord`. If you would like to use a version
-    /// of this function that performs this bounds check then use
-    /// `percentCoordinate(to:cameraPivot:camera:)`
+    /// actually see the object at `coord`.
     ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafePercentCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate {
-        self.relativeCoordinate(to: coord).unsafePercentCoordinate(cameraPivot: cameraPivot, camera: camera)
+    public func percentCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate {
+        self.relativeCoordinate(to: coord).percentCoordinate(cameraPivot: cameraPivot, camera: camera)
     }
     
     /// Calculate a pixel within a specific image from a specific camera
@@ -1096,17 +493,7 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// Since a `CartesianCoordinate` does not contain a heading, we assume
     /// here that we are facing at zero degrees.
     ///
-    /// When `tolerance` is not nil then this function ensures that the
-    /// calculated coordinate falls within the bounds of the image when the
-    /// calculated coordinate is outside the image within the given tolerance.
-    /// The tolerance represents a percentage of the image resolution. This
-    /// tolerance is applied to each axis, therefore the x value
-    /// of the coordinate will be adjusted to `resWidth - 1` if and only if
-    /// `x > resWidth && x < resWidth + resWidth * tolerance`. Similarly the y
-    /// value of the coordinate will be adjusted to `resHeight - 1` if and only
-    /// if `y > resHeight && y < resHeight + resHeight * tolerance`.
-    ///
-    /// If the `tolerance` is nil then all calculated pixels that fall outside
+    /// All calculated pixels that fall outside
     /// the bounds of the image are moved to the edge of the image to ensure
     /// that the function always calculates a coordinate within the image
     /// bounds.
@@ -1127,30 +514,14 @@ public struct CartesianCoordinate: CTypeWrapper {
     ///
     /// - Parameter resHeight: The height of the resolution of the image that
     /// we are placing the object in.
-    ///
-    /// - Parameter tolerance: A percentage of the resolution indicating an
-    /// area outside the image which, if the coordinate falls within, ajusts the
-    /// coordinate so that it is within the image. When not nil,
-    /// the `x` and `y` values of the calculated coordinate that fall outside
-    /// the bounds of the resolution of the image, but fall within the tolerance
-    /// such that `x > resWidth && x <= resWidth + resWidth * tolerance` and
-    /// `y > resHeight && y < resHeight + resHeight * tolerance`, will be moved
-    /// to the maximum possible value that is still within the image
-    /// (`x = resWidth - 1`, `y = resHeight - 1`). When the tolerance is nil
-    /// then all calculated coordinates that fall outside the image resolution
-    /// bounds will be adjusted so that they are within the image.
     ///
     /// - Returns: A new `CameraCoordinate` representing the object in the
     /// camera.
     ///
-    /// - Warning: When tolerance is not nil, and the coordinate falls outside
-    /// the specified tolerance, then the coordinate returned from this function
-    /// will be outside the image resolution bounds.
-    ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeClampedCameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_d? = nil) -> CameraCoordinate {
-        return self.relativeCoordinate(to: coord).unsafeClampedCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
+    public func clampedCameraCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> CameraCoordinate {
+        return self.relativeCoordinate(to: coord).clampedCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
     /// Calculate a pixel within a specific image from a specific camera
@@ -1159,17 +530,7 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// Since a `CartesianCoordinate` does not contain a heading, we assume
     /// here that we are facing at zero degrees.
     ///
-    /// When `tolerance` is not nil then this function ensures that the
-    /// calculated coordinate falls within the bounds of the image when the
-    /// calculated coordinate is outside the image within the given tolerance.
-    /// The tolerance represents a percentage of the image resolution. This
-    /// tolerance is applied to each axis, therefore the x value
-    /// of the coordinate will be adjusted to `resWidth - 1` if and only if
-    /// `x > resWidth && x < resWidth + resWidth * tolerance`. Similarly the y
-    /// value of the coordinate will be adjusted to `resHeight - 1` if and only
-    /// if `y > resHeight && y < resHeight + resHeight * tolerance`.
-    ///
-    /// If the `tolerance` is nil then all calculated pixels that fall outside
+    /// All calculated pixels that fall outside
     /// the bounds of the image are moved to the edge of the image to ensure
     /// that the function always calculates a coordinate within the image
     /// bounds.
@@ -1190,30 +551,14 @@ public struct CartesianCoordinate: CTypeWrapper {
     ///
     /// - Parameter resHeight: The height of the resolution of the image that
     /// we are placing the object in.
-    ///
-    /// - Parameter tolerance: A percentage of the resolution indicating an
-    /// area outside the image which, if the coordinate falls within, ajusts the
-    /// coordinate so that it is within the image. When not nil,
-    /// the `x` and `y` values of the calculated coordinate that fall outside
-    /// the bounds of the resolution of the image, but fall within the tolerance
-    /// such that `x > resWidth && x <= resWidth + resWidth * tolerance` and
-    /// `y > resHeight && y < resHeight + resHeight * tolerance`, will be moved
-    /// to the maximum possible value that is still within the image
-    /// (`x = resWidth - 1`, `y = resHeight - 1`). When the tolerance is nil
-    /// then all calculated coordinates that fall outside the image resolution
-    /// bounds will be adjusted so that they are within the image.
     ///
     /// - Returns: A new `CameraCoordinate` representing the object in the
     /// camera.
     ///
-    /// - Warning: When tolerance is not nil, and the coordinate falls outside
-    /// the specified tolerance, then the coordinate returned from this function
-    /// will be outside the image resolution bounds.
-    ///
     /// - SeeAlso: `CameraCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeClampedCameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_d? = nil) -> CameraCoordinate {
-        return self.relativeCoordinate(to: coord).unsafeClampedCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
+    public func clampedCameraCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> CameraCoordinate {
+        return self.relativeCoordinate(to: coord).clampedCameraCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
     /// Calculate a pixel within a specific image from a specific camera
@@ -1222,28 +567,7 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// Since a `CartesianCoordinate` does not contain a heading, we assume
     /// here that we are facing at zero degrees.
     ///
-    /// When `tolerance` is not nil then this function ensures that the
-    /// calculated coordinate falls within the bounds of the image when the
-    /// calculated coordinate is outside the image within the given tolerance.
-    /// The tolerance is represented as a percentage of the image resolution
-    /// and is applied to each axis. The coordinate will be
-    /// adjusted under the following conditions:
-    /// ```
-    ///     xmin = -floor((resWidth - 1) / 2.0)
-    ///     xmax = ceil((resWidth - 1) / 2.0)
-    ///     ymin = -floor((resHeight - 1) / 2.0)
-    ///     ymax = ceil((resHeight - 1) / 2.0)
-    ///     if x < xmin && x >= xmin - resWidth * tolerance
-    ///         x = xmin
-    ///     if x > xmax && x >= xmax + resWidth * tolerance
-    ///         x = xmax
-    ///     if y < ymin && y >= ymin - resHeight * tolerance
-    ///         y = ymin
-    ///     if y > ymax && y >= ymax + resHeight * tolerance
-    ///         y = ymax
-    /// ```
-    ///
-    /// If the `tolerance` is nil then all calculated pixels that fall outside
+    /// All calculated pixels that fall outside
     /// the bounds of the image are moved to the edge of the image to ensure
     /// that the function always calculates a coordinate within the image
     /// bounds.
@@ -1265,23 +589,13 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// - Parameter resHeight: The height of the resolution of the image that
     /// we are placing the object in.
     ///
-    /// - Parameter tolerance: A percentage of the resolution indicating an
-    /// area outside the image which, if the coordinate falls within, ajusts the
-    /// coordinate so that it is within the image. When the tolerance is nil
-    /// then all calculated coordinates that fall outside the image resolution
-    /// bounds will be adjusted so that they are within the image.
-    ///
     /// - Returns: A new `PixelCoordinate` representing the object in the
     /// camera.
     ///
-    /// - Warning: When tolerance is not nil, and the coordinate falls outside
-    /// the specified tolerance, then the coordinate returned from this function
-    /// will be outside the image resolution bounds.
-    ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeClampedPixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_d? = nil) -> PixelCoordinate {
-        return self.relativeCoordinate(to: coord).unsafeClampedPixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
+    public func clampedPixelCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> PixelCoordinate {
+        return self.relativeCoordinate(to: coord).clampedPixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
     /// Calculate a pixel within a specific image from a specific camera
@@ -1290,28 +604,7 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// Since a `CartesianCoordinate` does not contain a heading, we assume
     /// here that we are facing at zero degrees.
     ///
-    /// When `tolerance` is not nil then this function ensures that the
-    /// calculated coordinate falls within the bounds of the image when the
-    /// calculated coordinate is outside the image within the given tolerance.
-    /// The tolerance is represented as a percentage of the image resolution
-    /// and is applied to each axis. The coordinate will be
-    /// adjusted under the following conditions:
-    /// ```
-    ///     xmin = -floor((resWidth - 1) / 2.0)
-    ///     xmax = ceil((resWidth - 1) / 2.0)
-    ///     ymin = -floor((resHeight - 1) / 2.0)
-    ///     ymax = ceil((resHeight - 1) / 2.0)
-    ///     if x < xmin && x >= xmin - resWidth * tolerance
-    ///         x = xmin
-    ///     if x > xmax && x <= xmax + resWidth * tolerance
-    ///         x = xmax
-    ///     if y < ymin && y >= ymin - resHeight * tolerance
-    ///         y = ymin
-    ///     if y > ymax && y <= ymax + resHeight * tolerance
-    ///         y = ymax
-    /// ```
-    ///
-    /// If the `tolerance` is nil then all calculated pixels that fall outside
+    /// All calculated pixels that fall outside
     /// the bounds of the image are moved to the edge of the image to ensure
     /// that the function always calculates a coordinate within the image
     /// bounds.
@@ -1333,23 +626,13 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// - Parameter resHeight: The height of the resolution of the image that
     /// we are placing the object in.
     ///
-    /// - Parameter tolerance: A percentage of the resolution indicating an
-    /// area outside the image which, if the coordinate falls within, ajusts the
-    /// coordinate so that it is within the image. When the tolerance is nil
-    /// then all calculated coordinates that fall outside the image resolution
-    /// bounds will be adjusted so that they are within the image.
-    ///
     /// - Returns: A new `PixelCoordinate` representing the object in the
     /// camera.
     ///
-    /// - Warning: When tolerance is not nil, and the coordinate falls outside
-    /// the specified tolerance, then the coordinate returned from this function
-    /// will be outside the image resolution bounds.
-    ///
     /// - SeeAlso: `PixelCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeClampedPixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u, tolerance: Percent_d? = nil) -> PixelCoordinate {
-        return self.relativeCoordinate(to: coord).unsafeClampedPixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight, tolerance: tolerance)
+    public func clampedPixelCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, resWidth: Pixels_u, resHeight: Pixels_u) -> PixelCoordinate {
+        return self.relativeCoordinate(to: coord).clampedPixelCoordinate(cameraPivot: cameraPivot, camera: camera, resWidth: resWidth, resHeight: resHeight)
     }
 
     /// Calculate a point within a specific image from a specific camera
@@ -1358,24 +641,7 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// Since a `CartesianCoordinate` does not contain a heading, we assume
     /// here that we are facing at zero degrees.
     ///
-    /// When `tolerance` is not nil then this function ensures that the
-    /// calculated coordinate falls within the bounds of the image when the
-    /// calculated coordinate is outside the image within the given tolerance.
-    /// The tolerance is represented as a percentage of the image resolution
-    /// and is applied to each axis. The coordinate will be
-    /// adjusted under the following conditions:
-    /// ```
-    ///     if x < -1.0 && x >= -1.0 - tolerance
-    ///         x = -1.0
-    ///     if x > 1.0 && x <= 1.0 + tolerance
-    ///         x = 1.0
-    ///     if y < -1.0 && y >= -1.0 - tolerance
-    ///         y = -1.0
-    ///     if y > 1.0 && y <= 1.0 + tolerance
-    ///         y = 1.0
-    /// ```
-    ///
-    /// If the `tolerance` is nil then all calculated pixels that fall outside
+    /// All calculated pixels that fall outside
     /// the bounds of the image are moved to the edge of the image to ensure
     /// that the function always calculates a coordinate within the image
     /// bounds.
@@ -1397,23 +663,13 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// - Parameter resHeight: The height of the resolution of the image that
     /// we are placing the object in.
     ///
-    /// - Parameter tolerance: A percentage of the resolution indicating an
-    /// area outside the image which, if the coordinate falls within, ajusts the
-    /// coordinate so that it is within the image. When the tolerance is nil
-    /// then all calculated coordinates that fall outside the image resolution
-    /// bounds will be adjusted so that they are within the image.
-    ///
     /// - Returns: A new `PercentCoordinate` representing the object in the
     /// camera.
     ///
-    /// - Warning: When tolerance is not nil, and the coordinate falls outside
-    /// the specified tolerance, then the coordinate returned from this function
-    /// will be outside the image resolution bounds.
-    ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeClampedPercentCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int, tolerance: Percent_d? = nil) -> PercentCoordinate {
-        self.relativeCoordinate(to: coord).unsafeClampedPercentCoordinate(cameraPivot: cameraPivot, camera: camera, tolerance: tolerance)
+    public func clampedPercentCoordinate(to coord: CartesianCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate {
+        self.relativeCoordinate(to: coord).clampedPercentCoordinate(cameraPivot: cameraPivot, camera: camera)
     }
 
     /// Calculate a point within a specific image from a specific camera
@@ -1422,24 +678,7 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// Since a `CartesianCoordinate` does not contain a heading, we assume
     /// here that we are facing at zero degrees.
     ///
-    /// When `tolerance` is not nil then this function ensures that the
-    /// calculated coordinate falls within the bounds of the image when the
-    /// calculated coordinate is outside the image within the given tolerance.
-    /// The tolerance is represented as a percentage of the image resolution
-    /// and is applied to each axis. The coordinate will be
-    /// adjusted under the following conditions:
-    /// ```
-    ///     if x < -1.0 && x >= -1.0 - tolerance
-    ///         x = -1.0
-    ///     if x > 1.0 && x <= 1.0 + tolerance
-    ///         x = 1.0
-    ///     if y < -1.0 && y >= -1.0 - tolerance
-    ///         y = -1.0
-    ///     if y > 1.0 && y <= 1.0 + tolerance
-    ///         y = 1.0
-    /// ```
-    ///
-    /// If the `tolerance` is nil then all calculated pixels that fall outside
+    /// All calculated pixels that fall outside
     /// the bounds of the image are moved to the edge of the image to ensure
     /// that the function always calculates a coordinate within the image
     /// bounds.
@@ -1461,23 +700,13 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// - Parameter resHeight: The height of the resolution of the image that
     /// we are placing the object in.
     ///
-    /// - Parameter tolerance: A percentage of the resolution indicating an
-    /// area outside the image which, if the coordinate falls within, ajusts the
-    /// coordinate so that it is within the image. When the tolerance is nil
-    /// then all calculated coordinates that fall outside the image resolution
-    /// bounds will be adjusted so that they are within the image.
-    ///
     /// - Returns: A new `PercentCoordinate` representing the object in the
     /// camera.
     ///
-    /// - Warning: When tolerance is not nil, and the coordinate falls outside
-    /// the specified tolerance, then the coordinate returned from this function
-    /// will be outside the image resolution bounds.
-    ///
     /// - SeeAlso: `PercentCoordinate`.
     /// - SeeAlso: `CameraPivot`.
-    public func unsafeClampedPercentCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int, tolerance: Percent_d? = nil) -> PercentCoordinate {
-        self.relativeCoordinate(to: coord).unsafeClampedPercentCoordinate(cameraPivot: cameraPivot, camera: camera, tolerance: tolerance)
+    public func clampedPercentCoordinate(to coord: FieldCoordinate, cameraPivot: CameraPivot, camera: Int) -> PercentCoordinate {
+        self.relativeCoordinate(to: coord).clampedPercentCoordinate(cameraPivot: cameraPivot, camera: camera)
     }
 
 }

@@ -220,31 +220,9 @@ public struct PixelCoordinate: CTypeWrapper {
     /// a valid `Camera` within the `cameras` array within
     /// `cameraPivot.cameras`.
     ///
-    /// - Returns: When successful, this function returns the
+    /// - Returns: This function returns the
     /// `RelativeCoordinate` representing the object in the image at the pixel
-    /// `self`. If unable to calculate the `RelativeCoordinate` then this
-    /// function returns `nil`.
-    ///
-    /// - SeeAlso: `CameraPivot`.
-    /// - SeeAlso: `Camera`.
-    public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate? {
-        return self.percentCoordinate.relativeCoordinate(cameraPivot: cameraPivot, camera: camera)
-    }
-    
-    /// Convert this coordinate to a `RelativeCoordinate`.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `self`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Returns: The `RelativeCoordinate` representing the object in the image
-    /// at the pixel `self`. If the pixel represents an object that is not on
-    /// the ground then a maximum value for the distance is used.
+    /// `self`.
     ///
     /// - Warning: Only use this function if you are positive that the pixel in
     /// the image represented by `self` is representing an object on the ground.
@@ -253,8 +231,8 @@ public struct PixelCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraPivot`.
     /// - SeeAlso: `Camera`.
-    public func unsafeRelativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate {
-        return self.percentCoordinate.unsafeRelativeCoordinate(cameraPivot: cameraPivot, camera: camera)
+    public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate {
+        return self.percentCoordinate.relativeCoordinate(cameraPivot: cameraPivot, camera: camera)
     }
 
 }

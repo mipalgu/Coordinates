@@ -205,28 +205,6 @@ public struct PercentCoordinate: CTypeWrapper {
     /// `self`. If unable to calculate the `RelativeCoordinate` then this
     /// function returns `nil`.
     ///
-    /// - SeeAlso: `CameraPivot`.
-    /// - SeeAlso: `Camera`.
-    public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate? {
-        let temp = pct_coord_to_rr_coord(self.rawValue, cameraPivot.rawValue, CInt(camera))
-        return temp.has_value ? RelativeCoordinate(temp.value) : nil
-    }
-    
-    /// Convert this coordinate to a `RelativeCoordinate`.
-    ///
-    /// - Parameter cameraPivot: The `CameraPivot` detailing the configuration
-    /// of the pivot point in which the camera is placed, as well as detailing
-    /// the cameras attached to the pivot point.
-    ///
-    /// - Parameter camera: The index of the camera which recorded the image
-    /// containing the pixel represented by `self`. This index should reference
-    /// a valid `Camera` within the `cameras` array within
-    /// `cameraPivot.cameras`.
-    ///
-    /// - Returns: The `RelativeCoordinate` representing the object in the image
-    /// at the point `self`. If the point represents an object that is not on
-    /// the ground then a maximum value for the distance is used.
-    ///
     /// - Warning: Only use this function if you are positive that the point in
     /// the image represented by `self` is representing an object on the ground.
     /// If this is not the case, then the maximum value for the distance will
@@ -234,8 +212,8 @@ public struct PercentCoordinate: CTypeWrapper {
     ///
     /// - SeeAlso: `CameraPivot`.
     /// - SeeAlso: `Camera`.
-    public func unsafeRelativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate {
-        return RelativeCoordinate(unsafe_pct_coord_to_rr_coord(self.rawValue, cameraPivot.rawValue, CInt(camera)))
+    public func relativeCoordinate(cameraPivot: CameraPivot, camera: Int) -> RelativeCoordinate {
+        return RelativeCoordinate(pct_coord_to_rr_coord(self.rawValue, cameraPivot.rawValue, CInt(camera)))
     }
 
 }
