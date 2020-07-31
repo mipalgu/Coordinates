@@ -514,22 +514,20 @@ ___
 
 Converting an image coordinate to a relative coordinate may fail. This is because the
 algorithm that converts from image coordinates to relative coordinates can only gauge the
-distance of objects that are on the ground. If the pixel repesents on object that is above
-the horizontal line of the camera with regards to the ground, then the conversion will fail.
-Because of this, two variants (safe and unsafe) of the conversion are provided. The safe
-versions of the conversion functions return an optional which will only contain a value when
-the conversion is successful. The unsafe variants will always return a result, however,
+distance of objects that are on the ground. If the pixel repesents on object that is not
+along the ground, then the conversion will fail.
+The conversion functions will always return a result, however,
 if there is a situation where the conversion fails, then the resulting values will be estimated ---
 the distance will be set to the largest possible value for objects in the sky for example.
 
-In general, to distinguish between the two variants, the `unsafe` prefix is used for the unsafe
-variants of the conversion functions:
+In general, there are checks that can be performed before attempting the conversion which
+will inform you if the conversion will fail:
 ```swift
-let percentCoordinate = PercentCoordinate(x: -0.9, y: 0.83)
-guard let safeRelativeCoordinate = percentCoordinate.relativeCoordinate(cameraPivot: naoHead, camera: topCamera) else {
-    fatalError("The coordinate represents an object in the sky.")
+// Is the image coordinate pointing to an object on the ground?
+if naoHead.objectOnGround(percentCoordinate, forCamera: topCamera) {
+    // We can safely convert the image coordinate.
+    let relativeCoordinate = percentCoordinate.relativeCoordinate(cameraPivot: naoHead, camera: topCamera)
 }
-let unsafeRelativeCoordinate = percentCoordinate.unsafeRelativeCoordinate(cameraPivot: naoHead, camera: topCamera) // Maximum distance
 ```
 
 ### Converting To Image Coordinates
@@ -537,38 +535,31 @@ ___
 
 Converting from a relative coordinate to an image coordinate may fail when the object
 described by the relative coordinate is not viewable by the camera. Again, because of this,
-two variants (safe and unsafe) of the conversion functions are provided. The safe
-versions of the conversion functions return an optional which will only contain a value
-when the object is actually viewable by the camera. The unsafe variants will always return
+the conversion functions will always return
 a result, however, the resulting image coordinate will not be bound by the usual bounds
 of the coordinate system. For example, for percentage coordinates, this means that the x
 and y values may go above 1.0 and below -1.0.
 
-In general, to distinguish between the two variants, the `unsafe` prefix is used for the unsafe
-variants of the conversion functions:
+Again, there are safety checks that can be performed before the conversion which allow
+you to know if the camera can see the object:
 ```swift
 let relativeCoordinate = RelativeCoordinate(direction: -160, distance: 10)
-guard let safePercentCoordinate = relativeCoordinate.percentCoordinate(cameraPivot: naoHead, camera: topCamera) else {
-    fatalError("The object is not viewable by the camera.")
+if naoHead.canSee(object: relativeCoordinate, inCamera: topCamera) {
+    // The camera can see the object.
+    let percentCoordinate = relativeCoordinate.percentCoordinate(cameraPivot: naoHead, camera: topCamera)
 }
-let unsafePercentCoordinate = relativeCoordinate.unsafePercentCoordinate(cameraPivot: naoHead, camera: topCamera) // Outside bounds of image.
 ```
 
 #### Clamped Conversions
 
-In rare circumstances, particularly when the object is at the edge of the cameras view, the
-conversion functions will place the object outside the bounds of the image. If this is
-unacceptable, then several `clamped` variants of the conversion functions are available.
-These conversion function variants will attempt to adjust the result of the conversion so that
-the resulting coordinate is within the coordinate system's bounds. Again, there are unsafe
-and safe variants of these clamp conversion functions:
+In rare circumstances, particularly when the object is at the edge of the cameras view,
+converting from relative to image coordinates will place the object outside the bounds of
+the image. If this is unacceptable, then `clamped` variants of the conversion functions are
+available. These conversion function variants will adjust the result of the
+conversion so that the resulting coordinate is within the coordinate system's bounds:
 ```swift
 let relativeCoordinate = RelativeCoordinate(direction: 30, distance: 108)
-let alwaysClamped = relativeCoordinate.unsafeClampedPercentCoordinate(cameraPivot: naoHead, camera: topCamera) // Always will clamp the result to [-1.0, 1.0]
-let unsafeClamped = relativeCoordinate.unsafeClampedPercentCoordinate(cameraPivot: naoHead, camera: topCamera, tolerance: 0.04) // Will clamp if the coordinate is within this tolerance.
-// Will attempt to clamp if the coordinate is within the tolerance, otherwise will fail.
-guard let safeClamped = relativeCoordinate.clampedPercentCoordinate(cameraPivot: naoHead, camera: topCamera, tolerance: 0.04) else {
-    fatalError("The object is not viewable by the camera.")
+let alwaysClamped = relativeCoordinate.clampedPercentCoordinate(cameraPivot: naoHead, camera: topCamera) // Always will clamp the result to [-1.0, 1.0]
 }
 ```
 
@@ -597,40 +588,7 @@ let fieldPosition = FieldCoordinate(
 
 // Calculate the field position of an object from camera coordinates.
 let cameraCoordinate = CameraCoordinate(x: 12, y: 23, resWidth: 640, resHeight: 480)
-guard let cartesianCoordinate = fieldPosition.cartesianCoordinate(
-        at: cameraCoordinate,
-        cameraPivot: naoHead,
-        camera: bottomCamera
-    )
-else {
-    fatalError("The object represented by cameraCoordinate is in the sky.")
-}
-
-// Calculate the camera coordinate of an object on the field.
-let ballPosition = CartesianCoordinate(x: -82, y: 145)
-guard let ballInCamera = fieldPosition.clampedCameraCoordinate(
-        to: ballPosition,
-        cameraPivot: naoHead,
-        camera: bottomCamera,
-        resWidth: 640,
-        resHeight: 480,
-        tolerance: 0.04
-    )
-else {
-    fatalError("The ball is not viewable by the camera.")
-}
-```
-
-Ofcourse, unsafe variants of these functions exist for conversions that may fail:
-```swift
-let fieldPosition = FieldCoordinate(
-        position: CartesianCoordinate(x: -90, y: 120),
-        heading: 70
-    )
-
-// Calculate the field position of an object from camera coordinates.
-let cameraCoordinate = CameraCoordinate(x: 12, y: 23, resWidth: 640, resHeight: 480)
-let cartesianCoordinate = fieldPosition.unsafeCartesianCoordinate(
+let cartesianCoordinate = fieldPosition.cartesianCoordinate(
         at: cameraCoordinate,
         cameraPivot: naoHead,
         camera: bottomCamera
@@ -638,7 +596,7 @@ let cartesianCoordinate = fieldPosition.unsafeCartesianCoordinate(
 
 // Calculate the camera coordinate of an object on the field.
 let ballPosition = CartesianCoordinate(x: -82, y: 145)
-let ballInCamera = fieldPosition.unsafeClampedCameraCoordinate(
+let ballInCamera = fieldPosition.clampedCameraCoordinate(
         to: ballPosition,
         cameraPivot: naoHead,
         camera: bottomCamera,
@@ -647,3 +605,4 @@ let ballInCamera = fieldPosition.unsafeClampedCameraCoordinate(
         tolerance: 0.04
     )
 ```
+
