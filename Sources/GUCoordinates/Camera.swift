@@ -140,7 +140,7 @@ public struct Camera: CTypeWrapper {
     /// vertical direction. A positive value indicates that the camera is
     /// pointing more to the ground, whereas a negative value indicates that the
     /// camera is pointing more to the sky.
-    public init(height: Distance = 0.0, centerOffset: Distance = 0.0, vDirection: Angle = 0.0, vFov: Angle = 0.0, hFov: Angle = 0.0) {
+    public init(height: Distance = .zero, centerOffset: Distance = .zero, vDirection: Angle = .zero, vFov: Angle = .zero, hFov: Angle = .zero) {
         self.height = height
         self.centerOffset = centerOffset
         self.vDirection = vDirection

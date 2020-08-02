@@ -129,7 +129,7 @@ public struct CameraPivot: CTypeWrapper {
     ///
     /// - Parameter cameras: The `Camera`s attached to this pivot
     /// point.
-    public init(pitch: Angle = 0, yaw: Angle = 0, height: Distance = 0.0, cameras: [Camera] = []) {
+    public init(pitch: Angle = .zero, yaw: Angle = .zero, height: Distance = .zero, cameras: [Camera] = []) {
         self.pitch = pitch
         self.yaw = yaw
         self.height = height

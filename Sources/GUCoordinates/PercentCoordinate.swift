@@ -152,7 +152,7 @@ public struct PercentCoordinate: CTypeWrapper {
     /// - Parameter x: The x coordinate of the point within the image.
     ///
     /// - Parameter y: The y coordinate of the point within the image.
-    public init(x: Percent = 0.0, y: Percent = 0.0) {
+    public init(x: Percent = .zero, y: Percent = .zero) {
         self.x = x
         self.y = y
     }

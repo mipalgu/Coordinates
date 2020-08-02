@@ -154,7 +154,7 @@ public struct FieldCoordinate: CTypeWrapper {
     /// - Parameter position: The position within the field.
     ///
     /// - Parameter heading: The direction that this coordinate is facing
-    public init(position: CartesianCoordinate = CartesianCoordinate(), heading: Angle = 0) {
+    public init(position: CartesianCoordinate = CartesianCoordinate(), heading: Angle = .zero) {
         self.position = position
         self.heading = heading
     }

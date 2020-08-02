@@ -157,7 +157,7 @@ public struct RelativeCoordinate: CTypeWrapper {
     /// - Parameter direction: The direction to the target.
     ///
     /// - Parameter distance: The distance to the target.
-    public init(direction: Angle = 0, distance: Distance = 0) {
+    public init(direction: Angle = .zero, distance: Distance = .zero) {
         self.direction = direction
         self.distance = distance
     }
