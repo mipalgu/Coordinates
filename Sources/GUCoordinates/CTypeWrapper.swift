@@ -130,3 +130,27 @@ extension CTypeWrapper where Self: Encodable, CType: Encodable {
     }
 
 }
+
+extension CTypeWrapper where Self: AdditiveArithmetic, CType: AdditiveArithmetic {
+    
+    public static var zero: Self {
+        return Self(CType.zero)
+    }
+
+    public static func + (lhs: Self, rhs: Self) -> Self {
+        return Self(lhs.rawValue + rhs.rawValue)
+    }
+
+    public static func += (lhs: inout Self, rhs: Self) {
+        lhs = Self(lhs.rawValue + rhs.rawValue)
+    }
+
+    public static func - (lhs: Self, rhs: Self) -> Self {
+        return Self(lhs.rawValue - rhs.rawValue)
+    }
+
+    public static func -= (lhs: inout Self, rhs: Self) {
+        lhs = Self(lhs.rawValue - rhs.rawValue)
+    }
+    
+}

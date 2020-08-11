@@ -96,3 +96,36 @@ extension gu_cartesian_coordinate: Codable {
     }
 
 }
+
+extension gu_cartesian_coordinate: AdditiveArithmetic {
+    
+    public static var zero: gu_cartesian_coordinate {
+        return gu_cartesian_coordinate()
+    }
+    
+    
+    public static func +(lhs: gu_cartesian_coordinate, rhs: gu_cartesian_coordinate) -> gu_cartesian_coordinate {
+        return gu_cartesian_coordinate(
+            x: lhs.x + rhs.x,
+            y: lhs.y + rhs.y
+        )
+    }
+    
+    public static func += (lhs: inout gu_cartesian_coordinate, rhs: gu_cartesian_coordinate) {
+        lhs.x += rhs.x
+        lhs.y += rhs.y
+    }
+    
+    public static func -(lhs: gu_cartesian_coordinate, rhs: gu_cartesian_coordinate) -> gu_cartesian_coordinate {
+        return gu_cartesian_coordinate(
+            x: lhs.x - rhs.x,
+            y: lhs.y - rhs.y
+        )
+    }
+    
+    public static func -= (lhs: inout gu_cartesian_coordinate, rhs: gu_cartesian_coordinate) {
+        lhs.x -= rhs.x
+        lhs.y -= rhs.y
+    }
+    
+}

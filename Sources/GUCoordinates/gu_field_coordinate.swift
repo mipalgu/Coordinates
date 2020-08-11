@@ -96,3 +96,29 @@ extension gu_field_coordinate: Codable {
     }
 
 }
+
+extension gu_field_coordinate: AdditiveArithmetic {
+    
+    public static var zero: gu_field_coordinate {
+        return gu_field_coordinate()
+    }
+
+    public static func + (lhs: gu_field_coordinate, rhs: gu_field_coordinate) -> gu_field_coordinate {
+        return gu_field_coordinate(position: lhs.position + rhs.position, heading: lhs.heading + rhs.heading)
+    }
+
+    public static func += (lhs: inout gu_field_coordinate, rhs: gu_field_coordinate) {
+        lhs.position += rhs.position
+        lhs.heading += rhs.heading
+    }
+
+    public static func - (lhs: gu_field_coordinate, rhs: gu_field_coordinate) -> gu_field_coordinate {
+        return gu_field_coordinate(position: lhs.position - rhs.position, heading: lhs.heading - rhs.heading)
+    }
+
+    public static func -= (lhs: inout gu_field_coordinate, rhs: gu_field_coordinate) {
+        lhs.position -= rhs.position
+        lhs.heading -= rhs.heading
+    }
+    
+}

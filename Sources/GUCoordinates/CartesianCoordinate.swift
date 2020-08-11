@@ -745,32 +745,4 @@ public struct CartesianCoordinate: CTypeWrapper {
 
 }
 
-extension CartesianCoordinate: Equatable, Hashable, Codable {}
-
-extension CartesianCoordinate {
-    
-    public static func +(lhs: CartesianCoordinate, rhs: CartesianCoordinate) -> CartesianCoordinate {
-        return CartesianCoordinate(
-            x: lhs.x + rhs.x,
-            y: lhs.y + rhs.y
-        )
-    }
-    
-    public static func += (lhs: inout CartesianCoordinate, rhs: CartesianCoordinate) {
-        lhs.x += rhs.x
-        lhs.y += rhs.y
-    }
-    
-    public static func -(lhs: CartesianCoordinate, rhs: CartesianCoordinate) -> CartesianCoordinate {
-        return CartesianCoordinate(
-            x: lhs.x - rhs.x,
-            y: lhs.y - rhs.y
-        )
-    }
-    
-    public static func -= (lhs: inout CartesianCoordinate, rhs: CartesianCoordinate) {
-        lhs.x -= rhs.x
-        lhs.y -= rhs.y
-    }
-    
-}
+extension CartesianCoordinate: Equatable, Hashable, Codable, AdditiveArithmetic {}

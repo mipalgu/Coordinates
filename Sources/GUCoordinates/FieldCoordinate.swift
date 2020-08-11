@@ -828,32 +828,4 @@ public struct FieldCoordinate: CTypeWrapper {
 
 }
 
-extension FieldCoordinate: Equatable, Hashable, Codable {}
-
-extension FieldCoordinate {
-    
-    public static func +(lhs: FieldCoordinate, rhs: FieldCoordinate) -> FieldCoordinate {
-        return FieldCoordinate(
-            position: lhs.position + rhs.position,
-            heading: Angle(lhs.heading.degrees_d + rhs.heading.degrees_d)
-        )
-    }
-    
-    public static func += (lhs: inout FieldCoordinate, rhs: FieldCoordinate) {
-        lhs.position += rhs.position
-        lhs.heading = Angle(lhs.heading.degrees_d + rhs.heading.degrees_d)
-    }
-    
-    public static func -(lhs: FieldCoordinate, rhs: FieldCoordinate) -> FieldCoordinate {
-        return FieldCoordinate(
-            position: lhs.position - rhs.position,
-            heading: Angle(lhs.heading.degrees_d - rhs.heading.degrees_d)
-        )
-    }
-    
-    public static func -= (lhs: inout FieldCoordinate, rhs: FieldCoordinate) {
-        lhs.position += rhs.position
-        lhs.heading = Angle(lhs.heading.degrees_d - rhs.heading.degrees_d)
-    }
-    
-}
+extension FieldCoordinate: Equatable, Hashable, Codable, AdditiveArithmetic {}

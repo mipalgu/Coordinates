@@ -96,3 +96,36 @@ extension gu_relative_coordinate: Codable {
     }
 
 }
+
+extension gu_relative_coordinate: AdditiveArithmetic {
+    
+    public static var zero: gu_relative_coordinate {
+        return gu_relative_coordinate()
+    }
+    
+    
+    public static func +(lhs: gu_relative_coordinate, rhs: gu_relative_coordinate) -> gu_relative_coordinate {
+        return gu_relative_coordinate(
+            direction: lhs.direction + rhs.direction,
+            distance: lhs.distance + rhs.distance
+        )
+    }
+    
+    public static func += (lhs: inout gu_relative_coordinate, rhs: gu_relative_coordinate) {
+        lhs.direction += rhs.direction
+        lhs.distance += rhs.distance
+    }
+    
+    public static func -(lhs: gu_relative_coordinate, rhs: gu_relative_coordinate) -> gu_relative_coordinate {
+        return gu_relative_coordinate(
+            direction: lhs.direction - rhs.direction,
+            distance: lhs.distance - rhs.distance
+        )
+    }
+    
+    public static func -= (lhs: inout gu_relative_coordinate, rhs: gu_relative_coordinate) {
+        lhs.direction -= rhs.direction
+        lhs.distance -= rhs.distance
+    }
+    
+}

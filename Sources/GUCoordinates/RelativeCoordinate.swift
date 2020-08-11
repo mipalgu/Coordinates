@@ -433,4 +433,4 @@ public struct RelativeCoordinate: CTypeWrapper {
 
 }
 
-extension RelativeCoordinate: Equatable, Hashable, Codable {}
+extension RelativeCoordinate: Equatable, Hashable, Codable, AdditiveArithmetic {}

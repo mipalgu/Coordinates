@@ -96,3 +96,36 @@ extension gu_percent_coordinate: Codable {
     }
 
 }
+
+extension gu_percent_coordinate: AdditiveArithmetic {
+    
+    public static var zero: gu_percent_coordinate {
+        return gu_percent_coordinate()
+    }
+    
+    
+    public static func +(lhs: gu_percent_coordinate, rhs: gu_percent_coordinate) -> gu_percent_coordinate {
+        return gu_percent_coordinate(
+            x: lhs.x + rhs.x,
+            y: lhs.y + rhs.y
+        )
+    }
+    
+    public static func += (lhs: inout gu_percent_coordinate, rhs: gu_percent_coordinate) {
+        lhs.x += rhs.x
+        lhs.y += rhs.y
+    }
+    
+    public static func -(lhs: gu_percent_coordinate, rhs: gu_percent_coordinate) -> gu_percent_coordinate {
+        return gu_percent_coordinate(
+            x: lhs.x - rhs.x,
+            y: lhs.y - rhs.y
+        )
+    }
+    
+    public static func -= (lhs: inout gu_percent_coordinate, rhs: gu_percent_coordinate) {
+        lhs.x -= rhs.x
+        lhs.y -= rhs.y
+    }
+    
+}
