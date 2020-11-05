@@ -70,26 +70,26 @@ import GUUnits
 /// is in the west, whereas the away side is in the east. Because of this, it
 /// may not be a good idea to repurpose this coordinate for use in other
 /// applications since the x and y coordinates of this coordinate must be in
-/// centimetres.
+/// millimetres.
 ///
 /// The field coordinate system can be depicted graphically as follows:
 /// ```
 ///                                    ^
 ///                                    |
 ///                                  -x|
-///      --------------------------------------------------------------
-///     |                              |                               |
-///     |                  180 degrees |                               |
-///     |                             -|-          * (-90cm, 120cm)    |
-///     |-                           / | \                            -|
-///  -y | |                         |  |  | 90 degrees               | | y
-/// <---|-|-------------------------|--+--|--------------------------|-|--->
-///     | |             270 degrees |  |  |                          | |
-///     |-                           \ | /                            -|
-///     |                             -|-                              |
-///     |                              | 0 degrees                     |
-///     |                              |                               |
-///      --------------------------------------------------------------
+///      ----------------------------------------------------------------
+///     |                              |                                 |
+///     |                  180 degrees |                                 |
+///     |                             -|-          * (-900mm, 1200mm)    |
+///     |-                           / | \                              -|
+///  -y | |                         |  |  | 90 degrees                 | | y
+/// <---|-|-------------------------|--+--|----------------------------|-|--->
+///     | |             270 degrees |  |  |                            | |
+///     |-                           \ | /                              -|
+///     |                             -|-                                |
+///     |                              | 0 degrees                       |
+///     |                              |                                 |
+///      ----------------------------------------------------------------
 ///                                    |
 ///                HOME               x|              AWAY
 ///                                    V
@@ -101,11 +101,11 @@ public struct CartesianCoordinate: CTypeWrapper {
 
 // MARK: Properties
     
-    /// The x coordinate of the position in centimetres.
-    public var x: Centimetres_t
+    /// The x coordinate of the position in millimetres.
+    public var x: Millimetres_t 
     
-    /// The y coordinate of the position in centimetres.
-    public var y: Centimetres_t
+    /// The y coordinate of the position in millimetres.
+    public var y: Millimetres_t
 
 // MARK: Converting to/from the Underlying C Type
     
@@ -122,8 +122,8 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// contains the values that will be copied.
     public init(_ other: gu_cartesian_coordinate) {
         self.init(
-            x: Centimetres_t(rawValue: other.x),
-            y: Centimetres_t(rawValue: other.y)
+            x: Millimetres_t(rawValue: other.x),
+            y: Millimetres_t(rawValue: other.y)
         )
     }
     
@@ -134,7 +134,7 @@ public struct CartesianCoordinate: CTypeWrapper {
     /// - Parameter x: The x coordinate of the position within the field.
     ///
     /// - Parameter y: The y coordinate of the position within the field.
-    public init(x: Centimetres_t = 0, y: Centimetres_t = 0) {
+    public init(x: Millimetres_t = 0, y: Millimetres_t = 0) {
         self.x = x
         self.y = y
     }
