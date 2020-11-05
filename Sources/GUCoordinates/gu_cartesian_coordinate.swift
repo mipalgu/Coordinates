@@ -84,8 +84,8 @@ extension gu_cartesian_coordinate: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let x = try values.decode(centimetres_t.self, forKey: .x)
-        let y = try values.decode(centimetres_t.self, forKey: .y)
+        let x = try values.decode(millimetres_t.self, forKey: .x)
+        let y = try values.decode(millimetres_t.self, forKey: .y)
         self.init(x: x, y: y)
     }
 
