@@ -5,7 +5,7 @@
 
 ALL_TARGETS=host-local
 
-.include "../../mk/mipal.mk"
+.include "../../../mk/mipal.mk"
 
 # vim:ft=make
 #
