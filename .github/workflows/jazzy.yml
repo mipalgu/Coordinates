@@ -5,12 +5,66 @@ on:
     branches: [ main ]
 
 jobs:
+
   exec-jazzy:
     runs-on: macos-11
 
     steps:
-    - uses: actions/checkout@v2
-    
+    - name: Install Ninja
+      run: brew install ninja
+
+    - name: Install CMake
+      run: brew install cmake
+
+    - name: Install guunits
+      uses: actions/checkout@v2
+      with:
+        repository: mipalgu/guunits
+        path: guunits
+      run: |
+        cd guunits/guunits
+        mkdir build
+        cd build
+        cmake -G Ninja ..
+        ninja
+        ninja install
+        cd ../../..
+
+    - name: Install gu_util
+      uses: actions/checkout@v2
+      with:
+        repository: mipalgu/gu_util
+        path: gu_util
+      run: |
+        cd gu_util
+        mkdir build
+        cd build
+        cmake -G Ninja ..
+        ninja
+        ninja install
+        cd ../..
+
+    - name: Install gucoordinates
+      uses: actions/checkout@v2
+      with:
+        repository: mipalgu/gucoordinates
+        path: gucoordinates
+      run: |
+        cd gucoordinates/gucoordinates
+        mkdir build
+        cd build
+        cmake -G Ninja ..
+        ninja
+        ninja install
+        cd ../../..
+
+    - name: Clone Repository 
+      uses: actions/checkout@v2
+      with:
+        repository: mipalgu/swift_GUCoordinates
+        path: swift_GUCoordinates
+      run: cd swift_GUCoordinates
+
     - name: Jazzy Action
       uses: sersoft-gmbh/swifty-docs-action@v1.2.0
       with:
