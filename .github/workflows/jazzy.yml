@@ -2,7 +2,7 @@ name: Jazzy Documentation
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   exec-jazzy:
