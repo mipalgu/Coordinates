@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CameraPivot Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/CameraPivot" class="dashAnchor"></a>
+    <a title="CameraPivot Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (72% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        CameraPivot Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_camera.html">gu_camera</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_camera_coordinate.html">gu_camera_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_camera_pivot.html">gu_camera_pivot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_cartesian_coordinate.html">gu_cartesian_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_field_coordinate.html">gu_field_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_percent_coordinate.html">gu_percent_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_pixel_coordinate.html">gu_pixel_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_relative_coordinate.html">gu_relative_coordinate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/CTypeWrapper.html">CTypeWrapper</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Camera.html">Camera</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CameraCoordinate.html">CameraCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CameraPivot.html">CameraPivot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FieldCoordinate.html">FieldCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PercentCoordinate.html">PercentCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PixelCoordinate.html">PixelCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>CameraPivot</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CameraPivot</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/CTypeWrapper.html">CTypeWrapper</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CameraPivot</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                </div>
+              </div>
+            <p>A <code>CameraPivot</code> represents the pivot point which a <code><a href="../Structs/Camera.html">Camera</a></code> is attached to.</p>
+
+<p>If a camera is on the ground, then there is no pivot point. If the camera
+is on the end of a stick then the pivot point is the bottom of the stick.
+If the camera is on the head of the robot, then the pivot point is the
+neck of the robot.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Properties"></a>
+                  <h3 class="section-name"><p>Properties</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates11CameraPivotV5pitchXevp"></a>
+                    <a name="//apple_ref/swift/Property/pitch" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates11CameraPivotV5pitchXevp">pitch</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The vertical orientation of the pivot point.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">pitch</span><span class="p">:</span> <span class="kt">Angle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates11CameraPivotV3yawXevp"></a>
+                    <a name="//apple_ref/swift/Property/yaw" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates11CameraPivotV3yawXevp">yaw</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The horizontal orientation of the pivot point.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">yaw</span><span class="p">:</span> <span class="kt">Angle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates11CameraPivotV6heightXevp"></a>
+                    <a name="//apple_ref/swift/Property/height" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates11CameraPivotV6heightXevp">height</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The vertical distance from the ground to the pivot point.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">Distance</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates11CameraPivotV7camerasSayAA0B0VGvp"></a>
+                    <a name="//apple_ref/swift/Property/cameras" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates11CameraPivotV7camerasSayAA0B0VGvp">cameras</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code><a href="../Structs/Camera.html">Camera</a></code>s attached to this pivot point.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">cameras</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Camera.html">Camera</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Converting%20to%2Ffrom%20the%20Underlying%20C%20Type"></a>
+                <a name="//apple_ref/swift/Section/Converting to/from the Underlying C Type" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Converting%20to%2Ffrom%20the%20Underlying%20C%20Type"></a>
+                  <h3 class="section-name"><p>Converting to/from the Underlying C Type</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates11CameraPivotV8rawValueXevp"></a>
+                    <a name="//apple_ref/swift/Property/rawValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates11CameraPivotV8rawValueXevp">rawValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represent this coordinate using the underlying C type <code>gu_camera_pivot</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="n">gu_camera_pivot</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates11CameraPivotVyXeXecfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates11CameraPivotVyXeXecfc">init(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new <code>CameraPivot</code> by copying the values from the
+underlying c type <code>gu_camera_pivot</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="n">gu_camera_pivot</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>other</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An instance of <code>gu_camera_pivot</code> which contains
+the values that will be copied.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Creating%20a%20CameraPivot"></a>
+                <a name="//apple_ref/swift/Section/Creating a CameraPivot" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Creating%20a%20CameraPivot"></a>
+                  <h3 class="section-name"><p>Creating a CameraPivot</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates11CameraPivotVyXeXecfc"></a>
+                    <a name="//apple_ref/swift/Method/init(pitch:yaw:height:cameras:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates11CameraPivotVyXeXecfc">init(pitch:<wbr>yaw:<wbr>height:<wbr>cameras:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new <code>CameraPivot</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">pitch</span><span class="p">:</span> <span class="kt">Angle</span> <span class="o">=</span> <span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="nv">yaw</span><span class="p">:</span> <span class="kt">Angle</span> <span class="o">=</span> <span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">Distance</span> <span class="o">=</span> <span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="nv">cameras</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Camera.html">Camera</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pitch</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The vertical orientation of the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>yaw</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The horizontal orientation of the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>height</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The vertical distance from the ground to the pivot
+point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameras</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/Camera.html">Camera</a></code>s attached to this pivot
+point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Checking%20Whether%20Conversions%20Are%20Possible"></a>
+                <a name="//apple_ref/swift/Section/Checking Whether Conversions Are Possible" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Checking%20Whether%20Conversions%20Are%20Possible"></a>
+                  <h3 class="section-name"><p>Checking Whether Conversions Are Possible</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates11CameraPivotV14objectOnGround_03forB0SbAA0B10CoordinateV_SitF"></a>
+                    <a name="//apple_ref/swift/Method/objectOnGround(_:forCamera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates11CameraPivotV14objectOnGround_03forB0SbAA0B10CoordinateV_SitF">objectOnGround(_:<wbr>forCamera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Is the object represent by the pixel in the image taken from the camera
+on the ground?</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">objectOnGround</span><span class="p">(</span><span class="n">_</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></span><span class="p">,</span> <span class="n">forCamera</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The pixel in the image representing the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The camera index for the camera in the <code><a href="../Structs/CameraPivot.html#/s:13GUCoordinates11CameraPivotV7camerasSayAA0B0VGvp">cameras</a></code>
+array.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if the pixel represents an object that is on the ground.
+Otherwise, False.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates11CameraPivotV14objectOnGround_03forB0SbAA15PixelCoordinateV_SitF"></a>
+                    <a name="//apple_ref/swift/Method/objectOnGround(_:forCamera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates11CameraPivotV14objectOnGround_03forB0SbAA15PixelCoordinateV_SitF">objectOnGround(_:<wbr>forCamera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Is the object represent by the pixel in the image taken from the camera
+on the ground?</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">objectOnGround</span><span class="p">(</span><span class="n">_</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/PixelCoordinate.html">PixelCoordinate</a></span><span class="p">,</span> <span class="n">forCamera</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The pixel in the image representing the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The camera index for the camera in the <code><a href="../Structs/CameraPivot.html#/s:13GUCoordinates11CameraPivotV7camerasSayAA0B0VGvp">cameras</a></code>
+array.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if the pixel represents an object that is on the ground.
+Otherwise, False.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates11CameraPivotV14objectOnGround_03forB0SbAA17PercentCoordinateV_SitF"></a>
+                    <a name="//apple_ref/swift/Method/objectOnGround(_:forCamera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates11CameraPivotV14objectOnGround_03forB0SbAA17PercentCoordinateV_SitF">objectOnGround(_:<wbr>forCamera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Is the object represent by the pixel in the image taken from the camera
+on the ground?</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">objectOnGround</span><span class="p">(</span><span class="n">_</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></span><span class="p">,</span> <span class="n">forCamera</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The pixel in the image representing the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The camera index for the camera in the <code><a href="../Structs/CameraPivot.html#/s:13GUCoordinates11CameraPivotV7camerasSayAA0B0VGvp">cameras</a></code>
+array.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if the pixel represents an object that is on the ground.
+Otherwise, False.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates11CameraPivotV6canSee6object02inB0SbAA18RelativeCoordinateV_SitF"></a>
+                    <a name="//apple_ref/swift/Method/canSee(object:inCamera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates11CameraPivotV6canSee6object02inB0SbAA18RelativeCoordinateV_SitF">canSee(object:<wbr>inCamera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Can the camera see the object?</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">canSee</span><span class="p">(</span><span class="n">object</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a></span><span class="p">,</span> <span class="n">inCamera</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The location of the object in relation to the camera.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The camera index for the camera in the <code><a href="../Structs/CameraPivot.html#/s:13GUCoordinates11CameraPivotV7camerasSayAA0B0VGvp">cameras</a></code>
+array.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if the specified camera can see the object, False
+otherwise.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-09)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

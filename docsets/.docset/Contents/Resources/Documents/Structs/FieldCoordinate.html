@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>FieldCoordinate Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/FieldCoordinate" class="dashAnchor"></a>
+    <a title="FieldCoordinate Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (72% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        FieldCoordinate Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_camera.html">gu_camera</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_camera_coordinate.html">gu_camera_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_camera_pivot.html">gu_camera_pivot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_cartesian_coordinate.html">gu_cartesian_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_field_coordinate.html">gu_field_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_percent_coordinate.html">gu_percent_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_pixel_coordinate.html">gu_pixel_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_relative_coordinate.html">gu_relative_coordinate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/CTypeWrapper.html">CTypeWrapper</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Camera.html">Camera</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CameraCoordinate.html">CameraCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CameraPivot.html">CameraPivot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FieldCoordinate.html">FieldCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PercentCoordinate.html">PercentCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PixelCoordinate.html">PixelCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>FieldCoordinate</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">FieldCoordinate</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/CTypeWrapper.html">CTypeWrapper</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">FieldCoordinate</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">AdditiveArithmetic</span></code></pre>
+
+                </div>
+              </div>
+            <p>A field_coordinate is a coordinate for an object that faces a certain
+direction (such as a robot) on the field.</p>
+
+<p>The coordinate describes the location of the object on the field
+(with position) as well as the direction that the object is facing
+(with heading).</p>
+
+<p>The field coordinate system can be depicted graphically as follows:</p>
+<pre class="highlight swift"><code>                                   <span class="o">^</span>
+                                   <span class="o">|</span>
+                                 <span class="o">-</span><span class="n">x</span><span class="o">|</span>
+     <span class="o">--------------------------------------------------------------</span>
+    <span class="o">|</span>                              <span class="o">|</span>                               <span class="o">|</span>
+    <span class="o">|</span>                  <span class="mi">180</span> <span class="n">degrees</span> <span class="o">|</span>                               <span class="o">|</span>
+    <span class="o">|</span>                             <span class="o">-|-</span>         <span class="o">*-&gt;</span> <span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="n">cm</span><span class="p">,</span> <span class="mi">120</span><span class="n">cm</span><span class="p">,</span> <span class="mi">90</span> <span class="n">degrees</span><span class="p">)</span>
+    <span class="o">|-</span>                           <span class="o">/</span> <span class="o">|</span> <span class="err">\</span>                            <span class="o">-|</span>
+ <span class="o">-</span><span class="n">y</span> <span class="o">|</span> <span class="o">|</span>                         <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span> <span class="mi">90</span> <span class="n">degrees</span>               <span class="o">|</span> <span class="o">|</span> <span class="n">y</span>
+<span class="o">&lt;---|-|-------------------------|--+--|--------------------------|-|---&gt;</span>
+    <span class="o">|</span> <span class="o">|</span>             <span class="mi">270</span> <span class="n">degrees</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>                          <span class="o">|</span> <span class="o">|</span>
+    <span class="o">|-</span>                           <span class="err">\</span> <span class="o">|</span> <span class="o">/</span>                            <span class="o">-|</span>
+    <span class="o">|</span>                             <span class="o">-|-</span>                              <span class="o">|</span>
+    <span class="o">|</span>                              <span class="o">|</span> <span class="mi">0</span> <span class="n">degrees</span>                     <span class="o">|</span>
+    <span class="o">|</span>                              <span class="o">|</span>                               <span class="o">|</span>
+     <span class="o">--------------------------------------------------------------</span>
+                                   <span class="o">|</span>
+               <span class="kt">HOME</span>               <span class="n">x</span><span class="o">|</span>              <span class="kt">AWAY</span>
+                                   <span class="kt">V</span>
+</code></pre>
+
+<p>When describing objects that face in certain directions it is important
+to disregard this coordinate and instead use <code>FieldCoordinate</code>.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Properties"></a>
+                  <h3 class="section-name"><p>Properties</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV8positionAA09CartesianC0Vvp"></a>
+                    <a name="//apple_ref/swift/Property/position" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV8positionAA09CartesianC0Vvp">position</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The position of the object on the field.</p>
+
+<p>If the field is viewed where the home side is in the west and the
+away side is in the east, then the x asix runs north to south. The
+y axis runs west to east. A negative x value indicates a position
+in the northern half of the field while a positive x value indicates
+a position in the southern half of the field. A negative y value
+indicates a position in the western side of the field whereas a positive
+y value indicates a position in the eastern side of the field. A value
+of zero for both x and y indicate that the object is in the middle of
+the field.</p>
+
+<p>As an example, if we take an actual full sized 100 meter field, then
+the middle of the goal line on the home side of the field would be at
+the coordinates (0, -50). The middle of the away goal line would be
+(0, 50). The middle line which separates the two sides of a field which
+is 60 meters wide runs from the points (-30, 0) to (30, 0).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">position</span><span class="p">:</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV7headingXevp"></a>
+                    <a name="//apple_ref/swift/Property/heading" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV7headingXevp">heading</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The direction where the object is facing.</p>
+
+<p>If the field is viewed where the home side is in the west and the away
+side is in the ast, then the direction runs counter clockwise where the
+zero direction faces directly south. Therefore, 90 degrees points
+directly east, 180 degrees points directly north and 270 degrees points
+directly west.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">heading</span><span class="p">:</span> <span class="kt">Angle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Converting%20to%2Ffrom%20the%20Underlying%20C%20Type"></a>
+                <a name="//apple_ref/swift/Section/Converting to/from the Underlying C Type" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Converting%20to%2Ffrom%20the%20Underlying%20C%20Type"></a>
+                  <h3 class="section-name"><p>Converting to/from the Underlying C Type</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV8rawValueXevp"></a>
+                    <a name="//apple_ref/swift/Property/rawValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV8rawValueXevp">rawValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represent this coordinate using the underlying C type
+<code>gu_field_coordinate</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="n">gu_field_coordinate</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateVyXeXecfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateVyXeXecfc">init(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new <code>FieldCoordinate</code> by copying the values from the
+underlying c type <code>gu_field_coordinate</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="n">gu_field_coordinate</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>other</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An instance of <code>gu_field_coordinate</code> which
+contains the values that will be copied.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Creating%20a%20FieldCoordinate"></a>
+                <a name="//apple_ref/swift/Section/Creating a FieldCoordinate" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Creating%20a%20FieldCoordinate"></a>
+                  <h3 class="section-name"><p>Creating a FieldCoordinate</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateVyXeXecfc"></a>
+                    <a name="//apple_ref/swift/Method/init(position:heading:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateVyXeXecfc">init(position:<wbr>heading:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new <code>FieldCoordinate</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">position</span><span class="p">:</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span><span class="p">(),</span> <span class="nv">heading</span><span class="p">:</span> <span class="kt">Angle</span> <span class="o">=</span> <span class="o">.</span><span class="n">zero</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>position</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The position within the field.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>heading</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The direction that this coordinate is facing</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Checking%20Visibility%20of%20Object%20Around%20The%20Field"></a>
+                <a name="//apple_ref/swift/Section/Checking Visibility of Object Around The Field" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Checking%20Visibility%20of%20Object%20Around%20The%20Field"></a>
+                  <h3 class="section-name"><p>Checking Visibility of Object Around The Field</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV6canSee8objectAt11cameraPivot0H0SbAA09CartesianC0V_AA06CameraI0VSitF"></a>
+                    <a name="//apple_ref/swift/Method/canSee(objectAt:cameraPivot:camera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV6canSee8objectAt11cameraPivot0H0SbAA09CartesianC0V_AA06CameraI0VSitF">canSee(objectAt:<wbr>cameraPivot:<wbr>camera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Can the camera see the object?</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">canSee</span><span class="p">(</span><span class="n">objectAt</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The location of the object on the field.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The camera pivot which the camera is attached
+to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The camera index for the camera in the camera
+pivots <code>cameras</code> array.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if the specified camera can see the object, False
+otherwise.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV6canSee8objectAt11cameraPivot0H0SbAC_AA06CameraI0VSitF"></a>
+                    <a name="//apple_ref/swift/Method/canSee(objectAt:cameraPivot:camera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV6canSee8objectAt11cameraPivot0H0SbAC_AA06CameraI0VSitF">canSee(objectAt:<wbr>cameraPivot:<wbr>camera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Can the camera see the object?</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">canSee</span><span class="p">(</span><span class="n">objectAt</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt">FieldCoordinate</span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The location of the object on the field.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The camera pivot which the camera is attached
+to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The camera index for the camera in the camera
+pivots <code>cameras</code> array.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if the specified camera can see the object, False
+otherwise.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Calculating%20Coordinates%20Around%20The%20Field"></a>
+                <a name="//apple_ref/swift/Section/Calculating Coordinates Around The Field" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Calculating%20Coordinates%20Around%20The%20Field"></a>
+                  <h3 class="section-name"><p>Calculating Coordinates Around The Field</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV09cartesianC02atAA09CartesianC0VAA08RelativeC0V_tF"></a>
+                    <a name="//apple_ref/swift/Method/cartesianCoordinate(at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV09cartesianC02atAA09CartesianC0VAA08RelativeC0V_tF">cartesianCoordinate(at:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate the position of a coordinate in relation to this coordinate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cartesianCoordinate</span><span class="p">(</span><span class="n">at</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The position of the coordinate in relation to
+this coordinate.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></code> calculated in relation to this
+coordinate.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV05fieldC0yXeXeF"></a>
+                    <a name="//apple_ref/swift/Method/fieldCoordinate(at:heading:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV05fieldC0yXeXeF">fieldCoordinate(at:<wbr>heading:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate the position of a coordinate in relation to this coordinate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">fieldCoordinate</span><span class="p">(</span><span class="n">at</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a></span><span class="p">,</span> <span class="nv">heading</span><span class="p">:</span> <span class="kt">Degrees_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">FieldCoordinate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The position of the coordinate in relation to
+this coordinate.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>heading</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The direction in which the new coordinate
+is facing.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code>FieldCoordinate</code> calculated in relation to this
+coordinate.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV09cartesianC02at11cameraPivot0F0AA09CartesianC0VAA06CameraC0V_AA0iG0VSitF"></a>
+                    <a name="//apple_ref/swift/Method/cartesianCoordinate(at:cameraPivot:camera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV09cartesianC02at11cameraPivot0F0AA09CartesianC0VAA06CameraC0V_AA0iG0VSitF">cartesianCoordinate(at:<wbr>cameraPivot:<wbr>camera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate the position of an object in an image in relation to this
+coordinate.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>Only use this function if you are positive that the pixel in
+the image represented by <code>coord</code> is representing an object on the ground.
+If this is not the case, then the maximum value for the distance will
+be used.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cartesianCoordinate</span><span class="p">(</span><span class="n">at</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The pixel in the image representing the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/CameraPivot.html">CameraPivot</a></code> detailing the configuration
+of the pivot pixel in which the camera is placed, as well as detailing
+the cameras attached to the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the camera which recorded the image
+containing the point represented by <code>coord</code>. This index should reference
+a valid <code><a href="../Structs/Camera.html">Camera</a></code> within the <code>cameras</code> array within
+<code>cameraPivot.cameras</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></code> calculated in relation to this
+coordinate.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV09cartesianC02at11cameraPivot0F0AA09CartesianC0VAA05PixelC0V_AA06CameraG0VSitF"></a>
+                    <a name="//apple_ref/swift/Method/cartesianCoordinate(at:cameraPivot:camera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV09cartesianC02at11cameraPivot0F0AA09CartesianC0VAA05PixelC0V_AA06CameraG0VSitF">cartesianCoordinate(at:<wbr>cameraPivot:<wbr>camera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate the position of an object in an image in relation to this
+coordinate.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>Only use this function if you are positive that the pixel in
+the image represented by <code>coord</code> is representing an object on the ground.
+If this is not the case, then the maximum value for the distance will
+be used.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/PixelCoordinate.html">PixelCoordinate</a></code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cartesianCoordinate</span><span class="p">(</span><span class="n">at</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/PixelCoordinate.html">PixelCoordinate</a></span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The pixel in the image representing the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/CameraPivot.html">CameraPivot</a></code> detailing the configuration
+of the pivot pixel in which the camera is placed, as well as detailing
+the cameras attached to the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the camera which recorded the image
+containing the point represented by <code>coord</code>. This index should reference
+a valid <code><a href="../Structs/Camera.html">Camera</a></code> within the <code>cameras</code> array within
+<code>cameraPivot.cameras</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></code> calculated in relation to this
+coordinate.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV09cartesianC02at11cameraPivot0F0AA09CartesianC0VAA07PercentC0V_AA06CameraG0VSitF"></a>
+                    <a name="//apple_ref/swift/Method/cartesianCoordinate(at:cameraPivot:camera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV09cartesianC02at11cameraPivot0F0AA09CartesianC0VAA07PercentC0V_AA06CameraG0VSitF">cartesianCoordinate(at:<wbr>cameraPivot:<wbr>camera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate the position of an object in an image in relation to this
+coordinate.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>Only use this function if you are positive that the point in
+the image represented by <code>coord</code> is representing an object on the ground.
+If this is not the case, then the maximum value for the distance will
+be used.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cartesianCoordinate</span><span class="p">(</span><span class="n">at</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The point in the image representing the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/CameraPivot.html">CameraPivot</a></code> detailing the configuration
+of the pivot point in which the camera is placed, as well as detailing
+the cameras attached to the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the camera which recorded the image
+containing the point represented by <code>coord</code>. This index should reference
+a valid <code><a href="../Structs/Camera.html">Camera</a></code> within the <code>cameras</code> array within
+<code>cameraPivot.cameras</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></code> calculated in relation to this
+coordinate.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV05fieldC0yXeXeF"></a>
+                    <a name="//apple_ref/swift/Method/fieldCoordinate(at:cameraPivot:camera:heading:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV05fieldC0yXeXeF">fieldCoordinate(at:<wbr>cameraPivot:<wbr>camera:<wbr>heading:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate the position of an object in an image in relation to this
+coordinate.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>Only use this function if you are positive that the pixel in
+the image represented by <code>coord</code> is representing an object on the ground.
+If this is not the case, then the maximum value for the distance will
+be used.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">fieldCoordinate</span><span class="p">(</span><span class="n">at</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">heading</span><span class="p">:</span> <span class="kt">Degrees_t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">FieldCoordinate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The pixel in the image representing the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/CameraPivot.html">CameraPivot</a></code> detailing the configuration
+of the pivot point in which the camera is placed, as well as detailing
+the cameras attached to the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the camera which recorded the image
+containing the pixel represented by <code>coord</code>. This index should reference
+a valid <code><a href="../Structs/Camera.html">Camera</a></code> within the <code>cameras</code> array within
+<code>cameraPivot.cameras</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>heading</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The direction in which the new coordinate
+is facing.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code>FieldCoordinate</code> calculated in relation to this
+coordinate.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Calculating%20Relative%20Coordinates%20to%20Objects%20on%20the%20Field"></a>
+                <a name="//apple_ref/swift/Section/Calculating Relative Coordinates to Objects on the Field" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Calculating%20Relative%20Coordinates%20to%20Objects%20on%20the%20Field"></a>
+                  <h3 class="section-name"><p>Calculating Relative Coordinates to Objects on the Field</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV08relativeC02toAA08RelativeC0VAA09CartesianC0V_tF"></a>
+                    <a name="//apple_ref/swift/Method/relativeCoordinate(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV08relativeC02toAA08RelativeC0VAA09CartesianC0V_tF">relativeCoordinate(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate the <code><a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a></code> to a target coordinate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">relativeCoordinate</span><span class="p">(</span><span class="n">to</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The target coordinate.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a></code> pointing towards <code>coord</code> from
+this coordinate.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV08relativeC02toAA08RelativeC0VAC_tF"></a>
+                    <a name="//apple_ref/swift/Method/relativeCoordinate(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV08relativeC02toAA08RelativeC0VAC_tF">relativeCoordinate(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate the <code><a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a></code> to a target coordinate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">relativeCoordinate</span><span class="p">(</span><span class="n">to</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt">FieldCoordinate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The target coordinate.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a></code> pointing towards <code>coord</code> from
+this coordinate.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Calculating%20Image%20Coordinate%20to%20Objects%20on%20the%20Field"></a>
+                <a name="//apple_ref/swift/Section/Calculating Image Coordinate to Objects on the Field" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Calculating%20Image%20Coordinate%20to%20Objects%20on%20the%20Field"></a>
+                  <h3 class="section-name"><p>Calculating Image Coordinate to Objects on the Field</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV06cameraC0yXeXeF"></a>
+                    <a name="//apple_ref/swift/Method/cameraCoordinate(to:cameraPivot:camera:resWidth:resHeight:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV06cameraC0yXeXeF">cameraCoordinate(to:<wbr>cameraPivot:<wbr>camera:<wbr>resWidth:<wbr>resHeight:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate a pixel within a specific image from a specific camera
+representing an object at a given position.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>This function does not check whether the calculated coordinate
+is within the bounds of the <code>resWidth</code> and <code>resHeight</code>. As such you
+should only use this function if you are positive that the camera can
+actually see the object at <code>coord</code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cameraCoordinate</span><span class="p">(</span><span class="n">to</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">resWidth</span><span class="p">:</span> <span class="kt">Pixels_u</span><span class="p">,</span> <span class="nv">resHeight</span><span class="p">:</span> <span class="kt">Pixels_u</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The position of the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/CameraPivot.html">CameraPivot</a></code> detailing the configuration
+of the pivot point in which the camera is placed, as well as detailing
+the cameras attached to the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the camera which recorded the image
+containing the pixel represented by <code>coord</code>. This index should reference
+a valid <code><a href="../Structs/Camera.html">Camera</a></code> within the <code>cameras</code> array within
+<code>cameraPivot.cameras</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resWidth</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The width of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resHeight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The height of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></code> representing the object in the camera.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV05pixelC0yXeXeF"></a>
+                    <a name="//apple_ref/swift/Method/pixelCoordinate(to:cameraPivot:camera:resWidth:resHeight:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV05pixelC0yXeXeF">pixelCoordinate(to:<wbr>cameraPivot:<wbr>camera:<wbr>resWidth:<wbr>resHeight:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate a pixel within a specific image from a specific camera
+representing an object at a given position.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>This function does not check whether the calculated coordinate
+is within the bounds of the <code>resWidth</code> and <code>resHeight</code>. As such you
+should only use this function if you are positive that the camera can
+actually see the object at <code>coord</code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/PixelCoordinate.html">PixelCoordinate</a></code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">pixelCoordinate</span><span class="p">(</span><span class="n">to</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">resWidth</span><span class="p">:</span> <span class="kt">Pixels_u</span><span class="p">,</span> <span class="nv">resHeight</span><span class="p">:</span> <span class="kt">Pixels_u</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/PixelCoordinate.html">PixelCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The position of the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/CameraPivot.html">CameraPivot</a></code> detailing the configuration
+of the pivot point in which the camera is placed, as well as detailing
+the cameras attached to the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the camera which recorded the image
+containing the pixel represented by <code>coord</code>. This index should reference
+a valid <code><a href="../Structs/Camera.html">Camera</a></code> within the <code>cameras</code> array within
+<code>cameraPivot.cameras</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resWidth</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The width of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resHeight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The height of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/PixelCoordinate.html">PixelCoordinate</a></code> representing the object in the camera.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV07percentC02to11cameraPivot0F0AA07PercentC0VAA09CartesianC0V_AA06CameraG0VSitF"></a>
+                    <a name="//apple_ref/swift/Method/percentCoordinate(to:cameraPivot:camera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV07percentC02to11cameraPivot0F0AA07PercentC0VAA09CartesianC0V_AA06CameraG0VSitF">percentCoordinate(to:<wbr>cameraPivot:<wbr>camera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate a point within a specific image from a specific camera
+representing an object at a given position.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>This function does not check whether the calculated coordinate
+is within the bounds of the <code>resWidth</code> and <code>resHeight</code>. As such you
+should only use this function if you are positive that the camera can
+actually see the object at <code>coord</code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">percentCoordinate</span><span class="p">(</span><span class="n">to</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The position of the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/CameraPivot.html">CameraPivot</a></code> detailing the configuration
+of the pivot point in which the camera is placed, as well as detailing
+the cameras attached to the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the camera which recorded the image
+containing the pixel represented by <code>coord</code>. This index should reference
+a valid <code><a href="../Structs/Camera.html">Camera</a></code> within the <code>cameras</code> array within
+<code>cameraPivot.cameras</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resWidth</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The width of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resHeight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The height of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></code> representing the object in the
+camera.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV07percentC02to11cameraPivot0F0AA07PercentC0VAC_AA06CameraG0VSitF"></a>
+                    <a name="//apple_ref/swift/Method/percentCoordinate(to:cameraPivot:camera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV07percentC02to11cameraPivot0F0AA07PercentC0VAC_AA06CameraG0VSitF">percentCoordinate(to:<wbr>cameraPivot:<wbr>camera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate a point within a specific image from a specific camera
+representing an object at a given position.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>This function does not check whether the calculated coordinate
+is within the bounds of the <code>resWidth</code> and <code>resHeight</code>. As such you
+should only use this function if you are positive that the camera can
+actually see the object at <code>coord</code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">percentCoordinate</span><span class="p">(</span><span class="n">to</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt">FieldCoordinate</span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The position of the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/CameraPivot.html">CameraPivot</a></code> detailing the configuration
+of the pivot point in which the camera is placed, as well as detailing
+the cameras attached to the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the camera which recorded the image
+containing the pixel represented by <code>coord</code>. This index should reference
+a valid <code><a href="../Structs/Camera.html">Camera</a></code> within the <code>cameras</code> array within
+<code>cameraPivot.cameras</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resWidth</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The width of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resHeight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The height of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></code> representing the object in the
+camera.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV013clampedCameraC0yXeXeF"></a>
+                    <a name="//apple_ref/swift/Method/clampedCameraCoordinate(to:cameraPivot:camera:resWidth:resHeight:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV013clampedCameraC0yXeXeF">clampedCameraCoordinate(to:<wbr>cameraPivot:<wbr>camera:<wbr>resWidth:<wbr>resHeight:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate a pixel within a specific image from a specific camera
+representing an object at a given position.</p>
+
+<p>All calculated pixels that fall outside
+the bounds of the image are moved to the edge of the image to ensure
+that the function always calculates a coordinate within the image
+bounds.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clampedCameraCoordinate</span><span class="p">(</span><span class="n">to</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">resWidth</span><span class="p">:</span> <span class="kt">Pixels_u</span><span class="p">,</span> <span class="nv">resHeight</span><span class="p">:</span> <span class="kt">Pixels_u</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The position of the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/CameraPivot.html">CameraPivot</a></code> detailing the configuration
+of the pivot point in which the camera is placed, as well as detailing
+the cameras attached to the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the camera which recorded the image
+containing the pixel represented by <code>coord</code>. This index should reference
+a valid <code><a href="../Structs/Camera.html">Camera</a></code> within the <code>cameras</code> array within
+<code>cameraPivot.cameras</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resWidth</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The width of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resHeight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The height of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></code> representing the object in the
+camera.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV012clampedPixelC0yXeXeF"></a>
+                    <a name="//apple_ref/swift/Method/clampedPixelCoordinate(to:cameraPivot:camera:resWidth:resHeight:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV012clampedPixelC0yXeXeF">clampedPixelCoordinate(to:<wbr>cameraPivot:<wbr>camera:<wbr>resWidth:<wbr>resHeight:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate a pixel within a specific image from a specific camera
+representing an object at a given position.</p>
+
+<p>All calculated pixels that fall outside
+the bounds of the image are moved to the edge of the image to ensure
+that the function always calculates a coordinate within the image
+bounds.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/PixelCoordinate.html">PixelCoordinate</a></code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clampedPixelCoordinate</span><span class="p">(</span><span class="n">to</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">resWidth</span><span class="p">:</span> <span class="kt">Pixels_u</span><span class="p">,</span> <span class="nv">resHeight</span><span class="p">:</span> <span class="kt">Pixels_u</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/PixelCoordinate.html">PixelCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The position of the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/CameraPivot.html">CameraPivot</a></code> detailing the configuration
+of the pivot point in which the camera is placed, as well as detailing
+the cameras attached to the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the camera which recorded the image
+containing the pixel represented by <code>coord</code>. This index should reference
+a valid <code><a href="../Structs/Camera.html">Camera</a></code> within the <code>cameras</code> array within
+<code>cameraPivot.cameras</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resWidth</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The width of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resHeight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The height of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/PixelCoordinate.html">PixelCoordinate</a></code> representing the object in the
+camera.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV014clampedPercentC02to11cameraPivot0G0AA0eC0VAA09CartesianC0V_AA06CameraH0VSitF"></a>
+                    <a name="//apple_ref/swift/Method/clampedPercentCoordinate(to:cameraPivot:camera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV014clampedPercentC02to11cameraPivot0G0AA0eC0VAA09CartesianC0V_AA06CameraH0VSitF">clampedPercentCoordinate(to:<wbr>cameraPivot:<wbr>camera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate a point within a specific image from a specific camera
+representing an object at a given position.</p>
+
+<p>All calculated pixels that fall outside
+the bounds of the image are moved to the edge of the image to ensure
+that the function always calculates a coordinate within the image
+bounds.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clampedPercentCoordinate</span><span class="p">(</span><span class="n">to</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt"><a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a></span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The position of the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/CameraPivot.html">CameraPivot</a></code> detailing the configuration
+of the pivot point in which the camera is placed, as well as detailing
+the cameras attached to the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the camera which recorded the image
+containing the pixel represented by <code>coord</code>. This index should reference
+a valid <code><a href="../Structs/Camera.html">Camera</a></code> within the <code>cameras</code> array within
+<code>cameraPivot.cameras</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resWidth</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The width of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resHeight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The height of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></code> representing the object in the
+camera.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV014clampedPercentC02to11cameraPivot0G0AA0eC0VAC_AA06CameraH0VSitF"></a>
+                    <a name="//apple_ref/swift/Method/clampedPercentCoordinate(to:cameraPivot:camera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV014clampedPercentC02to11cameraPivot0G0AA0eC0VAC_AA06CameraH0VSitF">clampedPercentCoordinate(to:<wbr>cameraPivot:<wbr>camera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculate a point within a specific image from a specific camera
+representing an object at a given position.</p>
+
+<p>All calculated pixels that fall outside
+the bounds of the image are moved to the edge of the image to ensure
+that the function always calculates a coordinate within the image
+bounds.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clampedPercentCoordinate</span><span class="p">(</span><span class="n">to</span> <span class="nv">coord</span><span class="p">:</span> <span class="kt">FieldCoordinate</span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coord</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The position of the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/CameraPivot.html">CameraPivot</a></code> detailing the configuration
+of the pivot point in which the camera is placed, as well as detailing
+the cameras attached to the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the camera which recorded the image
+containing the pixel represented by <code>coord</code>. This index should reference
+a valid <code><a href="../Structs/Camera.html">Camera</a></code> within the <code>cameras</code> array within
+<code>cameraPivot.cameras</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resWidth</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The width of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resHeight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The height of the resolution of the image that
+we are placing the object in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/PercentCoordinate.html">PercentCoordinate</a></code> representing the object in the
+camera.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-09)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

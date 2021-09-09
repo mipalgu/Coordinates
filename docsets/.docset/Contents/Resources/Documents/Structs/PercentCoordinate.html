@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>PercentCoordinate Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/PercentCoordinate" class="dashAnchor"></a>
+    <a title="PercentCoordinate Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (72% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        PercentCoordinate Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_camera.html">gu_camera</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_camera_coordinate.html">gu_camera_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_camera_pivot.html">gu_camera_pivot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_cartesian_coordinate.html">gu_cartesian_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_field_coordinate.html">gu_field_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_percent_coordinate.html">gu_percent_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_pixel_coordinate.html">gu_pixel_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/gu_relative_coordinate.html">gu_relative_coordinate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/CTypeWrapper.html">CTypeWrapper</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Camera.html">Camera</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CameraCoordinate.html">CameraCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CameraPivot.html">CameraPivot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CartesianCoordinate.html">CartesianCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FieldCoordinate.html">FieldCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PercentCoordinate.html">PercentCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PixelCoordinate.html">PixelCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>PercentCoordinate</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PercentCoordinate</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/CTypeWrapper.html">CTypeWrapper</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PercentCoordinate</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                </div>
+              </div>
+            <p>A <code>PercentCoordinate</code> represents coordinates within an image
+as points in centered percentage coordinates. This coordinate systems is
+defined using 2 fields: (x, y) where the (0, 0) point is in the center.
+This would infer that the coordinate system is the normal cartesian
+coordinate system, however, the x and y fields must conform to the following
+constraints:
+    <code>-1.0 &lt;= x &lt;= 1.0</code>, <code>-1.0 &lt;= y &lt;= 1.0</code>.</p>
+
+<p>The coordinate system can be depicted graphically as follows:</p>
+<pre class="highlight swift"><code>                  <span class="mf">1.0</span>
+                  <span class="o">---</span>
+                   <span class="o">^</span>
+                   <span class="o">|</span>
+                  <span class="n">y</span><span class="o">|</span>
+                   <span class="o">|</span>
+          <span class="o">-</span><span class="n">x</span>       <span class="o">|</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>   <span class="n">x</span>
+  <span class="o">-</span><span class="mf">1.0</span> <span class="o">|&lt;----------*----------&gt;|</span> <span class="mf">1.0</span>
+                   <span class="o">|</span>
+                   <span class="o">|</span>
+                 <span class="o">-</span><span class="n">y</span><span class="o">|</span>
+                   <span class="o">|</span>
+                   <span class="kt">V</span>
+                  <span class="o">---</span>
+                 <span class="o">-</span><span class="mf">1.0</span>
+</code></pre>
+
+<p>This coordinate system can be used to simplify calculations that do not
+require the resolution of the image.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Properties"></a>
+                  <h3 class="section-name"><p>Properties</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates17PercentCoordinateV1xXevp"></a>
+                    <a name="//apple_ref/swift/Property/x" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates17PercentCoordinateV1xXevp">x</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The x coordinate of the point within the image as a percentage.</p>
+<div class="aside aside-attention">
+    <p class="aside-title">Attention</p>
+    The x coordinate must be in the range of:
+<code>-100% &lt;= x &lt;= 100%</code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">x</span><span class="p">:</span> <span class="kt">Percent</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates17PercentCoordinateV1yXevp"></a>
+                    <a name="//apple_ref/swift/Property/y" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates17PercentCoordinateV1yXevp">y</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The y coordinate of the point within the image as a percentage.</p>
+<div class="aside aside-attention">
+    <p class="aside-title">Attention</p>
+    The y coordinate must be in the range of:
+<code>-100% &lt;= y &lt;= 100%</code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Percent</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Bounds"></a>
+                <a name="//apple_ref/swift/Section/Bounds" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Bounds"></a>
+                  <h3 class="section-name"><p>Bounds</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates17PercentCoordinateV11xLowerBoundXevp"></a>
+                    <a name="//apple_ref/swift/Property/xLowerBound" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates17PercentCoordinateV11xLowerBoundXevp">xLowerBound</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The lowest possible value of <code><a href="../Structs/PercentCoordinate.html#/s:13GUCoordinates17PercentCoordinateV1xXevp">x</a></code> that is within the image.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">xLowerBound</span><span class="p">:</span> <span class="kt">Percent_d</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates17PercentCoordinateV11xUpperBoundXevp"></a>
+                    <a name="//apple_ref/swift/Property/xUpperBound" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates17PercentCoordinateV11xUpperBoundXevp">xUpperBound</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The highest possible value of <code><a href="../Structs/PercentCoordinate.html#/s:13GUCoordinates17PercentCoordinateV1xXevp">x</a></code> that is within the image.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">xUpperBound</span><span class="p">:</span> <span class="kt">Percent_d</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates17PercentCoordinateV11yLowerBoundXevp"></a>
+                    <a name="//apple_ref/swift/Property/yLowerBound" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates17PercentCoordinateV11yLowerBoundXevp">yLowerBound</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The lowest possible value of <code><a href="../Structs/PercentCoordinate.html#/s:13GUCoordinates17PercentCoordinateV1yXevp">y</a></code> that is within the image.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">yLowerBound</span><span class="p">:</span> <span class="kt">Percent_d</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates17PercentCoordinateV11yUpperBoundXevp"></a>
+                    <a name="//apple_ref/swift/Property/yUpperBound" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates17PercentCoordinateV11yUpperBoundXevp">yUpperBound</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The highest possible value of <code><a href="../Structs/PercentCoordinate.html#/s:13GUCoordinates17PercentCoordinateV1yXevp">y</a></code> that is within the image.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">yUpperBound</span><span class="p">:</span> <span class="kt">Percent_d</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Converting%20to%2Ffrom%20the%20Underlying%20C%20Type"></a>
+                <a name="//apple_ref/swift/Section/Converting to/from the Underlying C Type" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Converting%20to%2Ffrom%20the%20Underlying%20C%20Type"></a>
+                  <h3 class="section-name"><p>Converting to/from the Underlying C Type</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates17PercentCoordinateV8rawValueXevp"></a>
+                    <a name="//apple_ref/swift/Property/rawValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates17PercentCoordinateV8rawValueXevp">rawValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represent this coordinate using the underlying C type
+<code>gu_percent_coordinate</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="n">gu_percent_coordinate</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates17PercentCoordinateVyXeXecfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates17PercentCoordinateVyXeXecfc">init(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new <code>PercentCoordinate</code> by copying the values from the
+underlying c type <code>gu_percent_coordinate</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="n">gu_percent_coordinate</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>other</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An instance of <code>gu_percent_coordinate</code> which contains
+the values that will be copied.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Creating%20a%20PercentCoordinate"></a>
+                <a name="//apple_ref/swift/Section/Creating a PercentCoordinate" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Creating%20a%20PercentCoordinate"></a>
+                  <h3 class="section-name"><p>Creating a PercentCoordinate</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates17PercentCoordinateVyXeXecfc"></a>
+                    <a name="//apple_ref/swift/Method/init(x:y:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates17PercentCoordinateVyXeXecfc">init(x:<wbr>y:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new <code>PercentCoordinate</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Percent</span> <span class="o">=</span> <span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Percent</span> <span class="o">=</span> <span class="o">.</span><span class="n">zero</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>x</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The x coordinate of the point within the image.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>y</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The y coordinate of the point within the image.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Converting%20To%20Other%20Image%20Coordinates"></a>
+                <a name="//apple_ref/swift/Section/Converting To Other Image Coordinates" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Converting%20To%20Other%20Image%20Coordinates"></a>
+                  <h3 class="section-name"><p>Converting To Other Image Coordinates</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates17PercentCoordinateV06cameraC0yXeXeF"></a>
+                    <a name="//apple_ref/swift/Method/cameraCoordinate(resWidth:resHeight:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates17PercentCoordinateV06cameraC0yXeXeF">cameraCoordinate(resWidth:<wbr>resHeight:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convert this coordinate to a <code><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cameraCoordinate</span><span class="p">(</span><span class="nv">resWidth</span><span class="p">:</span> <span class="kt">Pixels_u</span><span class="p">,</span> <span class="nv">resHeight</span><span class="p">:</span> <span class="kt">Pixels_u</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resWidth</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The width of the resolution of the image that we
+are converting to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resHeight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The height of the resolution of the image that we
+are converting to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/CameraCoordinate.html">CameraCoordinate</a></code> representing <code>self</code> in camera
+coordinates.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates17PercentCoordinateV05pixelC0yXeXeF"></a>
+                    <a name="//apple_ref/swift/Method/pixelCoordinate(resWidth:resHeight:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates17PercentCoordinateV05pixelC0yXeXeF">pixelCoordinate(resWidth:<wbr>resHeight:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convert this coordinate to a <code><a href="../Structs/PixelCoordinate.html">PixelCoordinate</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">pixelCoordinate</span><span class="p">(</span><span class="nv">resWidth</span><span class="p">:</span> <span class="kt">Pixels_u</span><span class="p">,</span> <span class="nv">resHeight</span><span class="p">:</span> <span class="kt">Pixels_u</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/PixelCoordinate.html">PixelCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resWidth</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The width of the resolution of the image that we
+are converting to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resHeight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The height of the resolution of the image that we
+are converting to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Structs/PixelCoordinate.html">PixelCoordinate</a></code> representing <code>self</code> in centered
+pixel coordinates.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Converting%20To%20Relative%20Coordinates"></a>
+                <a name="//apple_ref/swift/Section/Converting To Relative Coordinates" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Converting%20To%20Relative%20Coordinates"></a>
+                  <h3 class="section-name"><p>Converting To Relative Coordinates</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates17PercentCoordinateV08relativeC011cameraPivot0E0AA08RelativeC0VAA06CameraF0V_SitF"></a>
+                    <a name="//apple_ref/swift/Method/relativeCoordinate(cameraPivot:camera:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates17PercentCoordinateV08relativeC011cameraPivot0E0AA08RelativeC0VAA06CameraF0V_SitF">relativeCoordinate(cameraPivot:<wbr>camera:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convert this coordinate to a <code><a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a></code>.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>Only use this function if you are positive that the point in
+the image represented by <code>self</code> is representing an object on the ground.
+If this is not the case, then the maximum value for the distance will
+be used.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="../Structs/Camera.html">Camera</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">relativeCoordinate</span><span class="p">(</span><span class="nv">cameraPivot</span><span class="p">:</span> <span class="kt"><a href="../Structs/CameraPivot.html">CameraPivot</a></span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cameraPivot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/CameraPivot.html">CameraPivot</a></code> detailing the configuration
+of the pivot point in which the camera is placed, as well as detailing
+the cameras attached to the pivot point.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>camera</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the camera which recorded the image
+containing the pixel represented by <code>self</code>. This index should reference
+a valid <code><a href="../Structs/Camera.html">Camera</a></code> within the <code>cameras</code> array within
+<code>cameraPivot.cameras</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>When successful, this function returns the
+<code><a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a></code> representing the object in the image at the point
+<code>self</code>. If unable to calculate the <code><a href="../Structs/RelativeCoordinate.html">RelativeCoordinate</a></code> then this
+function returns <code>nil</code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-09)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

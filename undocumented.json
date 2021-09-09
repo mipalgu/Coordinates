@@ -1,0 +1,411 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
+      "line": 136,
+      "symbol": "CTypeWrapper.zero",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
+      "line": 140,
+      "symbol": "CTypeWrapper.+(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
+      "line": 144,
+      "symbol": "CTypeWrapper.+=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
+      "line": 148,
+      "symbol": "CTypeWrapper.-(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
+      "line": 152,
+      "symbol": "CTypeWrapper.-=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_camera.swift",
+      "line": 63,
+      "symbol": "gu_camera.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_camera.swift",
+      "line": 75,
+      "symbol": "gu_camera.hash(into:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_camera.swift",
+      "line": 95,
+      "symbol": "gu_camera.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_camera.swift",
+      "line": 105,
+      "symbol": "gu_camera.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_camera_coordinate.swift",
+      "line": 63,
+      "symbol": "gu_camera_coordinate.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_camera_coordinate.swift",
+      "line": 74,
+      "symbol": "gu_camera_coordinate.hash(into:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_camera_coordinate.swift",
+      "line": 92,
+      "symbol": "gu_camera_coordinate.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_camera_coordinate.swift",
+      "line": 101,
+      "symbol": "gu_camera_coordinate.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_camera_pivot.swift",
+      "line": 90,
+      "symbol": "gu_camera_pivot.init(pitch:yaw:height:cameraList:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_camera_pivot.swift",
+      "line": 102,
+      "symbol": "gu_camera_pivot.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_camera_pivot.swift",
+      "line": 113,
+      "symbol": "gu_camera_pivot.hash(into:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_camera_pivot.swift",
+      "line": 132,
+      "symbol": "gu_camera_pivot.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_camera_pivot.swift",
+      "line": 141,
+      "symbol": "gu_camera_pivot.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_cartesian_coordinate.swift",
+      "line": 63,
+      "symbol": "gu_cartesian_coordinate.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_cartesian_coordinate.swift",
+      "line": 71,
+      "symbol": "gu_cartesian_coordinate.hash(into:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_cartesian_coordinate.swift",
+      "line": 85,
+      "symbol": "gu_cartesian_coordinate.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_cartesian_coordinate.swift",
+      "line": 92,
+      "symbol": "gu_cartesian_coordinate.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_cartesian_coordinate.swift",
+      "line": 102,
+      "symbol": "gu_cartesian_coordinate.zero",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_cartesian_coordinate.swift",
+      "line": 107,
+      "symbol": "gu_cartesian_coordinate.+(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_cartesian_coordinate.swift",
+      "line": 114,
+      "symbol": "gu_cartesian_coordinate.+=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_cartesian_coordinate.swift",
+      "line": 119,
+      "symbol": "gu_cartesian_coordinate.-(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_cartesian_coordinate.swift",
+      "line": 126,
+      "symbol": "gu_cartesian_coordinate.-=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_field_coordinate.swift",
+      "line": 63,
+      "symbol": "gu_field_coordinate.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_field_coordinate.swift",
+      "line": 71,
+      "symbol": "gu_field_coordinate.hash(into:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_field_coordinate.swift",
+      "line": 85,
+      "symbol": "gu_field_coordinate.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_field_coordinate.swift",
+      "line": 92,
+      "symbol": "gu_field_coordinate.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_field_coordinate.swift",
+      "line": 102,
+      "symbol": "gu_field_coordinate.zero",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_field_coordinate.swift",
+      "line": 106,
+      "symbol": "gu_field_coordinate.+(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_field_coordinate.swift",
+      "line": 110,
+      "symbol": "gu_field_coordinate.+=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_field_coordinate.swift",
+      "line": 115,
+      "symbol": "gu_field_coordinate.-(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_field_coordinate.swift",
+      "line": 119,
+      "symbol": "gu_field_coordinate.-=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_percent_coordinate.swift",
+      "line": 63,
+      "symbol": "gu_percent_coordinate.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_percent_coordinate.swift",
+      "line": 71,
+      "symbol": "gu_percent_coordinate.hash(into:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_percent_coordinate.swift",
+      "line": 85,
+      "symbol": "gu_percent_coordinate.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_percent_coordinate.swift",
+      "line": 92,
+      "symbol": "gu_percent_coordinate.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_percent_coordinate.swift",
+      "line": 102,
+      "symbol": "gu_percent_coordinate.zero",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_percent_coordinate.swift",
+      "line": 107,
+      "symbol": "gu_percent_coordinate.+(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_percent_coordinate.swift",
+      "line": 114,
+      "symbol": "gu_percent_coordinate.+=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_percent_coordinate.swift",
+      "line": 119,
+      "symbol": "gu_percent_coordinate.-(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_percent_coordinate.swift",
+      "line": 126,
+      "symbol": "gu_percent_coordinate.-=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_pixel_coordinate.swift",
+      "line": 63,
+      "symbol": "gu_pixel_coordinate.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_pixel_coordinate.swift",
+      "line": 74,
+      "symbol": "gu_pixel_coordinate.hash(into:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_pixel_coordinate.swift",
+      "line": 92,
+      "symbol": "gu_pixel_coordinate.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_pixel_coordinate.swift",
+      "line": 101,
+      "symbol": "gu_pixel_coordinate.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_relative_coordinate.swift",
+      "line": 63,
+      "symbol": "gu_relative_coordinate.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_relative_coordinate.swift",
+      "line": 71,
+      "symbol": "gu_relative_coordinate.hash(into:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_relative_coordinate.swift",
+      "line": 85,
+      "symbol": "gu_relative_coordinate.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_relative_coordinate.swift",
+      "line": 92,
+      "symbol": "gu_relative_coordinate.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_relative_coordinate.swift",
+      "line": 102,
+      "symbol": "gu_relative_coordinate.zero",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_relative_coordinate.swift",
+      "line": 107,
+      "symbol": "gu_relative_coordinate.+(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_relative_coordinate.swift",
+      "line": 114,
+      "symbol": "gu_relative_coordinate.+=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_relative_coordinate.swift",
+      "line": 119,
+      "symbol": "gu_relative_coordinate.-(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/gu_relative_coordinate.swift",
+      "line": 126,
+      "symbol": "gu_relative_coordinate.-=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates"
+}

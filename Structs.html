@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Structures  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Section/Structures" class="dashAnchor"></a>
+    <a title="Structures  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html"> Docs</a> (72% documented)</p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html"> Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Structures  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/gu_camera.html">gu_camera</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/gu_camera_coordinate.html">gu_camera_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/gu_camera_pivot.html">gu_camera_pivot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/gu_cartesian_coordinate.html">gu_cartesian_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/gu_field_coordinate.html">gu_field_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/gu_percent_coordinate.html">gu_percent_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/gu_pixel_coordinate.html">gu_pixel_coordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/gu_relative_coordinate.html">gu_relative_coordinate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/CTypeWrapper.html">CTypeWrapper</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/Camera.html">Camera</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CameraCoordinate.html">CameraCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CameraPivot.html">CameraPivot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CartesianCoordinate.html">CartesianCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/FieldCoordinate.html">FieldCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PercentCoordinate.html">PercentCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PixelCoordinate.html">PixelCoordinate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RelativeCoordinate.html">RelativeCoordinate</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Structures</h1>
+            <p>The following structures are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates6CameraV"></a>
+                    <a name="//apple_ref/swift/Struct/Camera" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates6CameraV">Camera</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Camera</code> contains the specification and configuration of a camera. The
+<code>Camera</code> type only contains specification for a camera in relation to a
+a specific <code><a href="Structs/CameraPivot.html">CameraPivot</a></code> pivot point. It does not contain information
+on where that pivot point is in the wider world, for this see
+<code><a href="Structs/CameraPivot.html">CameraPivot</a></code>.</p>
+
+                        <a href="Structs/Camera.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Camera</span> <span class="p">:</span> <span class="kt"><a href="Protocols/CTypeWrapper.html">CTypeWrapper</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Camera</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates16CameraCoordinateV"></a>
+                    <a name="//apple_ref/swift/Struct/CameraCoordinate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates16CameraCoordinateV">CameraCoordinate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <code>CameraCoordinate</code> represents a coordinate of a pixel within an image
+where the (0, 0) coordinate is in the top left hand corner of the image.
+The x increases to the right, and the y coordinate increases down. A
+<code>CameraCoordinate</code> is defined using 4 fields: (x, y, resWidth, resHeight)
+depicted graphically as follows:</p>
+<pre class="highlight swift"><code>  <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>          <span class="n">x</span>       <span class="n">resWidth</span>
+    <span class="o">*</span> <span class="o">----------------------&gt;|</span>
+    <span class="o">|</span>
+    <span class="o">|</span>
+    <span class="o">|</span>
+  <span class="n">y</span> <span class="o">|</span>
+    <span class="o">|</span>
+    <span class="o">|</span>
+    <span class="o">|</span>
+    <span class="kt">V</span>
+   <span class="o">---</span>
+<span class="n">resHeight</span>
+</code></pre>
+
+<p>The x and y fields must conform to the following constraints:
+    <code>0 &lt;= x &lt; resWidth</code>, <code>0 &lt;= y &lt; resHeight</code>.</p>
+
+                        <a href="Structs/CameraCoordinate.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CameraCoordinate</span> <span class="p">:</span> <span class="kt"><a href="Protocols/CTypeWrapper.html">CTypeWrapper</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CameraCoordinate</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates11CameraPivotV"></a>
+                    <a name="//apple_ref/swift/Struct/CameraPivot" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates11CameraPivotV">CameraPivot</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <code>CameraPivot</code> represents the pivot point which a <code><a href="Structs/Camera.html">Camera</a></code> is attached to.</p>
+
+<p>If a camera is on the ground, then there is no pivot point. If the camera
+is on the end of a stick then the pivot point is the bottom of the stick.
+If the camera is on the head of the robot, then the pivot point is the
+neck of the robot.</p>
+
+                        <a href="Structs/CameraPivot.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CameraPivot</span> <span class="p">:</span> <span class="kt"><a href="Protocols/CTypeWrapper.html">CTypeWrapper</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CameraPivot</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates19CartesianCoordinateV"></a>
+                    <a name="//apple_ref/swift/Struct/CartesianCoordinate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates19CartesianCoordinateV">CartesianCoordinate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A cartesian_coordinate is a general coordinate for representing positions
+on a tow dimensional plane.</p>
+
+<p>This coordinate describes the position through the x and y axes. The
+<code>CartesianCoordinate</code> is generally used for the coordinate system of the
+soccer field. This describes the world (or more specifically the field)
+in terms of the location of each side of the soccer field. The home side
+is in the west, whereas the away side is in the east. Because of this, it
+may not be a good idea to repurpose this coordinate for use in other
+applications since the x and y coordinates of this coordinate must be in
+millimetres.</p>
+
+<p>The field coordinate system can be depicted graphically as follows:</p>
+<pre class="highlight swift"><code>                                   <span class="o">^</span>
+                                   <span class="o">|</span>
+                                 <span class="o">-</span><span class="n">x</span><span class="o">|</span>
+     <span class="o">----------------------------------------------------------------</span>
+    <span class="o">|</span>                              <span class="o">|</span>                                 <span class="o">|</span>
+    <span class="o">|</span>                  <span class="mi">180</span> <span class="n">degrees</span> <span class="o">|</span>                                 <span class="o">|</span>
+    <span class="o">|</span>                             <span class="o">-|-</span>          <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">900</span><span class="n">mm</span><span class="p">,</span> <span class="mi">1200</span><span class="n">mm</span><span class="p">)</span>    <span class="o">|</span>
+    <span class="o">|-</span>                           <span class="o">/</span> <span class="o">|</span> <span class="err">\</span>                              <span class="o">-|</span>
+ <span class="o">-</span><span class="n">y</span> <span class="o">|</span> <span class="o">|</span>                         <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span> <span class="mi">90</span> <span class="n">degrees</span>                 <span class="o">|</span> <span class="o">|</span> <span class="n">y</span>
+<span class="o">&lt;---|-|-------------------------|--+--|----------------------------|-|---&gt;</span>
+    <span class="o">|</span> <span class="o">|</span>             <span class="mi">270</span> <span class="n">degrees</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>                            <span class="o">|</span> <span class="o">|</span>
+    <span class="o">|-</span>                           <span class="err">\</span> <span class="o">|</span> <span class="o">/</span>                              <span class="o">-|</span>
+    <span class="o">|</span>                             <span class="o">-|-</span>                                <span class="o">|</span>
+    <span class="o">|</span>                              <span class="o">|</span> <span class="mi">0</span> <span class="n">degrees</span>                       <span class="o">|</span>
+    <span class="o">|</span>                              <span class="o">|</span>                                 <span class="o">|</span>
+     <span class="o">----------------------------------------------------------------</span>
+                                   <span class="o">|</span>
+               <span class="kt">HOME</span>               <span class="n">x</span><span class="o">|</span>              <span class="kt">AWAY</span>
+                                   <span class="kt">V</span>
+</code></pre>
+
+<p>When describing objects that face in certain directions it is important
+to disregard this coordinate and instead use <code><a href="Structs/FieldCoordinate.html">FieldCoordinate</a></code>.</p>
+
+                        <a href="Structs/CartesianCoordinate.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CartesianCoordinate</span> <span class="p">:</span> <span class="kt"><a href="Protocols/CTypeWrapper.html">CTypeWrapper</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CartesianCoordinate</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">AdditiveArithmetic</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15FieldCoordinateV"></a>
+                    <a name="//apple_ref/swift/Struct/FieldCoordinate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15FieldCoordinateV">FieldCoordinate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A field_coordinate is a coordinate for an object that faces a certain
+direction (such as a robot) on the field.</p>
+
+<p>The coordinate describes the location of the object on the field
+(with position) as well as the direction that the object is facing
+(with heading).</p>
+
+<p>The field coordinate system can be depicted graphically as follows:</p>
+<pre class="highlight swift"><code>                                   <span class="o">^</span>
+                                   <span class="o">|</span>
+                                 <span class="o">-</span><span class="n">x</span><span class="o">|</span>
+     <span class="o">--------------------------------------------------------------</span>
+    <span class="o">|</span>                              <span class="o">|</span>                               <span class="o">|</span>
+    <span class="o">|</span>                  <span class="mi">180</span> <span class="n">degrees</span> <span class="o">|</span>                               <span class="o">|</span>
+    <span class="o">|</span>                             <span class="o">-|-</span>         <span class="o">*-&gt;</span> <span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="n">cm</span><span class="p">,</span> <span class="mi">120</span><span class="n">cm</span><span class="p">,</span> <span class="mi">90</span> <span class="n">degrees</span><span class="p">)</span>
+    <span class="o">|-</span>                           <span class="o">/</span> <span class="o">|</span> <span class="err">\</span>                            <span class="o">-|</span>
+ <span class="o">-</span><span class="n">y</span> <span class="o">|</span> <span class="o">|</span>                         <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span> <span class="mi">90</span> <span class="n">degrees</span>               <span class="o">|</span> <span class="o">|</span> <span class="n">y</span>
+<span class="o">&lt;---|-|-------------------------|--+--|--------------------------|-|---&gt;</span>
+    <span class="o">|</span> <span class="o">|</span>             <span class="mi">270</span> <span class="n">degrees</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>                          <span class="o">|</span> <span class="o">|</span>
+    <span class="o">|-</span>                           <span class="err">\</span> <span class="o">|</span> <span class="o">/</span>                            <span class="o">-|</span>
+    <span class="o">|</span>                             <span class="o">-|-</span>                              <span class="o">|</span>
+    <span class="o">|</span>                              <span class="o">|</span> <span class="mi">0</span> <span class="n">degrees</span>                     <span class="o">|</span>
+    <span class="o">|</span>                              <span class="o">|</span>                               <span class="o">|</span>
+     <span class="o">--------------------------------------------------------------</span>
+                                   <span class="o">|</span>
+               <span class="kt">HOME</span>               <span class="n">x</span><span class="o">|</span>              <span class="kt">AWAY</span>
+                                   <span class="kt">V</span>
+</code></pre>
+
+<p>When describing objects that face in certain directions it is important
+to disregard this coordinate and instead use <code>FieldCoordinate</code>.</p>
+
+                        <a href="Structs/FieldCoordinate.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">FieldCoordinate</span> <span class="p">:</span> <span class="kt"><a href="Protocols/CTypeWrapper.html">CTypeWrapper</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">FieldCoordinate</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">AdditiveArithmetic</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates17PercentCoordinateV"></a>
+                    <a name="//apple_ref/swift/Struct/PercentCoordinate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates17PercentCoordinateV">PercentCoordinate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <code>PercentCoordinate</code> represents coordinates within an image
+as points in centered percentage coordinates. This coordinate systems is
+defined using 2 fields: (x, y) where the (0, 0) point is in the center.
+This would infer that the coordinate system is the normal cartesian
+coordinate system, however, the x and y fields must conform to the following
+constraints:
+    <code>-1.0 &lt;= x &lt;= 1.0</code>, <code>-1.0 &lt;= y &lt;= 1.0</code>.</p>
+
+<p>The coordinate system can be depicted graphically as follows:</p>
+<pre class="highlight swift"><code>                  <span class="mf">1.0</span>
+                  <span class="o">---</span>
+                   <span class="o">^</span>
+                   <span class="o">|</span>
+                  <span class="n">y</span><span class="o">|</span>
+                   <span class="o">|</span>
+          <span class="o">-</span><span class="n">x</span>       <span class="o">|</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>   <span class="n">x</span>
+  <span class="o">-</span><span class="mf">1.0</span> <span class="o">|&lt;----------*----------&gt;|</span> <span class="mf">1.0</span>
+                   <span class="o">|</span>
+                   <span class="o">|</span>
+                 <span class="o">-</span><span class="n">y</span><span class="o">|</span>
+                   <span class="o">|</span>
+                   <span class="kt">V</span>
+                  <span class="o">---</span>
+                 <span class="o">-</span><span class="mf">1.0</span>
+</code></pre>
+
+<p>This coordinate system can be used to simplify calculations that do not
+require the resolution of the image.</p>
+
+                        <a href="Structs/PercentCoordinate.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PercentCoordinate</span> <span class="p">:</span> <span class="kt"><a href="Protocols/CTypeWrapper.html">CTypeWrapper</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PercentCoordinate</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates15PixelCoordinateV"></a>
+                    <a name="//apple_ref/swift/Struct/PixelCoordinate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates15PixelCoordinateV">PixelCoordinate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <code>PixelCoordinate</code> represents the coordinate of a pixel within an image
+in centered pixel coordinates. This coordinate system is defined using
+4 fields: (x, y, resWidth, resHeight). The x and y fields must conform to
+the following constraint:
+    <code>-floor((resWidth - 1) / 2) &lt;= x &lt;= ceil((resWidth - 1) / 2)</code>,
+    <code>-floor((resHeight - 1) / 2) &lt;= y &lt;= ceil((resHeight - 1) / 2)</code>.
+This places the (0, 0) point in the center of the image. The coordinate
+system can be depicted graphically as follows:</p>
+<pre class="highlight swift"><code>                           <span class="nf">ceil</span><span class="p">((</span><span class="n">resHeight</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                                      <span class="o">---</span>
+                                       <span class="o">^</span>
+                                       <span class="o">|</span>
+                                      <span class="n">y</span><span class="o">|</span>
+                                       <span class="o">|</span>
+                              <span class="o">-</span><span class="n">x</span>       <span class="o">|</span>        <span class="n">x</span>
+<span class="o">-</span><span class="nf">floor</span><span class="p">((</span><span class="n">resWidth</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|&lt;----------|----------&gt;|</span> <span class="nf">ceil</span><span class="p">((</span><span class="n">resWidth</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                                 <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">*|</span>
+                                       <span class="o">|</span>
+                                     <span class="o">-</span><span class="n">y</span><span class="o">|</span>
+                                       <span class="o">|</span>
+                                       <span class="kt">V</span>
+                                      <span class="o">---</span>
+                          <span class="o">-</span><span class="nf">floor</span><span class="p">((</span><span class="n">resHeight</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre>
+
+<p>Importantly here, the (0, 0) pixel is in the 3rd quadrant. This is because
+when even numbers are used for resWidth and resHeight, the (0, 0) point
+would be between pixels. Below is a table detailing the bounds for common
+resolutions:</p>
+<pre class="highlight swift"><code>       <span class="kt">Resolution</span>      <span class="o">|</span>                    <span class="n">left</span><span class="o">/</span><span class="n">rightmost</span> <span class="n">pixel</span>                <span class="o">|</span>               <span class="n">bottom</span><span class="o">/</span><span class="n">topmost</span> <span class="nf">pixel</span>
+ <span class="p">(</span><span class="n">resWidth</span><span class="p">,</span> <span class="n">resHeight</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="o">-</span><span class="nf">floor</span><span class="p">((</span><span class="n">resWidth</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="nf">ceil</span><span class="p">((</span><span class="n">resWidth</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span> <span class="o">|</span> <span class="p">(</span><span class="o">-</span><span class="nf">floor</span><span class="p">((</span><span class="n">resHeight</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="nf">ceil</span><span class="p">(</span><span class="n">resHeight</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">-----------------------+--------------------------------------------------------+--------------------------------------------------------</span>
+ <span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">)</span>            <span class="o">|</span> <span class="p">(</span><span class="o">-</span><span class="mi">319</span><span class="p">,</span> <span class="mi">320</span><span class="p">)</span>                                            <span class="o">|</span> <span class="p">(</span><span class="o">-</span><span class="mi">239</span><span class="p">,</span> <span class="mi">240</span><span class="p">)</span>
+ <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>            <span class="o">|</span> <span class="p">(</span><span class="o">-</span><span class="mi">399</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>                                            <span class="o">|</span> <span class="p">(</span><span class="o">-</span><span class="mi">299</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+ <span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="mi">720</span><span class="p">)</span>           <span class="o">|</span> <span class="p">(</span><span class="o">-</span><span class="mi">639</span><span class="p">,</span> <span class="mi">640</span><span class="p">)</span>                                            <span class="o">|</span> <span class="p">(</span><span class="o">-</span><span class="mi">359</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+ <span class="p">(</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">1080</span><span class="p">)</span>          <span class="o">|</span> <span class="p">(</span><span class="o">-</span><span class="mi">959</span><span class="p">,</span> <span class="mi">960</span><span class="p">)</span>                                            <span class="o">|</span> <span class="p">(</span><span class="o">-</span><span class="mi">539</span><span class="p">,</span> <span class="mi">540</span><span class="p">)</span>
+</code></pre>
+
+                        <a href="Structs/PixelCoordinate.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PixelCoordinate</span> <span class="p">:</span> <span class="kt"><a href="Protocols/CTypeWrapper.html">CTypeWrapper</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PixelCoordinate</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13GUCoordinates18RelativeCoordinateV"></a>
+                    <a name="//apple_ref/swift/Struct/RelativeCoordinate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13GUCoordinates18RelativeCoordinateV">RelativeCoordinate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <code>RelativeCoordinate</code> represents a coordinate that is relative to some
+other coordinate.</p>
+
+<p>This coordinate describes the distance and direction that one coordinate
+is from another. We categorise these two coordinates as the source and
+the target. The target is where the <code>RelativeCoordinate</code> is pointing
+towards and the source is where the <code>RelativeCoordinate</code> is pointing from.
+<code>RelativeCoordiante</code> is a polar coordinate in the form of phi, r where phi
+is the direction and r is the distance to the coordinate.</p>
+
+<p>The direction is an angle in degrees. A positive value for direction
+indicates that the target is on the left. A negative value indicates that
+the target is on the right. A value of zero indicates that the target is
+directly in front of source.</p>
+
+<p>The relative coordinate system can be viewed graphically as follows:</p>
+<pre class="highlight plaintext"><code>                                      0 degrees
+                                                * (-10 degrees, 40 cm)
+                          \               |               /
+                           \              |              /
+                            \             |             /
+                             \     ||| ///|/// |||     /
+                              \|//        |        //|/
+                           |// \          |          / //|
+                        |//     \         |         /     //|
+                      |//        \   / ///|/// /   /        //|
+                    |//          |\/      |      //|          //|
+                   |//        |//  \      |      /  //|        //|
+                  |//       |//     \     |     /     //|       //|
+                 |//      |//        \    |    /        //|      //|
+                |//      |//          \/ -|- //          //|      //|
+                //|     ,//         /- \  |  / -/         //,     |//
+               `//`     |//        |-   \ | /   -|        //|     `//`
+               |//      |//        -     \|/     -        //|      //|
+ 90 degrees    |/-      |//       |-      V      -|       //|      -/|    -90 degrees
+               |//      |//        -    (0,0)    -        //|      //|
+               ,//,     |//        |-           -|        //|     ,//,
+                //|     `//         /-         -/         //`     |//
+                |//      |//           / - - /           //|      //|
+                 |//      |//                           //|      //|
+                  |//       |//                       //|       //|
+                   |//        |//                   //|        //|
+                    |//          |//             //|          //|
+                      |//            / /// /// /            //|
+                        |//                               //|
+                           |//                         //|
+                               |//                 //|
+                                   ||| /// /// |||
+
+
+                                   +/- 180 degrees
+</code></pre>
+
+                        <a href="Structs/RelativeCoordinate.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RelativeCoordinate</span> <span class="p">:</span> <span class="kt"><a href="Protocols/CTypeWrapper.html">CTypeWrapper</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RelativeCoordinate</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">AdditiveArithmetic</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-09)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
