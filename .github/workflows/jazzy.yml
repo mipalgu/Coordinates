@@ -16,22 +16,6 @@ jobs:
     - name: Install CMake
       run: brew install cmake
 
-    - name: Clone guunits
-      uses: actions/checkout@v2
-      with:
-        repository: mipalgu/guunits
-        path: guunits
-
-    - name: Install guunits
-      run: |
-        cd guunits/guunits
-        mkdir build
-        cd build
-        cmake -G Ninja ..
-        ninja
-        ninja install
-        cd ../../..
-
     - name: Clone gu_util
       uses: actions/checkout@v2
       with:
@@ -48,6 +32,22 @@ jobs:
         ninja install
         cd ../..
 
+    - name: Clone guunits
+      uses: actions/checkout@v2
+      with:
+        repository: mipalgu/guunits
+        path: guunits
+
+    - name: Install guunits
+      run: |
+        cd guunits/guunits
+        mkdir build
+        cd build
+        cmake -G Ninja ..
+        ninja
+        ninja install
+        cd ../../..
+    
     - name: Clone gucoordinates
       uses: actions/checkout@v2
       with:
