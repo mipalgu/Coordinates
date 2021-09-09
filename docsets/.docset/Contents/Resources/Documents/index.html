@@ -106,7 +106,590 @@
         <section>
           <section class="section">
             
-            <h3 id='authors' class='heading'>Authors</h3>
+            <h1 id='gucoordinates' class='heading'>GUCoordinates</h1>
+
+<p><em>Swift convenience wrappers around gucoordinates</em></p>
+
+<hr>
+<h1 id='table-of-contents' class='heading'>Table Of Contents</h1>
+
+<ul>
+<li><a href="#quick-start">Quick Start</a></li>
+<li><a href="#coordinate-systems">Coordinate Systems</a>
+
+<ul>
+<li><a href="#image-coordinate-systems">Image Coordinate Systems</a></li>
+<li><a href="#camera-coordinates">Camera Coordinates</a></li>
+<li><a href="#centered-pixel-coordinates">Centered Pixel Coordinates</a></li>
+<li><a href="#percentage-coordinates">Percentage Coordinates</a></li>
+<li><a href="#the-relative-coordinate-system">The Relative Coordinate System</a></li>
+<li><a href="#the-field-coordinate-system">The Field Coordinate System</a></li>
+<li><a href="#cartesian-coordinate">Cartesian Coordinate</a></li>
+<li><a href="#field-coordinate">Field Coordinate</a></li>
+</ul></li>
+<li><a href="#converting-between-coordinate-systems">Converting Between Coordinate Systems</a>
+
+<ul>
+<li><a href="#converting-between-image-coordinate-systems">Converting Between Image Coordinate Systems</a></li>
+<li><a href="#converting-between-image-coordinate-systems-and-the-relative-coordinate-system">Converting Between Image Coordinate Systems and the Relative Coordinate System</a></li>
+<li><a href="#converting-to-relative-coordinates">Converting To Relative Coordinates</a></li>
+<li><a href="#converting-to-image-coordinates">Converting To Image Coordinates</a>
+
+<ul>
+<li><a href="#clamped-conversions">Clamped Conversions</a></li>
+</ul></li>
+<li><a href="#converting-between-the-relative-coordinate-system-and-the-field-coordinate-systems">Converting Between the Relative Coordinate System and the Field Coordinate Systems</a></li>
+<li><a href="#converting-from-any-coordinate-system-to-any-other-coordinate-system">Converting From Any Coordinate System to Any Other Coordinate System</a></li>
+</ul></li>
+</ul>
+
+<hr>
+<h1 id='quick-start' class='heading'>Quick Start</h1>
+
+<p>Let&rsquo;s say for this scenario we are using the cameras on the nao robot:</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">GUCoordinates</span>
+
+<span class="k">let</span> <span class="nv">naoHead</span> <span class="o">=</span> <span class="kt">CameraPivot</span><span class="p">(</span>
+    <span class="nv">pitch</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="nv">yaw</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="nv">height</span><span class="p">:</span> <span class="mf">41.7</span><span class="p">,</span>
+    <span class="nv">cameras</span><span class="p">:</span> <span class="p">[</span>
+        <span class="c1">// Top Camera</span>
+        <span class="kt">Camera</span><span class="p">(</span>
+            <span class="nv">height</span><span class="p">:</span> <span class="mf">6.364</span><span class="p">,</span>
+            <span class="nv">centerOffset</span><span class="p">:</span> <span class="mf">5.871</span><span class="p">,</span>
+            <span class="nv">vDirection</span><span class="p">:</span> <span class="mf">1.2</span><span class="p">,</span>
+            <span class="nv">vFov</span><span class="p">:</span> <span class="mf">47.64</span><span class="p">,</span>
+            <span class="nv">hFov</span><span class="p">:</span> <span class="mf">60.97</span>
+        <span class="p">),</span>
+        <span class="c1">// Bottom Camera</span>
+        <span class="kt">Camera</span><span class="p">(</span>
+            <span class="nv">height</span><span class="p">:</span> <span class="mf">1.774</span><span class="p">,</span>
+            <span class="nv">centerOffset</span><span class="p">:</span> <span class="mf">5.071</span><span class="p">,</span>
+            <span class="nv">vDirection</span><span class="p">:</span> <span class="mf">39.7</span><span class="p">,</span>
+            <span class="nv">vFov</span><span class="p">:</span> <span class="mf">47.64</span><span class="p">,</span>
+            <span class="nv">hFov</span><span class="p">:</span> <span class="mf">60.97</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="c1">// Camera indexes</span>
+<span class="k">let</span> <span class="nv">topCamera</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">let</span> <span class="nv">bottomCamera</span> <span class="o">=</span> <span class="mi">1</span>
+</code></pre>
+
+<p>And vision recognises a ball at a specific pixel in the camera:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">cameraPixel</span> <span class="o">=</span> <span class="kt">CameraCoordinate</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">909</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">866</span><span class="p">,</span> <span class="nv">resWidth</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span> <span class="nv">resHeight</span><span class="p">:</span> <span class="mi">1080</span><span class="p">)</span>
+</code></pre>
+
+<p>Vision posts the sighting in centered pixel coordinates:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">ballPixel</span> <span class="o">=</span> <span class="n">cameraPixel</span><span class="o">.</span><span class="n">pixelCoordinate</span> <span class="c1">// PixelCoordinate(x: -50, y: -326, resWidth: 1920, resHeight: 1080)</span>
+</code></pre>
+
+<p>Then where is the ball in relation to the robot?</p>
+<pre class="highlight swift"><code><span class="k">guard</span> <span class="k">let</span> <span class="nv">ballRelativeFromRobot</span> <span class="o">=</span> <span class="n">ballPixel</span><span class="o">.</span><span class="nf">relativeCoordinate</span><span class="p">(</span><span class="nv">cameraPivot</span><span class="p">:</span> <span class="n">naoHead</span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="n">bottomCamera</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nf">fatalError</span><span class="p">(</span><span class="s">"Pixel is in the sky."</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">ballRelativeFromRobot</span> <span class="c1">// RelativeCoordinate(direction: 2, distance: 26)</span>
+</code></pre>
+
+<p>Let&rsquo;s say that our robot is at a specific position on the field:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">fieldPosition</span> <span class="o">=</span> <span class="kt">FieldCoordinate</span><span class="p">(</span><span class="nv">position</span><span class="p">:</span> <span class="kt">CartesianCoordinate</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">120</span><span class="p">),</span> <span class="nv">heading</span><span class="p">:</span> <span class="mi">70</span><span class="p">)</span>
+</code></pre>
+
+<p>What if we want the field position of the ball?</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">ballPosition</span> <span class="o">=</span> <span class="n">fieldPosition</span><span class="o">.</span><span class="nf">cartesianCoordinate</span><span class="p">(</span><span class="nv">at</span><span class="p">:</span> <span class="n">ballRelativeFromRobot</span><span class="p">)</span> <span class="c1">// CartesianCoordinate(x: -82, y: 145)</span>
+</code></pre>
+
+<p>Why don&rsquo;t we get that without converting to a relative coordinate first:</p>
+<pre class="highlight swift"><code><span class="k">guard</span> <span class="k">let</span> <span class="nv">easyBallPosition</span> <span class="o">=</span> <span class="n">fieldPosition</span><span class="o">.</span><span class="nf">cartesianCoordinate</span><span class="p">(</span><span class="nv">at</span><span class="p">:</span> <span class="n">ballPixel</span><span class="p">,</span> <span class="nv">cameraPivot</span><span class="p">:</span> <span class="n">naoHead</span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="n">bottomCamera</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nf">fatalError</span><span class="p">(</span><span class="s">"Pixel is in the sky."</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">easyBallPosition</span> <span class="c1">// CartesianCoordinate(x: -82, y: 145)</span>
+</code></pre>
+
+<p>Let&rsquo;s say that we have a goal on the field at a specific position:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">goalPosition</span> <span class="o">=</span> <span class="kt">CartesianCoordinate</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">450</span><span class="p">)</span>
+</code></pre>
+
+<p>So where is the goal in relation to the ball? Or rather, in what direction
+and how far do we have to kick the ball to score a goal?</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">goalRelativeFromBall</span> <span class="o">=</span> <span class="n">ballPosition</span><span class="o">.</span><span class="nf">relativeCoordinate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">goalPosition</span><span class="p">)</span> <span class="c1">// RelativeCoordinate(direction: 75, distance: 316)</span>
+</code></pre>
+
+<p>Or maybe we want to pass to a team mate:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">teamMate</span> <span class="o">=</span> <span class="kt">FieldCoordinate</span><span class="p">(</span><span class="nv">position</span><span class="p">:</span> <span class="kt">CartesianCoordinate</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">210</span><span class="p">),</span> <span class="nv">heading</span><span class="p">:</span> <span class="mi">100</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">teamMateRelativeFromBall</span> <span class="o">=</span> <span class="n">ballPosition</span><span class="o">.</span><span class="nf">relativeCoordinate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">teamMate</span><span class="p">)</span> <span class="c1">// RelativeCoordinate(direction: 25, distance: 156)</span>
+</code></pre>
+
+<p>Let&rsquo;s assume that we read the goal relative location from kalman:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">goalRelativeFromRobot</span> <span class="o">=</span> <span class="n">fieldPosition</span><span class="o">.</span><span class="nf">relativeCoordinate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">goalPosition</span><span class="p">)</span> <span class="c1">// RelativeCoordinate(direction: 5, distance: 342)</span>
+</code></pre>
+
+<p>What if we don&rsquo;t actually know where we are on the field, but can see
+the ball and the goal from kalman? Let&rsquo;s calculate the relative angle from the
+ball to the goal:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">goalRelativeFromRelativeBall</span> <span class="o">=</span> <span class="n">ballRelativeFromRobot</span><span class="o">.</span><span class="nf">relativeCoordinate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">goalRelativeFromRobot</span><span class="p">)</span> <span class="c1">// RelativeCoordinate(direction: 5, distance: 316)</span>
+</code></pre>
+
+<hr>
+<h1 id='coordinate-systems' class='heading'>Coordinate Systems</h1>
+
+<p>GUCoordinates is a library containing conversion functions between several coordinate
+systems. We classify the coordinates systems in general as</p>
+
+<ol>
+<li>image coordinate systems,</li>
+<li>the relative coordinate system, and,</li>
+<li>the field coordinate system.</li>
+</ol>
+<h2 id='image-coordinate-systems' class='heading'>Image Coordinate Systems</h2>
+
+<p>There are three coordinate systems used to represent images, these are</p>
+
+<ol>
+<li>Camera Coordinates</li>
+<li>Centered Pixel Coordinates</li>
+<li>Percentage Coordinates</li>
+</ol>
+<h3 id='camera-coordinates' class='heading'>Camera Coordinates</h3>
+
+<hr>
+
+<p>The camera coordinate system is the coordinate system representing images that come
+directly from a camera. This is the coordinate system classicaly used in computer science
+where the top left hand corner contains the (0, 0) point where the x increases to the right
+and the y increases down. There are no negative values allowed. The <code><a href="Structs/CameraCoordinate.html">CameraCoordinate</a></code>
+struct represents a coordinate in this coordinate system and is defined using four fields
+(<code>x</code>, <code>y</code>, <code>resWidth</code>, <code>resHeight</code>) representing the x coordinate, y coordinate, width of the
+image resolution and height of the image resolution respectively. The coordinate system
+can be represented graphically as follows:</p>
+<pre class="highlight plaintext"><code>  (0,0)          x       resWidth
+    * ----------------------&gt;|
+    |
+    |
+    |
+  y |
+    |
+    |
+    |
+    V
+   ---
+ resHeight
+</code></pre>
+<h3 id='centered-pixel-coordinates' class='heading'>Centered Pixel Coordinates</h3>
+
+<hr>
+
+<p>Centered Pixel Coordinates is the coordinate system posted by vision.  The
+<code><a href="Structs/PixelCoordinate.html">PixelCoordinate</a></code> struct represents the coordinate of a pixel within an image
+in centered pixel coordinates. This coordinate system is defined using
+four fields: (<code>x</code>, <code>y</code>, <code>resWidth</code>, <code>resHeight</code>) representing the x and y coordinate, the width
+of the image resolution and the height of the image resolution respectively. The x and y
+fields must conform to the following constraints:
+    <code>-floor((resWidth - 1) / 2) &lt;= x &lt;= ceil((resWidth - 1) / 2)</code>,
+    <code>-floor((resHeight - 1) / 2) &lt;= y &lt;= ceil((resHeight - 1) / 2)</code>.
+This places the (0, 0) point in the center of the image. The coordinate
+system can be depicted graphically as follows:</p>
+<pre class="highlight plaintext"><code>                           ceil((resHeight - 1) / 2)
+                                      ---
+                                       ^
+                                       |
+                                      y|
+                                       |
+                              -x       |        x
+-floor((resWidth - 1) / 2) |&lt;----------|----------&gt;| ceil((resWidth - 1) / 2)
+                                 (0,0)*|
+                                       |
+                                     -y|
+                                       |
+                                       V
+                                      ---
+                          -floor((resHeight - 1) / 2)
+</code></pre>
+
+<p>Importantly here, the (0, 0) pixel is in the 3rd quadrant. This is because
+when even numbers are used for <code>resWidth</code> and <code>resHeight</code>, the (0, 0) point
+would be between pixels. Below is a table detailing the bounds for common
+resolutions:</p>
+<pre class="highlight plaintext"><code>       Resolution      |                    left/rightmost pixel                |               bottom/topmost pixel
+ (resWidth, resHeight) | (-floor((resWidth - 1) / 2), ceil((resWidth - 1) / 2)) | (-floor((resHeight - 1) / 2), ceil(resHeight - 1) / 2)
+-----------------------+--------------------------------------------------------+--------------------------------------------------------
+ (640, 480)            | (-319, 320)                                            | (-239, 240)
+ (800, 600)            | (-399, 400)                                            | (-299, 300)
+ (1280, 720)           | (-639, 640)                                            | (-359, 360)
+ (1920, 1080)          | (-959, 960)                                            | (-539, 540)
+</code></pre>
+<h3 id='percentage-coordinates' class='heading'>Percentage Coordinates</h3>
+
+<hr>
+
+<p>The percentage coordinate system is the useful for algorithms that don&rsquo;t require the image
+resolution. The <code><a href="Structs/PercentCoordinate.html">PercentCoordinate</a></code> struct represents a point within this coordinate
+system and is defined using two fields: (<code>x</code>, <code>y</code>) representing the x and y coordinates. The
+(0, 0) point is in the center of the image. This would infer that the coordinate system is the
+normal cartesian coordinate system, however, the x and y fields must conform to the
+following constraints:
+    <code>-1.0 &lt;= x &lt;= 1.0</code>,
+    <code>-1.0 &lt;= y &lt;= 1.0</code>.</p>
+
+<p>The coordinate system can be depicted graphically as follows:</p>
+<pre class="highlight plaintext"><code>                  1.0
+                  ---
+                   ^
+                   |
+                  y|
+                   |
+          -x       |(0,0)   x
+  -1.0 |&lt;----------*----------&gt;| 1.0
+                   |
+                   |
+                 -y|
+                   |
+                   V
+                  ---
+                 -1.0
+</code></pre>
+<h2 id='the-relative-coordinate-system' class='heading'>The Relative Coordinate System</h2>
+
+<p>The <code><a href="Structs/RelativeCoordinate.html">RelativeCoordinate</a></code> struct represents a coordinate within this coordinate system.
+The relative coordinate system describes the distance and direction that one coordinate
+is from another. We categorise these two coordinates as the source and
+the target. The target is where the <code><a href="Structs/RelativeCoordinate.html">RelativeCoordinate</a></code> is pointing
+towards and the source is where the <code><a href="Structs/RelativeCoordinate.html">RelativeCoordinate</a></code> is pointing from.
+<code><a href="Structs/RelativeCoordinate.html">RelativeCoordinate</a></code> is a polar coordinate in the form of phi, r where phi
+is the direction and r is the distance to the coordinate.</p>
+
+<p>The direction is an angle in degrees. A positive value for direction
+indicates that the target is on the left. A negative value indicates that
+the target is on the right. A value of zero indicates that the target is
+directly in front of source. The relative coordinate system can be depicted graphically
+as follows:</p>
+<pre class="highlight plaintext"><code>                                       0 degrees
+                                                 * (-10 degrees, 40 cm)
+                           \               |               /
+                            \              |              /
+                             \             |             /
+                              \     ||| ///|/// |||     /
+                               \|//        |        //|/
+                            |// \          |          / //|
+                         |//     \         |         /     //|
+                       |//        \   / ///|/// /   /        //|
+                     |//          |\/      |      //|          //|
+                    |//        |//  \      |      /  //|        //|
+                   |//       |//     \     |     /     //|       //|
+                  |//      |//        \    |    /        //|      //|
+                 |//      |//          \/ -|- //          //|      //|
+                 //|     ,//         /- \  |  / -/         //,     |//
+                `//`     |//        |-   \ | /   -|        //|     `//`
+                |//      |//        -     \|/     -        //|      //|
+  90 degrees    |/-      |//       |-      V      -|       //|      -/|    -90 degrees
+                |//      |//        -    (0,0)    -        //|      //|
+                ,//,     |//        |-           -|        //|     ,//,
+                 //|     `//         /-         -/         //`     |//
+                 |//      |//           / - - /           //|      //|
+                  |//      |//                           //|      //|
+                   |//       |//                       //|       //|
+                    |//        |//                   //|        //|
+                     |//          |//             //|          //|
+                       |//            / /// /// /            //|
+                         |//                               //|
+                            |//                         //|
+                                |//                 //|
+                                    ||| /// /// |||
+
+
+                                    +/- 180 degrees
+</code></pre>
+<h2 id='the-field-coordinate-system' class='heading'>The Field Coordinate System</h2>
+
+<p>The field coordinate systems describe where object are in the world.
+Cartesian coordinates are generally used for the coordinate system of the
+soccer field. This describes the world (or more specifically the soccer field)
+in terms of the location of each side of the soccer field.</p>
+
+<p>If the field is viewed where the home side is in the west and the
+away side is in the east, then the x axis runs north to south. The
+y axis runs west to east. A negative x value indicates a position
+in the northern half of the field while a positive x value indicates
+a position in the southern half of the field. A negative y value
+indicates a position in the western side of the field whereas a positive
+y value indicates a position in the eastern side of the field. A value
+of zero for both x and y indicate that the object is in the middle of
+the field.</p>
+
+<p>There are two structs used to describe object within this coordinate system:</p>
+
+<ol>
+<li><code><a href="Structs/CartesianCoordinate.html">CartesianCoordinate</a></code>, and,</li>
+<li><code>FieldCoordinates</code></li>
+</ol>
+<h3 id='cartesian-coordinate' class='heading'>Cartesian Coordinate</h3>
+
+<hr>
+
+<p>This coordinate describes the position through the x and y axes. As an example, if we take
+an actual full sized 100 meter field, then
+the middle of the goal line on the home side of the field would be at
+the coordinates (0, -50). The middle of the away goal line would be
+(0, 50). The middle line which separates the two sides of a field which 
+is 60 meters wide runs from the points (-30, 0) to (30, 0). </p>
+
+<p>The cartesian coordiante can be depicted graphically as follows:</p>
+<pre class="highlight plaintext"><code>                                    ^
+                                    |
+                                  -x|
+      --------------------------------------------------------------
+     |                              |                               |
+     |                              |                               |
+     |                             -|-          * (-90cm, 120cm)    |
+     |-                           / | \                            -|
+  -y | |                         |  |  |                          | | y
+ &lt;---|-|-------------------------|--+--|--------------------------|-|---&gt;
+     | |                         |  |  |                          | |
+     |-                           \ | /                            -|
+     |                             -|-                              |
+     |                              |                               |
+     |                              |                               |
+      --------------------------------------------------------------
+                                    |
+                HOME               x|              AWAY
+                                    V
+</code></pre>
+
+<p>Note that this coordinate does not handle objects that can face (or have a bearing/heading)
+in a certain direction. For this requirement, use a <code><a href="Structs/FieldCoordinate.html">FieldCoordinate</a></code>.</p>
+<h3 id='field-coordinate' class='heading'>Field Coordinate</h3>
+
+<hr>
+
+<p>A field coordinate represents an object on the soccer field that not only has a position,
+but also has a direction which the object is facing.  A <code><a href="Structs/FieldCoordinate.html">FieldCoordinate</a></code> is defined using
+two fields (<code>position</code>, <code>heading</code>) representing the position on the field (a
+<code><a href="Structs/CartesianCoordinate.html">CartesianCoordinate</a></code>) and the direction (degrees) which the object is facing.</p>
+
+<p>The direction runs counter clockwise where 0 degrees
+faces directly south; therefore, 90 degrees points
+directly east, 180 degrees points directly north and 270 degrees points
+directly west.</p>
+
+<p>A <code><a href="Structs/FieldCoordinate.html">FieldCoordinate</a></code> can be depicted graphically as follows:</p>
+<pre class="highlight plaintext"><code>                                   ^
+                                   |
+                                 -x|
+     --------------------------------------------------------------
+    |                              |                               |
+    |                  180 degrees |                               |
+    |                             -|-         *-&gt; (-90cm, 120cm, 90 degrees)
+    |-                           / | \                            -|
+ -y | |                         |  |  | 90 degrees               | | y
+&lt;---|-|-------------------------|--+--|--------------------------|-|---&gt;
+    | |             270 degrees |  |  |                          | |
+    |-                           \ | /                            -|
+    |                             -|-                              |
+    |                              | 0 degrees                     |
+    |                              |                               |
+     --------------------------------------------------------------
+                                   |
+               HOME               x|              AWAY
+                                   V
+</code></pre>
+
+<hr>
+<h1 id='converting-between-coordinate-systems' class='heading'>Converting Between Coordinate Systems</h1>
+
+<p>Several conversion functions are available which make converting between different
+coordinate systems trivial. In general, it is possible to convert between all coordinate
+systems in both directions:</p>
+<pre class="highlight plaintext"><code>    camera    ---&gt;   pixel     ---&gt;  percent    ---&gt;  relative   ---&gt; cartesian
+  coordinate       coordinate       coordinate       coordinate       coordinate
+
+                                                         |                |   
+                                                         |                |
+                                                         |                V
+                                                         |
+                                                         |---------&gt;    field
+
+                                                         |----------  coordinate
+                                                         |
+                                                         |                |
+                                                         |                |
+                                                         V                V
+
+    camera    &lt;---   pixel     &lt;---  percent    &lt;---  relative   &lt;--- cartesian
+  coordinate       coordinate       coordinate       coordinate       coordinate
+</code></pre>
+
+<p>however, there is some error that propogates since different coordinate systems have different
+precisions:</p>
+<pre class="highlight plaintext"><code>camera coordinate != camera coordinate -&gt; field coordinate -&gt; camera coordinate
+camera coordinate ~= camera coordinate -&gt; field coordinate -&gt; camera coordinate
+</code></pre>
+<h2 id='converting-between-image-coordinate-systems' class='heading'>Converting Between Image Coordinate Systems</h2>
+
+<p>In general, converting between images is very straightforward. Any of the image coordinate
+system structs (<code><a href="Structs/CameraCoordinate.html">CameraCoordinate</a></code>, <code><a href="Structs/PixelCoordinate.html">PixelCoordinate</a></code>, <code><a href="Structs/PercentCoordinate.html">PercentCoordinate</a></code>) contain
+getters and functions for performing the conversions:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">cameraCoordinate</span> <span class="o">=</span> <span class="kt">CameraCoordinate</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span> <span class="nv">resWidth</span><span class="p">:</span> <span class="mi">640</span><span class="p">,</span> <span class="nv">resHeight</span><span class="p">:</span> <span class="mi">480</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">pixelCoordinate</span> <span class="o">=</span> <span class="n">cameraCoordinate</span><span class="o">.</span><span class="n">pixelCoordinate</span>
+<span class="k">let</span> <span class="nv">percentCoordinate</span> <span class="o">=</span> <span class="n">cameraCoordinate</span><span class="o">.</span><span class="n">percentCoordinate</span>
+</code></pre>
+
+<p>However, converting from percent coordinate requires that you provide the resolution width
+and height of the image:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">percentCoordinate</span> <span class="o">=</span> <span class="kt">PercentCoordinate</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">pixelCoordinate</span> <span class="o">=</span> <span class="n">percentCoordinate</span><span class="o">.</span><span class="nf">pixelCoordinate</span><span class="p">(</span><span class="nv">resWidth</span><span class="p">:</span> <span class="mi">640</span><span class="p">,</span> <span class="nv">resHeight</span><span class="p">:</span> <span class="mi">480</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">cameraCoordinate</span> <span class="o">=</span> <span class="n">percentCoordinate</span><span class="o">.</span><span class="nf">cameraCoordinate</span><span class="p">(</span><span class="nv">resWidth</span><span class="p">:</span> <span class="mi">640</span><span class="p">,</span> <span class="nv">resHeight</span><span class="p">:</span> <span class="mi">480</span><span class="p">)</span>
+</code></pre>
+
+<p>This does however, let you represent the same position in images with different resolutions:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">cameraCoordinate</span> <span class="o">=</span> <span class="kt">CameraCoordinate</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span> <span class="nv">resWidth</span><span class="p">:</span> <span class="mi">640</span><span class="p">,</span> <span class="nv">resHeight</span><span class="p">:</span> <span class="mi">480</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">percentCoordinate</span> <span class="o">=</span> <span class="n">cameraCoordinate</span><span class="o">.</span><span class="n">percentCoordinate</span>
+<span class="k">let</span> <span class="nv">newCameraCoordinate</span> <span class="o">=</span> <span class="n">percentCoordinate</span><span class="o">.</span><span class="nf">cameraCoordinate</span><span class="p">(</span><span class="nv">resWidth</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span> <span class="nv">resHeight</span><span class="p">:</span> <span class="mi">1080</span><span class="p">)</span>
+</code></pre>
+<h2 id='converting-between-image-coordinate-systems-and-the-relative-coordinate-system' class='heading'>Converting Between Image Coordinate Systems and the Relative Coordinate System</h2>
+
+<p>Converting between the image coordinate systems and the relative coordinate system
+is more complicated. Firstly information such as the height and field of view of the
+camera is required to know how a pixel in an image for example translates to a distance
+and direction. The <code><a href="Structs/CameraPivot.html">CameraPivot</a></code> and <code><a href="Structs/Camera.html">Camera</a></code> structs are provided for this purpose.</p>
+
+<p>The <code><a href="Structs/CameraPivot.html">CameraPivot</a></code> struct provides the necessary information regarding the pivot point
+that a camera is attached to. If a camera is on the ground, then there is no pivot point.
+If the camera is on the end of a stick then the pivot point is the bottom of the stick.
+If the camera is on the head of the robot, then the pivot point is the neck of the robot.</p>
+
+<p>The <code><a href="Structs/Camera.html">Camera</a></code>  struct provides information on a camera which is attached to a
+<code><a href="Structs/CameraPivot.html">CameraPivot</a></code>. The way this works, is that the <code><a href="Structs/Camera.html">Camera</a></code> struct provides information about
+the camera (such as field of view and orientation) as well as information on where the camera
+is situation in relation to the <code><a href="Structs/CameraPivot.html">CameraPivot</a></code>. The <code><a href="Structs/CameraPivot.html">CameraPivot</a></code> describes where that pivot
+is in relation to the wider world.</p>
+
+<p>The following is an example of how the <code><a href="Structs/CameraPivot.html">CameraPivot</a></code> and <code><a href="Structs/Camera.html">Camera</a></code> structs work to
+describe the cameras on a Nao robot:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">naoHead</span> <span class="o">=</span> <span class="kt">CameraPivot</span><span class="p">(</span>
+    <span class="nv">pitch</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="nv">yaw</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="nv">height</span><span class="p">:</span> <span class="mf">41.7</span><span class="p">,</span>
+    <span class="nv">cameras</span><span class="p">:</span> <span class="p">[</span>
+        <span class="c1">// Top Camera</span>
+        <span class="kt">Camera</span><span class="p">(</span>
+            <span class="nv">height</span><span class="p">:</span> <span class="mf">6.364</span><span class="p">,</span>
+            <span class="nv">centerOffset</span><span class="p">:</span> <span class="mf">5.871</span><span class="p">,</span>
+            <span class="nv">vDirection</span><span class="p">:</span> <span class="mf">1.2</span><span class="p">,</span>
+            <span class="nv">vFov</span><span class="p">:</span> <span class="mf">47.64</span><span class="p">,</span>
+            <span class="nv">hFov</span><span class="p">:</span> <span class="mf">60.97</span>
+        <span class="p">),</span>
+        <span class="c1">// Bottom Camera</span>
+        <span class="kt">Camera</span><span class="p">(</span>
+            <span class="nv">height</span><span class="p">:</span> <span class="mf">1.774</span><span class="p">,</span>
+            <span class="nv">centerOffset</span><span class="p">:</span> <span class="mf">5.071</span><span class="p">,</span>
+            <span class="nv">vDirection</span><span class="p">:</span> <span class="mf">39.7</span><span class="p">,</span>
+            <span class="nv">vFov</span><span class="p">:</span> <span class="mf">47.64</span><span class="p">,</span>
+            <span class="nv">hFov</span><span class="p">:</span> <span class="mf">60.97</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="c1">// Camera indexes</span>
+<span class="k">let</span> <span class="nv">topCamera</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">let</span> <span class="nv">bottomCamera</span> <span class="o">=</span> <span class="mi">1</span>
+</code></pre>
+
+<p>The <code>yaw</code> and <code>pitch</code> fields represent the orientation of the neck joint. The <code>height</code> is the
+distance from the ground vertically to the neck. The <code>cameras</code> array contains information
+about the each of the cameras: the <code>height</code> is the distance vertically from the neck to the
+base of the camera, the <code>centerOffset</code> represents how far the camera is from
+the center of the robot, the <code>vDirection</code> represents the vertical orientation of
+the camera from the horizontal line, the <code>vFov</code> and <code>hFov</code> represent the vertical and
+horizontal field of view of the camera respectively.</p>
+<h3 id='converting-to-relative-coordinates' class='heading'>Converting To Relative Coordinates</h3>
+
+<hr>
+
+<p>Converting an image coordinate to a relative coordinate may fail. This is because the
+algorithm that converts from image coordinates to relative coordinates can only gauge the
+distance of objects that are on the ground. If the pixel repesents on object that is not
+along the ground, then the conversion will fail.
+The conversion functions will always return a result, however,
+if there is a situation where the conversion fails, then the resulting values will be estimated &mdash;
+the distance will be set to the largest possible value for objects in the sky for example.</p>
+
+<p>In general, there are checks that can be performed before attempting the conversion which
+will inform you if the conversion will fail:</p>
+<pre class="highlight swift"><code><span class="c1">// Is the image coordinate pointing to an object on the ground?</span>
+<span class="k">if</span> <span class="n">naoHead</span><span class="o">.</span><span class="nf">objectOnGround</span><span class="p">(</span><span class="n">percentCoordinate</span><span class="p">,</span> <span class="nv">forCamera</span><span class="p">:</span> <span class="n">topCamera</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// We can safely convert the image coordinate.</span>
+    <span class="k">let</span> <span class="nv">relativeCoordinate</span> <span class="o">=</span> <span class="n">percentCoordinate</span><span class="o">.</span><span class="nf">relativeCoordinate</span><span class="p">(</span><span class="nv">cameraPivot</span><span class="p">:</span> <span class="n">naoHead</span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="n">topCamera</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='converting-to-image-coordinates' class='heading'>Converting To Image Coordinates</h3>
+
+<hr>
+
+<p>Converting from a relative coordinate to an image coordinate may fail when the object
+described by the relative coordinate is not viewable by the camera. Again, because of this,
+the conversion functions will always return
+a result, however, the resulting image coordinate will not be bound by the usual bounds
+of the coordinate system. For example, for percentage coordinates, this means that the x
+and y values may go above 1.0 and below -1.0.</p>
+
+<p>Again, there are safety checks that can be performed before the conversion which allow
+you to know if the camera can see the object:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">relativeCoordinate</span> <span class="o">=</span> <span class="kt">RelativeCoordinate</span><span class="p">(</span><span class="nv">direction</span><span class="p">:</span> <span class="o">-</span><span class="mi">160</span><span class="p">,</span> <span class="nv">distance</span><span class="p">:</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">naoHead</span><span class="o">.</span><span class="nf">canSee</span><span class="p">(</span><span class="nv">object</span><span class="p">:</span> <span class="n">relativeCoordinate</span><span class="p">,</span> <span class="nv">inCamera</span><span class="p">:</span> <span class="n">topCamera</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// The camera can see the object.</span>
+    <span class="k">let</span> <span class="nv">percentCoordinate</span> <span class="o">=</span> <span class="n">relativeCoordinate</span><span class="o">.</span><span class="nf">percentCoordinate</span><span class="p">(</span><span class="nv">cameraPivot</span><span class="p">:</span> <span class="n">naoHead</span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="n">topCamera</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+<h4 id='clamped-conversions' class='heading'>Clamped Conversions</h4>
+
+<p>In rare circumstances, particularly when the object is at the edge of the cameras view,
+converting from relative to image coordinates will place the object outside the bounds of
+the image. If this is unacceptable, then <code>clamped</code> variants of the conversion functions are
+available. These conversion function variants will adjust the result of the
+conversion so that the resulting coordinate is within the coordinate system&rsquo;s bounds:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">relativeCoordinate</span> <span class="o">=</span> <span class="kt">RelativeCoordinate</span><span class="p">(</span><span class="nv">direction</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="nv">distance</span><span class="p">:</span> <span class="mi">108</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">alwaysClamped</span> <span class="o">=</span> <span class="n">relativeCoordinate</span><span class="o">.</span><span class="nf">clampedPercentCoordinate</span><span class="p">(</span><span class="nv">cameraPivot</span><span class="p">:</span> <span class="n">naoHead</span><span class="p">,</span> <span class="nv">camera</span><span class="p">:</span> <span class="n">topCamera</span><span class="p">)</span> <span class="c1">// Always will clamp the result to [-1.0, 1.0]</span>
+<span class="p">}</span>
+</code></pre>
+<h2 id='converting-between-the-relative-coordinate-system-and-the-field-coordinate-systems' class='heading'>Converting Between the Relative Coordinate System and the Field Coordinate Systems</h2>
+
+<p>Converting between the relative coordinate system and the field coordinate systems is
+straightforward. It is possible to get the relative coordinate to specific points on the field
+and calculate new positions on the field from a relative coordinate:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">fieldPosition</span> <span class="o">=</span> <span class="kt">FieldCoordinate</span><span class="p">(</span><span class="nv">position</span><span class="p">:</span> <span class="kt">CartesianCoordinate</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">120</span><span class="p">),</span> <span class="nv">heading</span><span class="p">:</span> <span class="mi">70</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">ballPosition</span> <span class="o">=</span> <span class="kt">CartesianCoordinate</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mi">82</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">145</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">relativeCoordinate</span> <span class="o">=</span> <span class="n">fieldPosition</span><span class="o">.</span><span class="nf">relativeCoordinate</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">ballPosition</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">reversedBallPosition</span> <span class="o">=</span> <span class="n">fieldPosition</span><span class="o">.</span><span class="nf">cartesianCoordinate</span><span class="p">(</span><span class="nv">at</span><span class="p">:</span> <span class="n">relativeCoordinate</span><span class="p">)</span>
+</code></pre>
+<h2 id='converting-from-any-coordinate-system-to-any-other-coordinate-system' class='heading'>Converting From Any Coordinate System to Any Other Coordinate System</h2>
+
+<p>There exist shortcut function which allow you to convert from any coordinate system to
+any other coordinate system. These are composed from all the conversion functions
+previously discussed:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">fieldPosition</span> <span class="o">=</span> <span class="kt">FieldCoordinate</span><span class="p">(</span>
+        <span class="nv">position</span><span class="p">:</span> <span class="kt">CartesianCoordinate</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">120</span><span class="p">),</span>
+        <span class="nv">heading</span><span class="p">:</span> <span class="mi">70</span>
+    <span class="p">)</span>
+
+<span class="c1">// Calculate the field position of an object from camera coordinates.</span>
+<span class="k">let</span> <span class="nv">cameraCoordinate</span> <span class="o">=</span> <span class="kt">CameraCoordinate</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span> <span class="nv">resWidth</span><span class="p">:</span> <span class="mi">640</span><span class="p">,</span> <span class="nv">resHeight</span><span class="p">:</span> <span class="mi">480</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">cartesianCoordinate</span> <span class="o">=</span> <span class="n">fieldPosition</span><span class="o">.</span><span class="nf">cartesianCoordinate</span><span class="p">(</span>
+        <span class="nv">at</span><span class="p">:</span> <span class="n">cameraCoordinate</span><span class="p">,</span>
+        <span class="nv">cameraPivot</span><span class="p">:</span> <span class="n">naoHead</span><span class="p">,</span>
+        <span class="nv">camera</span><span class="p">:</span> <span class="n">bottomCamera</span>
+    <span class="p">)</span>
+
+<span class="c1">// Calculate the camera coordinate of an object on the field.</span>
+<span class="k">let</span> <span class="nv">ballPosition</span> <span class="o">=</span> <span class="kt">CartesianCoordinate</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mi">82</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">145</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">ballInCamera</span> <span class="o">=</span> <span class="n">fieldPosition</span><span class="o">.</span><span class="nf">clampedCameraCoordinate</span><span class="p">(</span>
+        <span class="nv">to</span><span class="p">:</span> <span class="n">ballPosition</span><span class="p">,</span>
+        <span class="nv">cameraPivot</span><span class="p">:</span> <span class="n">naoHead</span><span class="p">,</span>
+        <span class="nv">camera</span><span class="p">:</span> <span class="n">bottomCamera</span><span class="p">,</span>
+        <span class="nv">resWidth</span><span class="p">:</span> <span class="mi">640</span><span class="p">,</span>
+        <span class="nv">resHeight</span><span class="p">:</span> <span class="mi">480</span><span class="p">,</span>
+        <span class="nv">tolerance</span><span class="p">:</span> <span class="mf">0.04</span>
+    <span class="p">)</span>
+</code></pre>
 
           </section>
         </section>
