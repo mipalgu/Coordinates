@@ -16,5 +16,7 @@
       <true/>
     <key>DashDocSetFamily</key>
       <string>dashtoc</string>
+    <key>DashDocSetFallbackURL</key>
+      <string>https://mipalgu.github.io/swift_GUCoordinates/</string>
   </dict>
 </plist>

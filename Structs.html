@@ -23,7 +23,7 @@
         <a class="header-link" href="index.html">
            Docs
         </a>
-         (72% documented)
+         (96% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -32,7 +32,19 @@
         </form>
       </p>
     
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/mipalgu/swift_GUCoordinates">
+            <img class="header-icon" src="img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
     
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fmipalgu.github.io%2Fswift_GUCoordinates%2Fdocsets%2F.xml">
+            <img class="header-icon" src="img/dash.png"/>
+            Install in Dash
+          </a>
+        </p>
     </header>
 
     <p class="breadcrumbs">
@@ -44,35 +56,6 @@
     <div class="content-wrapper">
       <nav class="navigation">
         <ul class="nav-groups">
-          <li class="nav-group-name">
-            <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/gu_camera.html">gu_camera</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/gu_camera_coordinate.html">gu_camera_coordinate</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/gu_camera_pivot.html">gu_camera_pivot</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/gu_cartesian_coordinate.html">gu_cartesian_coordinate</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/gu_field_coordinate.html">gu_field_coordinate</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/gu_percent_coordinate.html">gu_percent_coordinate</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/gu_pixel_coordinate.html">gu_pixel_coordinate</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/gu_relative_coordinate.html">gu_relative_coordinate</a>
-              </li>
-            </ul>
-          </li>
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
@@ -156,6 +139,9 @@ on where that pivot point is in the wider world, for this see
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mipalgu/swift_GUCoordinates/tree/main/swift_GUCoordinates/Sources/GUCoordinates/Camera.swift#L67-L151">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -205,6 +191,9 @@ depicted graphically as follows:</p>
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mipalgu/swift_GUCoordinates/tree/main/swift_GUCoordinates/Sources/GUCoordinates/CameraCoordinate.swift#L84-L221">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -238,6 +227,9 @@ neck of the robot.</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CameraPivot</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mipalgu/swift_GUCoordinates/tree/main/swift_GUCoordinates/Sources/GUCoordinates/CameraPivot.swift#L68-L196">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -303,6 +295,9 @@ to disregard this coordinate and instead use <code><a href="Structs/FieldCoordin
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mipalgu/swift_GUCoordinates/tree/main/swift_GUCoordinates/Sources/GUCoordinates/CartesianCoordinate.swift#L100-L746">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -362,6 +357,9 @@ to disregard this coordinate and instead use <code>FieldCoordinate</code>.</p>
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mipalgu/swift_GUCoordinates/tree/main/swift_GUCoordinates/Sources/GUCoordinates/FieldCoordinate.swift#L95-L829">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -417,6 +415,9 @@ require the resolution of the image.</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PercentCoordinate</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mipalgu/swift_GUCoordinates/tree/main/swift_GUCoordinates/Sources/GUCoordinates/PercentCoordinate.swift#L90-L222">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -482,6 +483,9 @@ resolutions:</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PixelCoordinate</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mipalgu/swift_GUCoordinates/tree/main/swift_GUCoordinates/Sources/GUCoordinates/PixelCoordinate.swift#L99-L238">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -562,6 +566,9 @@ directly in front of source.</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RelativeCoordinate</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">AdditiveArithmetic</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mipalgu/swift_GUCoordinates/tree/main/swift_GUCoordinates/Sources/GUCoordinates/RelativeCoordinate.swift#L115-L434">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
