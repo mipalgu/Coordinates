@@ -69,14 +69,11 @@ jobs:
       with:
         repository: mipalgu/swift_GUCoordinates
         path: swift_GUCoordinates
-      
-    - name: Cd into swift_GUCoordinates
-      run: |
-        pwd
 
     - name: Jazzy Action
       uses: sersoft-gmbh/swifty-docs-action@v1.2.0
       with:
+        source: ${{github.workspace}}/swift_GUCoordinates
         output: docs
 
     - name: Pages Deployment
