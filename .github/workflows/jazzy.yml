@@ -16,11 +16,13 @@ jobs:
     - name: Install CMake
       run: brew install cmake
 
-    - name: Install guunits
+    - name: Clone guunits
       uses: actions/checkout@v2
       with:
         repository: mipalgu/guunits
         path: guunits
+
+    - name: Install guunits
       run: |
         cd guunits/guunits
         mkdir build
@@ -30,11 +32,13 @@ jobs:
         ninja install
         cd ../../..
 
-    - name: Install gu_util
+    - name: Clone gu_util
       uses: actions/checkout@v2
       with:
         repository: mipalgu/gu_util
         path: gu_util
+
+    - name: Install gu_util
       run: |
         cd gu_util
         mkdir build
@@ -44,11 +48,13 @@ jobs:
         ninja install
         cd ../..
 
-    - name: Install gucoordinates
+    - name: Clone gucoordinates
       uses: actions/checkout@v2
       with:
         repository: mipalgu/gucoordinates
         path: gucoordinates
+
+    - name: Install gucoordinates
       run: |
         cd gucoordinates/gucoordinates
         mkdir build
@@ -63,6 +69,8 @@ jobs:
       with:
         repository: mipalgu/swift_GUCoordinates
         path: swift_GUCoordinates
+      
+    - name: Cd into swift_GUCoordinates
       run: cd swift_GUCoordinates
 
     - name: Jazzy Action
