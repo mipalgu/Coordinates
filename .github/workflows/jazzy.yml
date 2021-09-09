@@ -72,7 +72,6 @@ jobs:
       
     - name: Cd into swift_GUCoordinates
       run: |
-        cd swift_GUCoordinates
         pwd
 
     - name: Jazzy Action
