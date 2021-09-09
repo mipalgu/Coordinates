@@ -70,6 +70,10 @@ jobs:
         repository: mipalgu/swift_GUCoordinates
         path: swift_GUCoordinates
 
+    - name: Copy Readme.md
+      run: |
+        cp swift_GUCoordinates/README.md .
+
     - name: Jazzy Action
       uses: sersoft-gmbh/swifty-docs-action@v1.2.0
       with:
