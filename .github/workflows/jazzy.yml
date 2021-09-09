@@ -71,7 +71,9 @@ jobs:
         path: swift_GUCoordinates
       
     - name: Cd into swift_GUCoordinates
-      run: cd swift_GUCoordinates
+      run: |
+        cd swift_GUCoordinates
+        pwd
 
     - name: Jazzy Action
       uses: sersoft-gmbh/swifty-docs-action@v1.2.0
