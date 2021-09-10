@@ -1,35 +1,35 @@
 {
   "warnings": [
     {
-      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
       "line": 136,
       "symbol": "CTypeWrapper.zero",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
       "line": 140,
       "symbol": "CTypeWrapper.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
       "line": 144,
       "symbol": "CTypeWrapper.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
       "line": 148,
       "symbol": "CTypeWrapper.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
+      "file": "/Users/runner/work/swift_GUCoordinates/swift_GUCoordinates/Sources/GUCoordinates/CTypeWrapper.swift",
       "line": 152,
       "symbol": "CTypeWrapper.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
