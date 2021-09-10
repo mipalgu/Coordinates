@@ -7,3 +7,6 @@ root_url: https://mipalgu.github.io/swift_GUCoordinates/
 exclude:
     - Sources/*/gu_*.swift
     - swift_GUCoordinates/Sources/*/gu_*.swift
+    - gu_util/*
+    - guunits/*
+    - gucoordinates/*

@@ -68,17 +68,11 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: mipalgu/swift_GUCoordinates
-        path: swift_GUCoordinates
-
-    - name: Copy Readme.md and .jazzy.yaml
-      run: |
-        cp swift_GUCoordinates/README.md .
-        cp swift_GUCoordinates/.jazzy.yaml .
 
     - name: Jazzy Action
       uses: sersoft-gmbh/swifty-docs-action@v1.2.0
       with:
-        source: ${{github.workspace}}/swift_GUCoordinates
+        source: ${{github.workspace}}
         output: docs
 
     - name: Pages Deployment
