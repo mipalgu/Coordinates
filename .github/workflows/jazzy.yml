@@ -20,49 +20,49 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: mipalgu/gu_util
-        path: ../gu_util
+        path: gu_util
 
     - name: Install gu_util
       run: |
-        cd ../gu_util
+        cd gu_util
         mkdir build
         cd build
         cmake -G Ninja ..
         ninja
         ninja install
-        cd ${{github.workspace}}
+        cd ../..
 
     - name: Clone guunits
       uses: actions/checkout@v2
       with:
         repository: mipalgu/guunits
-        path: ../guunits
+        path: guunits
 
     - name: Install guunits
       run: |
-        cd ../guunits/guunits
+        cd guunits/guunits
         mkdir build
         cd build
         cmake -G Ninja ..
         ninja
         ninja install
-        cd ${{github.workspace}}
+        cd ../../..
     
     - name: Clone gucoordinates
       uses: actions/checkout@v2
       with:
         repository: mipalgu/gucoordinates
-        path: ../gucoordinates
+        path: gucoordinates
 
     - name: Install gucoordinates
       run: |
-        cd ../gucoordinates/gucoordinates
+        cd gucoordinates/gucoordinates
         mkdir build
         cd build
         cmake -G Ninja ..
         ninja
         ninja install
-        cd ${{github.workspace}}
+        cd ../../..
 
     - name: Clone Repository 
       uses: actions/checkout@v2
@@ -72,12 +72,13 @@ jobs:
 
     - name: Copy Readme.md and .jazzy.yaml
       run: |
-        cp -pR swift_GUCoordinates/* .
+        cp swift_GUCoordinates/README.md .
+        cp swift_GUCoordinates/.jazzy.yaml .
 
     - name: Jazzy Action
       uses: sersoft-gmbh/swifty-docs-action@v1.2.0
       with:
-        source: ${{github.workspace}}
+        source: ${{github.workspace}}/swift_GUCoordinates
         output: docs
 
     - name: Pages Deployment
